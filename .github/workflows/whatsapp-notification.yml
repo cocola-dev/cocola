@@ -23,18 +23,17 @@ jobs:
 
       - name: Send WhatsApp message
         run: |
-          const accountSid = process.env.TWILIO_ACCOUNT_SID;
-          const authToken = process.env.TWILIO_AUTH_TOKEN;
-          const client = require('twilio')(accountSid, authToken);
-          console.log(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, process.env.TWILIO_PHONE_NUMBER);
+          echo "const accountSid = process.env.TWILIO_ACCOUNT_SID;" > script.js
+          echo "const authToken = process.env.TWILIO_AUTH_TOKEN;" >> script.js
+          echo "const client = require('twilio')(accountSid, authToken);" >> script.js
+          echo "console.log(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, process.env.TWILIO_PHONE_NUMBER);" >> script.js
+          echo "client.messages.create({" >> script.js
+          echo "  body: 'Repository updated!'," >> script.js
+          echo "  from: 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER," >> script.js
+          echo "  to: 'whatsapp:+919173066857'" >> script.js
+          echo "}).then(message => console.log('WhatsApp message sent:', message.sid));" >> script.js
           
-          const message = await client.messages.create({
-            body: 'Repository updated!',
-            from: 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER,
-            to: 'whatsapp:+919173066857'
-          });
-
-          console.log('WhatsApp message sent:', message.sid)
+          node script.js
         env:
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
