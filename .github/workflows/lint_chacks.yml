@@ -1,27 +1,31 @@
-name: ✨ Next.js lint checks 
+name: ✨ Next.js lint checks
 
 on:
   push:
     branches:
-      - '*'
-    
+      - "*"
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20.9.0'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.9.0"
 
-    - name: Install Dependencies ☘️
-      run: |
-        npm install
+      - name: Install Dependencies ☘️
+        run: |
+          npm install
 
-    - name: lint Chacks ✅
-      run: |
-        npm run lint
+      - name: lint Chacks ✅
+        run: |
+          npm run lint
+
+      - name: production build ✨
+        run: |
+          npm run lint
