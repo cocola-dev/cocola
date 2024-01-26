@@ -1,10 +1,10 @@
-name: Node.js Build and Test
+name: ✨ Next.js lint checks 
 
 on:
   push:
     branches:
-      - main
-
+      - '*'
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,10 +18,10 @@ jobs:
       with:
         node-version: '20.9.0'
 
-    - name: Install Dependencies
+    - name: Install Dependencies ☘️
       run: |
         npm install
 
-    - name: Build Project
+    - name: lint Chacks ✅
       run: |
-        npm run build
+        npm run lint
