@@ -31,7 +31,11 @@ jobs:
           echo "  body: 'Repository updated!'," >> script.js
           echo "  from: 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER," >> script.js
           echo "  to: 'whatsapp:+919173066857'" >> script.js
-          echo "}).then(message => console.log('WhatsApp message sent:', message.sid));" >> script.js
+          echo "}).then(message => {" >> script.js
+          echo "  console.log('WhatsApp message sent:', message.sid);" >> script.js
+          echo "}).catch(error => {" >> script.js
+          echo "  console.error('Error sending WhatsApp message:', error.message);" >> script.js
+          echo "});" >> script.js
           
           node script.js
         env:
