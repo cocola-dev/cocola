@@ -1,0 +1,40 @@
+name: WhatsApp Notification
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  send-whatsapp-message:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install twilio
+
+      - name: Send WhatsApp message
+        run: |
+          const accountSid = process.env.TWILIO_ACCOUNT_SID;
+          const authToken = process.env.TWILIO_AUTH_TOKEN;
+          const client = require('twilio')(accountSid, authToken);
+
+          const message = await client.messages.create({
+            body: 'Repository updated!',
+            from: 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER,
+            to: 'whatsapp:+919173066857'
+          });
+
+          console.log('WhatsApp message sent:', message.sid)
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_PHONE_NUMBER: ${{ secrets.TWILIO_PHONE_NUMBER }}
