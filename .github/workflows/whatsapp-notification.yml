@@ -26,7 +26,8 @@ jobs:
           const accountSid = process.env.TWILIO_ACCOUNT_SID;
           const authToken = process.env.TWILIO_AUTH_TOKEN;
           const client = require('twilio')(accountSid, authToken);
-
+          console.log(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, process.env.TWILIO_PHONE_NUMBER);
+          
           const message = await client.messages.create({
             body: 'Repository updated!',
             from: 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER,
