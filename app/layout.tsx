@@ -6,6 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/components/Navbar";
+import { cookies } from "next/headers";
+import { AuthProvider } from "@/context/userContext";
 
 export const metadata: Metadata = {
   title: "Cocola",
@@ -25,19 +28,23 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  // const isAuthenticated = cookies().get("authjs.session-token");
   return (
-    <SessionProvider session={session}>
+    <SessionProvider refetchInterval={5 * 60 * 60} session={session}>
       <html lang="en">
-        <body >
+        <body>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster />
+            <AuthProvider>
+              <Toaster />
+              {/* <Navbar isAuthenticated={isAuthenticated} /> */}
 
-            {children}
+              {children}
+            </AuthProvider>
           </ThemeProvider>
           <SpeedInsights />
           <Analytics />
