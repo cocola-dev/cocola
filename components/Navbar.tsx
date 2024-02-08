@@ -55,10 +55,10 @@ const Navbar = ({
           <Rightside user={user as User} />
         ) : (
           <div className="flex items-center justify-center h-auto gap-3 mr-4">
-            <Link href={"/login"}>
+            <Link href={"/auth/login"}>
               <Button variant={"ghost"}>Sign in</Button>
             </Link>
-            <Link href={"/signup"}>
+            <Link href={"/auth/signup"}>
               <Button variant={"outline"}>Sign up</Button>
             </Link>
           </div>
