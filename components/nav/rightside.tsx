@@ -28,6 +28,7 @@ import { TooltipProvider } from "../ui/tooltip";
 import { Separator } from "../ui/separator";
 import { User } from "@prisma/client";
 import { ASSET_BASE_URL } from "@/resources";
+import { LogoutButton } from "../auth/logout-button";
 
 const Rightside = ({ user }: { user: User | null }) => {
   return (
@@ -148,6 +149,9 @@ const Rightside = ({ user }: { user: User | null }) => {
                         <BookMarked size={16} />
                         <p className="ml-2">Add repositories</p>
                       </Link>
+                      <LogoutButton>
+                        logout
+                      </LogoutButton>
                     </div>
                   </div>
                 </div>
