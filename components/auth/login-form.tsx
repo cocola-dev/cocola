@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
-import OtpInput from "react-otp-input";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -82,6 +81,40 @@ export const LoginForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             {showTwoFactor && (
+              // <FormField
+              //   control={form.control}
+              //   name="code"
+              //   render={({ field }) => (
+              //     <FormItem>
+              //       <FormLabel className=" mb-4">Two Factor Code</FormLabel>
+              //       <FormControl>
+              //         <>
+              //           <Input
+              //             {...field}
+              //             disabled={isPending}
+              //             value={otp}
+              //             placeholder="123456"
+              //             className="hidden"
+              //           />
+              //           <div className="w-full h-full items-center flex justify-center  ">
+              //             <OtpInput
+              //               value={otp}
+              //               onChange={setOtp}
+              //               numInputs={6}
+              //               renderSeparator={<span>-</span>}
+              //               renderInput={(props) => (
+              //                 <div className=" mx-1 ">
+              //                   <Input {...props} className="w-10 otpinput" />
+              //                 </div>
+              //               )}
+              //             />
+              //           </div>
+              //         </>
+              //       </FormControl>
+              //       <FormMessage />
+              //     </FormItem>
+              //   )}
+              // />
               <FormField
                 control={form.control}
                 name="code"
@@ -93,23 +126,8 @@ export const LoginForm = () => {
                         <Input
                           {...field}
                           disabled={isPending}
-                          value={otp}
                           placeholder="123456"
-                          className="hidden"
                         />
-                        <div className="w-full h-full items-center flex justify-center  ">
-                          <OtpInput
-                            value={otp}
-                            onChange={setOtp}
-                            numInputs={6}
-                            renderSeparator={<span>-</span>}
-                            renderInput={(props) => (
-                              <div className=" mx-1 ">
-                                <Input {...props} className="w-10 otpinput" />
-                              </div>
-                            )}
-                          />
-                        </div>
                       </>
                     </FormControl>
                     <FormMessage />
@@ -171,11 +189,11 @@ export const LoginForm = () => {
           <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
-            <div className="flex items-center mt-4 mb-4">
-              <div className="border-t border flex-grow"></div>
-              <div className="mx-4 text-muted-foreground">OR</div>
-              <div className="border-t border flex-grow"></div>
-            </div>
+          <div className="flex items-center mt-4 mb-4">
+            <div className="border-t border flex-grow"></div>
+            <div className="mx-4 text-muted-foreground">OR</div>
+            <div className="border-t border flex-grow"></div>
+          </div>
         </form>
       </Form>
     </CardWrapper>
