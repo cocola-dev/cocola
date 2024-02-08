@@ -5,7 +5,8 @@
  */
 export const publicRoutes = [
   "/dashboard",
-  "/auth/new-verification"
+  "/auth/new-verification",
+  "/new"
 ];
 
 /**

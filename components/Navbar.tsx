@@ -12,11 +12,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { useParams } from "next/navigation";
 
-const Navbar = ({
-  isAuthenticated,
-}: {
-  isAuthenticated: RequestCookie | undefined;
-}) => {
+const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
   const { user } = useAuth();
   const params = useParams();
   return (

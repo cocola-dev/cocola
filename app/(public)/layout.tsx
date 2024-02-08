@@ -1,16 +1,17 @@
+import { auth } from "@/auth";
 import Navbar from "@/components/Navbar";
-import { cookies } from "next/headers";
 
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = cookies().get("authjs.session-token");
+export default async function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const isAuthenticated = await auth();
 
   return (
     <div>
       <Navbar isAuthenticated={isAuthenticated} />
-
       {children}
     </div>
   );
-};
-
-export default AuthLayout;
+}
