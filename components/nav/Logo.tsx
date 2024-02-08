@@ -6,11 +6,12 @@ const Logo = () => {
   return (
     <Link href={"/"}>
       <Image
-        className="w-16 h-16 rounded-full dark:block hidden"
+        className="hidden w-16 h-16 rounded-full dark:block"
         src={"/white_logo.svg"}
         alt="img"
         width={64}
         height={64}
+        priority={true}
       />
       <Image
         className="w-16 h-16 rounded-full dark:hidden"
@@ -18,6 +19,7 @@ const Logo = () => {
         alt="img"
         width={64}
         height={64}
+        priority={true}
       />
     </Link>
   );

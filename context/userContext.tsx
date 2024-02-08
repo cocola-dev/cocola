@@ -6,6 +6,7 @@ import { User } from "@prisma/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { whoami } from "@/actions/whoami";
 import { debounce, set } from "lodash";
+import { notFound } from "next/navigation";
 
 const AuthContext = createContext<{
   user: User | null;
@@ -29,19 +30,20 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const { userdata } = await whoami(currentUser);
     setUser({ ...userdata, password: null });
     setIsLoading(false);
-  }, 900);
+  }, 1000);
 
   useEffect(() => {
     if (currentUser) {
       setIsLoading(true);
       fetchUserData();
-    } 
+    }
 
     // Cleanup the debounce function on component unmount
     return () => fetchUserData.cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
+  // return notFound();
   // Provide authentication-related data and functions through the context
   return (
     <AuthContext.Provider
@@ -50,6 +52,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }}
     >
       {isLoading ? <Loader /> : children}
+      {/* {children} */}
     </AuthContext.Provider>
   );
 };

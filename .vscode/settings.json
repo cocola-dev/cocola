@@ -1,0 +1,40 @@
+{
+    "workbench.colorTheme": "Tokyo Night",
+    "workbench.startupEditor": "none",
+    "files.autoSave": "afterDelay",
+    "glassit.alpha": 245,
+    "glassit.force_sway": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "hediet.vscode-drawio.resizeImages": null,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "tabnine.experimentalAutoImports": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "glassit.step": 500,
+    "bitoAI.codeCompletion.enableCommentToCode": true,
+    "bitoAI.codeCompletion.enableAutoCompletion": true,
+    "cmake.options.statusBarVisibility": "hidden"
+}

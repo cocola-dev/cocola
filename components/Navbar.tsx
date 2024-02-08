@@ -10,6 +10,7 @@ import Leftside from "./nav/leftside";
 import NavItems from "./nav/navItems";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { useParams } from "next/navigation";
 
 const Navbar = ({
   isAuthenticated,
@@ -17,13 +18,36 @@ const Navbar = ({
   isAuthenticated: RequestCookie | undefined;
 }) => {
   const { user } = useAuth();
+  const params = useParams();
   return (
     <>
-      <div className="inline-flex items-center justify-between w-full text-sm font-medium bg-transparent border-input h-14 whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+      <div className="inline-flex items-center justify-between w-full text-sm font-medium h-14">
         <div>
           <div className="flex items-center ml-4">
             {isAuthenticated ? <Leftside /> : <div className="-mb-10" />}
             <Logo />
+            {params ? (
+              <div>
+                <Link
+                  href={`/${params.username}`}
+                  className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
+                >
+                  {params.username}
+                </Link>
+                {params.repository ? <span className="mx-2">/</span> : null}
+                {params.repository ? (
+                  <>
+                    <Link
+                      href={`/${params.username}/${params.repository}`}
+                      className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
+                    >
+                      {params.repository}
+                    </Link>
+                  </>
+                ) : null}
+              </div>
+            ) : null}
+
             {isAuthenticated ? null : <NavItems />}
           </div>
         </div>

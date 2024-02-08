@@ -10,8 +10,8 @@ export const FormError = ({
   if (!message) return null;
 
   return (
-    <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 border border-destructive text-sm text-destructive">
-      <ExclamationTriangleIcon className="h-4 w-4" />
+    <div className="flex items-center p-3 text-sm border rounded-md bg-destructive/15 gap-x-2 border-destructive text-destructive">
+      <ExclamationTriangleIcon className="w-4 h-4" />
       <p>{message}</p>
     </div>
   );

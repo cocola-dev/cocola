@@ -1,14 +1,7 @@
-import Link from 'next/link'
-import React from 'react'
+import { notFound } from "next/navigation";
 
 const page = () => {
-  return (
-    <div>
-      hello Dashboard
+  return notFound();
+};
 
-      <Link href={'/ruru_m07'}>ruru_m07</Link>
-    </div>
-  )
-}
-
-export default page
+export default page;

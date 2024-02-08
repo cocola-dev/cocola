@@ -104,8 +104,8 @@ const Repositories = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
         {userrepo?.map((item, index) => (
           <>
             <Card
-              key={index}
-              className="h-28 flex border-none shadow-none justify-between items-center px-8"
+              className="flex items-center justify-between px-8 border-none shadow-none h-28"
+              {...item}
             >
               <div className="grid grid-rows-2 gap-4">
                 <div className="flex">
@@ -116,16 +116,16 @@ const Repositories = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
                     {item.name}
                   </Link>
                   <Badge
-                    className="ml-3 text-muted-foreground rounded-full"
+                    className="ml-3 rounded-full text-muted-foreground"
                     variant="secondary"
                   >
                     Public
                   </Badge>
                 </div>
-                <div className="text-xs flex items-center text-muted-foreground">
+                <div className="flex items-center text-xs text-muted-foreground">
                   <div className="w-3 h-3 mr-1 rounded-full bg-[#3178c6]"></div>
-                  <p className="text-sm mr-3">typescript</p>
-                  <p className="mr-3 flex items-center">
+                  <p className="mr-3 text-sm">typescript</p>
+                  <p className="flex items-center mr-3">
                     <Star className="mr-1" size={16} /> {item.stars}
                   </p>
                   <p>{timeago.format(new Date(item.updatedAt), "en_US")}</p>
@@ -135,7 +135,7 @@ const Repositories = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
                 <div>
                   <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
                     <Button variant="secondary" className="px-3 shadow-none">
-                      <StarIcon className="mr-2 h-4 w-4" />
+                      <StarIcon className="w-4 h-4 mr-2" />
                       Star
                     </Button>
                     <Separator orientation="vertical" className="h-[20px]" />
@@ -145,7 +145,7 @@ const Repositories = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
                           variant="secondary"
                           className="px-2 shadow-none"
                         >
-                          <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
+                          <ChevronDownIcon className="w-4 h-4 text-secondary-foreground" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
@@ -167,13 +167,13 @@ const Repositories = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                          <PlusIcon className="mr-2 h-4 w-4" /> Create List
+                          <PlusIcon className="w-4 h-4 mr-2" /> Create List
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
                 </div>
-                <div className=" flex items-end p-2">
+                <div className="flex items-end p-2 ">
                   <div className="w-full hidden h-[1px] bg-green-800"></div>
                 </div>
               </div>

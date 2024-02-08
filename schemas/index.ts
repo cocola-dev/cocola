@@ -1,34 +1,43 @@
 import * as z from "zod";
 import { UserRole } from "@prisma/client";
 
-export const SettingsSchema = z.object({
-  name: z.optional(z.string()),
-  isTwoFactorEnabled: z.optional(z.boolean()),
-  role: z.enum([UserRole.ADMIN, UserRole.USER]),
-  email: z.optional(z.string().email()),
-  password: z.optional(z.string().min(6)),
-  newPassword: z.optional(z.string().min(6)),
-})
-  .refine((data) => {
-    if (data.password && !data.newPassword) {
-      return false;
-    }
+const VisibilityEnum = z.enum(["public", "private"]);
 
-    return true;
-  }, {
-    message: "New password is required!",
-    path: ["newPassword"]
+export const SettingsSchema = z
+  .object({
+    name: z.optional(z.string()),
+    isTwoFactorEnabled: z.optional(z.boolean()),
+    role: z.enum([UserRole.ADMIN, UserRole.USER]),
+    email: z.optional(z.string().email()),
+    password: z.optional(z.string().min(6)),
+    newPassword: z.optional(z.string().min(6)),
   })
-  .refine((data) => {
-    if (data.newPassword && !data.password) {
-      return false;
-    }
+  .refine(
+    (data) => {
+      if (data.password && !data.newPassword) {
+        return false;
+      }
 
-    return true;
-  }, {
-    message: "Password is required!",
-    path: ["password"]
-  })
+      return true;
+    },
+    {
+      message: "New password is required!",
+      path: ["newPassword"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.newPassword && !data.password) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "Password is required!",
+      path: ["password"],
+    }
+  );
 
 export const NewPasswordSchema = z.object({
   password: z.string().min(6, {
@@ -50,6 +59,21 @@ export const LoginSchema = z.object({
     message: "Password is required",
   }),
   code: z.optional(z.string()),
+});
+
+export const RepoSchema = z.object({
+  name: z.string().refine((value) => /^[a-zA-Z0-9-]+$/.test(value), {
+    message:
+      "Invalid characters in the name. Only letters, numbers, and hyphens are allowed.",
+  }),
+  description: z.string(),
+  visibility: VisibilityEnum.default("public"),
+  branch: z
+    .string()
+    .min(1, {
+      message: "Password is required",
+    })
+    .default("main"),
 });
 
 export const RegisterSchema = z.object({

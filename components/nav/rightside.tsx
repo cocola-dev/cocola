@@ -25,12 +25,9 @@ import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TooltipProvider } from "../ui/tooltip";
-import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { User } from "@prisma/client";
 import { ASSET_BASE_URL } from "@/resources";
-
-console.log(process.env.GOOGLE_CLIENT_ID);
 
 const Rightside = ({ user }: { user: User | null }) => {
   return (
@@ -72,26 +69,33 @@ const Rightside = ({ user }: { user: User | null }) => {
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button
-          className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
-          variant="link"
-        >
-          <CircleDot size={20} />
-        </Button>
-        <Button
-          className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
-          variant="link"
-        >
-          <GitPullRequestArrow size={20} />
-        </Button>
-        <Button
-          className="px-2 mx-2 border text-muted-foreground hover:bg-secondary"
-          variant="link"
-        >
-          <Inbox size={20} />
-        </Button>
+        <Link href={"/issues"}>
+          <Button
+            className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
+            variant="link"
+          >
+            <CircleDot size={20} />
+          </Button>
+        </Link>
+        <Link href={"/pulls"}>
+          <Button
+            className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
+            variant="link"
+          >
+            <GitPullRequestArrow size={20} />
+          </Button>
+        </Link>
+        <Link href={"/notifications"}>
+          <Button
+            className="px-2 mx-2 border text-muted-foreground hover:bg-secondary relative"
+            variant="link"
+          >
+            <Inbox size={20} />
+            <div className="w-2 h-2 bg-[#0070f3] rounded-full absolute bottom-1 right-1"></div>
+          </Button>
+        </Link>
       </div>
-      <div className="mr-4 text-muted-foreground"> | </div>
+      {/* <div className="mr-4 text-muted-foreground"> | </div> */}
       <div className="flex items-center justify-center h-auto">
         <div className="flex items-center">
           <Sheet>

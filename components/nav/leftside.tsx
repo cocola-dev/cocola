@@ -27,12 +27,11 @@ const Leftside = () => {
       </SheetTrigger>
       <SheetContent
         forceMount={undefined}
-        // onOpenAutoFocus={(object) => console.log(object)}
         className="w-[400px] sm:w-[70px]"
         side={"left"}
       >
         <TooltipProvider delayDuration={0}>
-          <div className={cn(isCollapsed && "duration-300 ease-in-out mt-4")}>
+          <div className={cn(isCollapsed && "duration-300 ease-in-out")}>
             <Side
               isCollapsed={isCollapsed}
               links={[

@@ -48,7 +48,6 @@ body,
   width: 45px !important;
 }
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
