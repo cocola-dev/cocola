@@ -17,7 +17,7 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
   const params = useParams();
   return (
     <>
-      <div className="sticky inline-flex items-center justify-between w-full text-sm font-medium top-1 bg-card h-14">
+      <div className="sticky inline-flex items-center justify-between w-full text-sm font-medium top-0 bg-card h-14">
         <div>
           <div className="flex items-center ml-4">
             {isAuthenticated ? <Leftside /> : <div className="-mb-10" />}
