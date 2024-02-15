@@ -8,7 +8,6 @@ body,
   height: 100%;
 }
 
-
 body::-webkit-scrollbar-thumb {
   display: flex;
   border-left-width: 1px;

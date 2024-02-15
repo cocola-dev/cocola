@@ -16,7 +16,7 @@ const UserSide = ({ userdata, user }: { userdata: User; user: User }) => {
         <span className="absolute flex items-center justify-center w-10 h-10 border rounded-full hover:border-secondary-foreground bottom-5 right-5 bg-muted">
           😙
         </span>
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback className="w-72 h-72"></AvatarFallback>
       </Avatar>
       <div className="mt-4 ml-4">
         <h1 className="text-2xl">{userdata?.name}</h1>
