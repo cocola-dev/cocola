@@ -152,7 +152,9 @@ export default function Page({ params }: { params: { username: string } }) {
       <Card className="h-4 m-auto border-none shadow-none mx-28">
         <div className="mt-5">
           <div className="flex justify-between">
-            <UserSide userdata={userdata} user={user as User} />
+            <div className="w-72">
+              <UserSide userdata={userdata} user={user as User} />
+            </div>
             <Card className="w-full p-4 ml-10 border-none shadow-none">
               {renderedComponent}
             </Card>
