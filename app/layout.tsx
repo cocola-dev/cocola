@@ -28,7 +28,11 @@ export default async function RootLayout({
   const session = await auth();
   // const isAuthenticated = cookies().get("authjs.session-token");
   return (
-    <SessionProvider refetchInterval={5 * 60 * 60} refetchOnWindowFocus={false} session={session}>
+    <SessionProvider
+      refetchInterval={5 * 60 * 60}
+      refetchOnWindowFocus={false}
+      session={session}
+    >
       <html lang="en">
         <body>
           <ThemeProvider
@@ -40,7 +44,6 @@ export default async function RootLayout({
             <AuthProvider>
               <Toaster />
               {/* <Navbar isAuthenticated={isAuthenticated} /> */}
-
               {children}
             </AuthProvider>
           </ThemeProvider>

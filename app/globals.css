@@ -7,6 +7,22 @@ body,
 :root {
   height: 100%;
 }
+
+
+body::-webkit-scrollbar-thumb {
+  display: flex;
+  border-left-width: 1px;
+  width: 0.625rem;
+  height: 100%;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  touch-action: none;
+  user-select: none;
+  padding: 1px;
+}
+
 /* loader */
 
 .loader {

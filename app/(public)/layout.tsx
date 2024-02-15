@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/footer";
 
 export default async function Layout({
   children,
@@ -12,6 +13,7 @@ export default async function Layout({
     <div>
       <Navbar isAuthenticated={isAuthenticated} />
       {children}
+      {/* <Footer /> */}
     </div>
   );
 }

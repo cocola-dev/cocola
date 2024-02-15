@@ -33,7 +33,7 @@ export default function Page({ params }: { params: { username: string } }) {
   const [userdata, setUserdata] = useState<any>();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
+  const tab = searchParams?.get("tab");
 
   const userrepo = require("./data/data.repositories.json");
 
