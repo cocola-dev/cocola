@@ -7,7 +7,7 @@ import { ASSET_BASE_URL } from "@/resources";
 const UserSide = ({ userdata, user }: { userdata: User; user: User }) => {
   return (
     <div className="w-72">
-      <Avatar className="overflow-visible w-72 h-72">
+      <Avatar className="overflow-visible mt-3 w-72 h-72">
         <AvatarImage
           className="border rounded-full"
           src={`${ASSET_BASE_URL}${userdata?.username}.png`}

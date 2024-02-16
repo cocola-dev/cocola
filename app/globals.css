@@ -22,6 +22,12 @@ body::-webkit-scrollbar-thumb {
   padding: 1px;
 }
 
+*::selection {
+  background: #cccccc;
+  /* color: #202020; */
+  color: #000;
+}
+
 /* loader */
 
 .loader {
