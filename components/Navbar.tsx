@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import Logo from "./nav/Logo";
 import { useAuth } from "@/context/userContext";
 import Rightside from "./nav/rightside";
@@ -10,11 +9,14 @@ import Leftside from "./nav/leftside";
 import NavItems from "./nav/navItems";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import { LoginButton } from "./auth/login-button";
 
 const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
   const { user } = useAuth();
   const params = useParams();
+  const pathname = usePathname();
+
   return (
     <>
       <div className="sticky inline-flex items-center justify-between w-full text-sm font-medium top-0 bg-card h-14">
@@ -51,10 +53,16 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
           <Rightside user={user as User} />
         ) : (
           <div className="flex items-center justify-center h-auto gap-3 mr-4">
-            <Link href={"/auth/login"}>
-              <Button variant={"ghost"}>Sign in</Button>
-            </Link>
-            <Link href={"/auth/signup"}>
+            {pathname === "/login" || pathname === "/register" ? (
+              <Link href={'/login'}>
+                <Button variant={"ghost"}>Sign in</Button>
+              </Link>
+            ) : (
+              <LoginButton asChild mode={"modal"}>
+                <Button variant={"ghost"}>Sign in</Button>
+              </LoginButton>
+            )}
+            <Link href={"/register"}>
               <Button variant={"outline"}>Sign up</Button>
             </Link>
           </div>

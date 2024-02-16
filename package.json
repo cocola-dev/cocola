@@ -9,9 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "prisma": "prisma generate && prisma db push ",
-    "cypress:open": "cypress open",
-    "test": "next lint",
-    "prepare": "husky"
+    "test": "next lint"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.1.0",

@@ -9,6 +9,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/userContext";
 import NextTopLoader from "nextjs-toploader";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Cocola",
@@ -28,7 +30,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  // const isAuthenticated = cookies().get("authjs.session-token");
+
   return (
     <SessionProvider
       refetchInterval={5 * 60 * 60}
@@ -58,8 +60,9 @@ export default async function RootLayout({
                   showAtBottom={false}
                 />
                 <Toaster />
-                {/* <Navbar isAuthenticated={isAuthenticated} /> */}
+                <Navbar isAuthenticated={session} />
                 {children}
+                <Footer />
               </AuthProvider>
             </ThemeProvider>
             <SpeedInsights />
