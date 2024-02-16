@@ -92,7 +92,7 @@ export function Code({ repodata }: { repodata: Repository }) {
   }, [repodata.author]);
 
   return (
-    <div className="mt-4">
+    <div className="h-screen mt-4">
       <div className="w-[90%] m-auto flex justify-between mt-6">
         <div className="flex items-center">
           <Avatar className="w-7 h-7">

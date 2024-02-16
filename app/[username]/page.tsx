@@ -33,7 +33,7 @@ export default function Page({ params }: { params: { username: string } }) {
   const [userdata, setUserdata] = useState<any>();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
+  const tab = searchParams?.get("tab");
 
   const userrepo = require("./data/data.repositories.json");
 
@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { username: string } }) {
   }, []);
 
   return (
-    <>
+    <div className=" h-full ">
       <div className="text-sm font-medium text-center border-b text-muted-foreground dark:text-gray-400">
         <ul className="flex flex-wrap -mb-px text-muted-foreground">
           <li className="me-2">
@@ -149,16 +149,18 @@ export default function Page({ params }: { params: { username: string } }) {
           </li>
         </ul>
       </div>
-      <Card className="h-4 m-auto border-none shadow-none mx-28">
+      <Card className="h-full m-auto border-none shadow-none mx-28">
         <div className="mt-5">
           <div className="flex justify-between">
-            <UserSide userdata={userdata} user={user as User} />
+            <div className="w-72">
+              <UserSide userdata={userdata} user={user as User} />
+            </div>
             <Card className="w-full p-4 ml-10 border-none shadow-none">
               {renderedComponent}
             </Card>
           </div>
         </div>
       </Card>
-    </>
+    </div>
   );
 }

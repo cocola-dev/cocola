@@ -1,12 +1,10 @@
-import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
 
-export default function Home() {
+export default function Page() {
   return (
     <main>
-      <ModeToggle />
+      <h1>Home</h1>
       <Link href="/auth/login">login</Link>
-
     </main>
   );
 }

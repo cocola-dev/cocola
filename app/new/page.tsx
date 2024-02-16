@@ -1,4 +1,7 @@
+"use client";
+
 import New from "@/components/repository/new/New";
+import { withAuth } from "@/protectedRouter";
 
 const Page = () => {
   return (
@@ -8,4 +11,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default withAuth(Page);
