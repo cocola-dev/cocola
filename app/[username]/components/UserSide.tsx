@@ -23,13 +23,22 @@ const UserSide = ({ userdata, user }: { userdata: User; user: User }) => {
         <div className="text-lg text-muted-foreground">
           {userdata?.username} • he/him
         </div>
-        <p className="mt-4 text-sm">
-          hello friends, i am Ruru. i from 2007 🙄. i am just a new learner from
-          india. learning more about JS or TS.
-        </p>
-        <Button className="w-full mt-4" variant={"outline"}>
-          Edit profile
-        </Button>
+
+        {userdata?.bio ? (
+          <p className="mt-4 text-sm text-justify">
+            {userdata?.bio}
+          </p>
+        ) : null}
+
+        {userdata?.username === user?.username ? (
+          <Button className="w-full mt-4" variant={"outline"}>
+            Edit profile
+          </Button>
+        ) : (
+          <Button className="w-full mt-4" variant={"outline"}>
+            Follow
+          </Button>
+        )}
       </div>
     </div>
   );

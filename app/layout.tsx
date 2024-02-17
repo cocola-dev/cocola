@@ -10,7 +10,6 @@ import { AuthProvider } from "@/context/userContext";
 import NextTopLoader from "nextjs-toploader";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Cocola",
@@ -62,7 +61,6 @@ export default async function RootLayout({
                 <Toaster />
                 <Navbar isAuthenticated={session} />
                 {children}
-                <Footer />
               </AuthProvider>
             </ThemeProvider>
             <SpeedInsights />
