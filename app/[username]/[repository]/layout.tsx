@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import {
   CircleDot,
@@ -116,6 +117,7 @@ const Layout = ({
         </ul>
       </div>
       <div>{children}</div>
+      <Footer />
     </>
   );
 };
