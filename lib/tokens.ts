@@ -16,7 +16,7 @@ export const generateTwoFactorToken = async (email: string) => {
     await db.twoFactorToken.delete({
       where: {
         id: existingToken.id,
-      },
+      }
     });
   }
 
@@ -25,11 +25,11 @@ export const generateTwoFactorToken = async (email: string) => {
       email,
       token,
       expires,
-    },
+    }
   });
 
   return twoFactorToken;
-};
+}
 
 export const generatePasswordResetToken = async (email: string) => {
   const token = uuidv4();
@@ -39,7 +39,7 @@ export const generatePasswordResetToken = async (email: string) => {
 
   if (existingToken) {
     await db.passwordResetToken.delete({
-      where: { id: existingToken.id },
+      where: { id: existingToken.id }
     });
   }
 
@@ -47,12 +47,12 @@ export const generatePasswordResetToken = async (email: string) => {
     data: {
       email,
       token,
-      expires,
-    },
+      expires
+    }
   });
 
   return passwordResetToken;
-};
+}
 
 export const generateVerificationToken = async (email: string) => {
   const token = uuidv4();
@@ -73,7 +73,7 @@ export const generateVerificationToken = async (email: string) => {
       email,
       token,
       expires,
-    },
+    }
   });
 
   return verficationToken;

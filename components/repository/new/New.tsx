@@ -46,7 +46,7 @@ import Alert from "@/components/alert/Alert";
 const New = () => {
   const router = useRouter();
   const [alertmsg, setAlertmsg] = useState<string>(
-    "You are creating a public repository in your personal account.",
+    "You are creating a public repository in your personal account."
   );
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -245,7 +245,7 @@ const New = () => {
                               value="public"
                               onClick={() =>
                                 setAlertmsg(
-                                  "You are creating a public repository in your personal account.",
+                                  "You are creating a public repository in your personal account."
                                 )
                               }
                             />
@@ -271,7 +271,7 @@ const New = () => {
                               value="private"
                               onClick={() =>
                                 setAlertmsg(
-                                  "You are creating a private repository in your personal account.",
+                                  "You are creating a private repository in your personal account."
                                 )
                               }
                             />

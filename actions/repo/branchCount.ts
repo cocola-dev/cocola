@@ -13,6 +13,6 @@ export const fetchrepo = async (username: string, repository: string) => {
       author: username,
     },
   });
-  console.log(repo);
+  console.log(repo)
   return { repo: repo };
 };

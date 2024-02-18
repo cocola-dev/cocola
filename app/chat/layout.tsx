@@ -56,11 +56,7 @@ export default function DashboardLayout({
                 <div>
                   <CardContent className="grid p-0 px-1 mt-2">
                     {chatlistUsers.map((user, index) => (
-                      <Link
-                        href={`/chat/${user.name}`}
-                        onClick={() => console.log(user)}
-                        key={index}
-                      >
+                      <Link href={`/chat/${user.name}`} onClick={() => console.log(user)} key={index}>
                         <div className="flex items-center h-14 rounded-md p-2 hover:bg-accent mb-2 justify-between space-x-4">
                           <div className="flex items-center space-x-4">
                             <Avatar className="overflow-visible">

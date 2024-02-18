@@ -11,7 +11,7 @@ let currentOtpIndex: number = 0;
 
 const Otp = ({ length, otp, onOtpChange }: OtpInputProps): JSX.Element => {
   const [tempOtp, setTempOtp] = useState<string[]>(
-    new Array(length || 6).fill(""),
+    new Array(length || 6).fill("")
   );
   const [activeOtpIndex, setActiveOtpIndex] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,14 +28,14 @@ const Otp = ({ length, otp, onOtpChange }: OtpInputProps): JSX.Element => {
 
     setTempOtp(newOtp);
     onOtpChange(
-      isNaN(parseInt(newOtp.join(""))) ? 0 : parseInt(newOtp.join("")),
+      isNaN(parseInt(newOtp.join(""))) ? 0 : parseInt(newOtp.join(""))
     );
     otp = isNaN(parseInt(tempOtp.join(""))) ? 0 : parseInt(tempOtp.join(""));
   };
 
   const handleOnKeyDown = (
     { key }: React.KeyboardEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) => {
     currentOtpIndex = index;
     if (key === "Backspace") {

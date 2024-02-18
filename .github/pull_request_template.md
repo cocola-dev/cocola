@@ -1,25 +1,28 @@
-# Thanks for creating this pull request 🤗
+<!--- Provide a general summary of your changes in the Title above -->
 
-Please make sure that the pull request is limited to one type (docs, feature, etc.) and keep it as small as possible. You can open multiple prs instead of opening a huge one.
+## Description
+<!--- Describe your changes in detail -->
 
-If this pull request closes an issue, please mention the issue number below.
+## Motivation and Context
+<!--- Why is this change required? What problem does it solve? -->
+<!--- If it fixes an open issue, please link to the issue here. -->
 
-Closes # <!-- Issue # here -->
+## How has this been tested?
+<!--- Please describe in detail how you tested your changes. -->
+<!--- Include details of your testing environment, tests ran to see how -->
+<!--- your change affects other areas of the code, etc. -->
 
-## 📑 Description
+## Screenshots (if appropriate):
 
-<!-- Add a brief description of the pr -->
+## Types of changes
+<!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
-You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax
-
-- [ ] Not Completed
-- [ x ] Completed
-
-## ✅ Checks
-
-<!-- Make sure your pr passes the CI checks and do check the following fields as needed - -->
-
-- [ ] My pull request adheres to the code style of this project
-- [ ] My code requires changes to the documentation
-- [ ] I have updated the documentation as required
-- [ ] All the tests have passed
+## Checklist:
+<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
+<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
+- [ ] My code follows the code style of this project.
+- [ ] My change requires a change to the documentation.
+- [ ] I have updated the documentation accordingly.

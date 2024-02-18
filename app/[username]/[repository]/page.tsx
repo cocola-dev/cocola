@@ -39,6 +39,7 @@ const Page = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+ 
   return (
     <main>
       {isloading ? (
@@ -48,7 +49,9 @@ const Page = ({
       ) : repoNotFound ? (
         <NotFound />
       ) : (
-        <div>{repodata && <Code repodata={repodata} />}</div>
+        <div>
+          {repodata && <Code repodata={repodata} />}
+        </div>
       )}
     </main>
   );
