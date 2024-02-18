@@ -6,7 +6,7 @@ import { User } from "@prisma/client";
 export const fetchRepo = async (
   username: string,
   repository: string,
-  user?: User | null
+  user?: User | null,
 ) => {
   if (!username || !repository) {
     return { error: "Invalid user or repository!" };

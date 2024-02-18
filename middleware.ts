@@ -14,10 +14,10 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.some(route => {
+  const isPublicRoute = publicRoutes.some((route) => {
     // Check if the route is a dynamic parameter route
-    if (route.includes('/:')) {
-      const regex = new RegExp(route.replace(/:[^/]+/g, '[^/]+'));
+    if (route.includes("/:")) {
+      const regex = new RegExp(route.replace(/:[^/]+/g, "[^/]+"));
       return regex.test(nextUrl.pathname);
     }
     return route === nextUrl.pathname;
@@ -43,10 +43,9 @@ export default auth((req) => {
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
-    return Response.redirect(new URL(
-      `/login?callbackUrl=${encodedCallbackUrl}`,
-      nextUrl
-    ));
+    return Response.redirect(
+      new URL(`/login?callbackUrl=${encodedCallbackUrl}`, nextUrl),
+    );
   }
 
   return null;
@@ -54,5 +53,5 @@ export default auth((req) => {
 
 // Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
