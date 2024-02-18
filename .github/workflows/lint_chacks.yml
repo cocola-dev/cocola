@@ -19,7 +19,7 @@ jobs:
           node-version: "14" # Use a specific Node.js version, adjust as needed
 
       - name: Install Dependencies ☘️
-        run: npm i # Use npm i for faster and more consistent installs
+        run: npm ci # Use npm ci for faster and more consistent installs
 
       - name: Tests and Linting ✅
         run: |
