@@ -149,9 +149,7 @@ const Rightside = ({ user }: { user: User | null }) => {
                         <BookMarked size={16} />
                         <p className="ml-2">Add repositories</p>
                       </Link>
-                      <LogoutButton>
-                        logout
-                      </LogoutButton>
+                      <LogoutButton>logout</LogoutButton>
                     </div>
                   </div>
                 </div>
