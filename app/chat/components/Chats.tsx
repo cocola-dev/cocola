@@ -66,7 +66,9 @@ const Chats = ({
                         </Card>
                       </div>
                     ) : null}
-                    <div className="mx-1 max-w-[600px]">{items?.parts[0].text}</div>
+                    <div className="mx-1 max-w-[600px]">
+                      {items?.parts[0].text}
+                    </div>
                   </Card>
                 ) : (
                   <div className="flex justify-end w-full">
@@ -85,7 +87,9 @@ const Chats = ({
                             </Card>
                           </div>
                         ) : null}
-                        <div className="mx-1 max-w-[600px]">{items?.parts[0].text}</div>
+                        <div className="mx-1 max-w-[600px]">
+                          {items?.parts[0].text}
+                        </div>
                       </div>
                     </Card>
                   </div>
