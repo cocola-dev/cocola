@@ -39,7 +39,7 @@ export function Side({ links, isCollapsed }: NavProps) {
                     buttonVariants({ variant: link.variant, size: "icon" }),
                     "h-9 w-9",
                     link.variant === "default" &&
-                      "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white",
+                      "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                   )}
                 >
                   <link.icon className="w-4 h-4" />
@@ -63,7 +63,7 @@ export function Side({ links, isCollapsed }: NavProps) {
                 buttonVariants({ variant: link.variant, size: "sm" }),
                 link.variant === "default" &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                "justify-start",
+                "justify-start"
               )}
             >
               <link.icon className="w-4 h-4 mr-2" />
@@ -73,14 +73,14 @@ export function Side({ links, isCollapsed }: NavProps) {
                   className={cn(
                     "ml-auto",
                     link.variant === "default" &&
-                      "text-background dark:text-white",
+                      "text-background dark:text-white"
                   )}
                 >
                   {link.label}
                 </span>
               )}
             </Link>
-          ),
+          )
         )}
       </nav>
     </div>

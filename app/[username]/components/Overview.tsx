@@ -18,7 +18,7 @@ const Overview = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
       </div>
       <Card className="grid grid-cols-2 gap-4 border-none shadow-none">
         {userrepo?.map((item, index) => (
-          <Card key={index} className="p-4 h hover:bg-muted">
+          <Card key={index} className="p-4 h hover:bg-muted" >
             <div className="flex justify-between">
               <Link
                 href={`${item.name}`}
@@ -91,7 +91,7 @@ const Overview = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
               }}
               legendRender={(props) => <rect {...props} rx={2.5} />}
               rectProps={{
-                rx: 2.5,
+                rx: 2.5
               }}
             />
           </div>

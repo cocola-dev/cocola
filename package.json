@@ -9,8 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "prisma": "prisma generate && prisma db push ",
-    "format": "prettier . --check && prettier . --write",
-    "prettier": "prettier . --check && prettier . --write"
+    "test": "next lint"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.1.0",
@@ -90,7 +89,6 @@
     "jest": "^29.7.0",
     "jsdom": "^24.0.0",
     "postcss": "^8",
-    "prettier": "3.2.5",
     "prisma": "^5.9.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5",

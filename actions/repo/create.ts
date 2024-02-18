@@ -8,7 +8,7 @@ import { User } from "@prisma/client";
 
 export const create = async (
   values: z.infer<typeof RepoSchema>,
-  user: User,
+  user: User
 ) => {
   const validatedFields = RepoSchema.safeParse(values);
 

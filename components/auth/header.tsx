@@ -18,7 +18,7 @@ export const Header = ({ label }: HeaderProps) => {
       <div
         className={cn(
           "text-3xl flex items-center justify-center font-semibold -mb-6 -ml-7",
-          font.className,
+          font.className
         )}
       >
         <Image

@@ -25,7 +25,9 @@ const UserSide = ({ userdata, user }: { userdata: User; user: User }) => {
         </div>
 
         {userdata?.bio ? (
-          <p className="mt-4 text-sm text-justify">{userdata?.bio}</p>
+          <p className="mt-4 text-sm text-justify">
+            {userdata?.bio}
+          </p>
         ) : null}
 
         {userdata?.username === user?.username ? (

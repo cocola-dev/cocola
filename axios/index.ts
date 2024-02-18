@@ -14,14 +14,19 @@ apiClient.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 // API functions for different actions
-export const gemini = (data: { prompt: string }) => {
+export const gemini = (data: {
+  prompt: string;
+}) => {
   return apiClient.post("/api/gemini", data);
 };
 
-export const bot = (data: { prompt: string; history: any[] }) => {
+export const bot = (data: {
+  prompt: string;
+  history: any[];
+}) => {
   return apiClient.post("/api/bot", data);
 };

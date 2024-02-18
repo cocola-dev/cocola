@@ -16,18 +16,18 @@ jobs:
       - name: Setup Node.js 🫡
         uses: actions/setup-node@v2
         with:
-          node-version: "14" # Use a specific Node.js version, adjust as needed
+          node-version: "20.9.0"
 
       - name: Install Dependencies ☘️
-        run: npm ci # Use npm ci for faster and more consistent installs
-
-      - name: Tests and Linting ✅
         run: |
-          npm run format  # Run Prettier to format code
-          npm run lint    # Run linting checks
-        # If any of the above steps fail, the workflow will stop
+          npm install
 
-      - name: Production build ✨
-        run: npm run build
+      - name: lint Chacks ✅
+        run: |
+          npm run lint
+
+      - name: production build ✨
+        run: |
+          npm run build
         env:
           GENERATIVE_API_KEY: ${{ secrets.GENERATIVE_API_KEY }}

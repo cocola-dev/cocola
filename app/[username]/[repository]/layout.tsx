@@ -53,12 +53,12 @@ const Layout = ({
                   {currentallissues?.length}
                 </Badge>
               ) : null} */}
-              <Badge
-                className="ml-3 text-muted-foreground rounded-full"
-                variant="secondary"
-              >
-                2
-              </Badge>
+                <Badge
+                  className="ml-3 text-muted-foreground rounded-full"
+                  variant="secondary"
+                >
+                    2
+                </Badge>
             </Link>
           </li>
           <li className="me-2">
