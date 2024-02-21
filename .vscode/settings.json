@@ -36,5 +36,6 @@
     "glassit.step": 500,
     // "bitoAI.codeCompletion.enableCommentToCode": true,
     // "bitoAI.codeCompletion.enableAutoCompletion": true,
-    "cmake.options.statusBarVisibility": "hidden"
+    "cmake.options.statusBarVisibility": "hidden",
+    "editor.cursorBlinking": "smooth"
 }

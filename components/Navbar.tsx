@@ -24,7 +24,8 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
           <div className="flex items-center ml-4">
             {isAuthenticated ? <Leftside /> : <div className="-mb-10" />}
             <Logo />
-            {params ? (
+
+            {params && isAuthenticated ? (
               <div>
                 <Link
                   href={`/${params.username}`}

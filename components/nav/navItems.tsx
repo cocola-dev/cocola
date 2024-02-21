@@ -5,7 +5,7 @@ const NavItems = () => {
   return (
     <div className={"text-muted-foreground"}>
       <div>
-        <Button className="mx-2" variant={"ghost"}>
+        <Button className="mx-2 ml-4" variant={"ghost"}>
           Documentation
         </Button>
         <Button className="mx-2" variant={"ghost"}>

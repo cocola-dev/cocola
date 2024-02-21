@@ -119,7 +119,7 @@ export function Code({ repodata }: { repodata: Repository }) {
         </div>
         <div className="flex">
           <Button
-            className="mr-1 hover:border-[#51d89f] hover:bg-[#10241b] hover:text-[#51d89f]"
+            className="mr-1 dark:hover:border-[#51d89f] hover:border-[#166534] dark:hover:bg-[#10241b] hover:bg-[#a7f3d0] hover:text-[#166534]  dark:hover:text-[#51d89f]"
             variant={"outline"}
           >
             <Heart className="w-4 h-4 mr-2" />
@@ -293,9 +293,11 @@ export function Code({ repodata }: { repodata: Repository }) {
               </Button>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Add File
-                  </Button>
+                  <Link href={`${repodata.name}/upload/${repodata.DefualtBranch}`}>
+                    <Button  variant="outline" className="ml-auto ">
+                      Add File
+                    </Button>
+                  </Link>
                 </DialogTrigger>
               </Dialog>
             </div>

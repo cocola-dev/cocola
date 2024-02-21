@@ -46,7 +46,10 @@ export function Side({ links, isCollapsed }: NavProps) {
                   <span className="sr-only">{link.title}</span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right" className="flex items-center gap-4">
+              <TooltipContent
+                side="right"
+                className="flex bg-card text-card-foreground border items-center gap-4"
+              >
                 {link.title}
                 {link.label && (
                   <span className="ml-auto text-muted-foreground">
