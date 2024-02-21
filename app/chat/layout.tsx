@@ -24,7 +24,7 @@ export default function DashboardLayout({
     },
     {
       id: 2,
-      name: "Ruru",
+      name: "ruru",
       lastMessage: "Hello! How are you?",
       time: "12:00",
       avatar: "https://asset-cocola.vercel.app/ruru_m07.png",

@@ -1,15 +1,15 @@
 import { NextComponentType } from "next";
-import LoginRequired from "./components/LoginRequired";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export function withAuth(Component: NextComponentType) {
-  return async function AuthComponent(props: any) {
-    const session = useSession();
+  return function AuthComponent(props: any) {
+    const { data: session } = useSession();
 
-    if (session.status === "unauthenticated") {
-      return <LoginRequired />;
+    if (!session) {
+      return redirect(`/login`);
     }
 
-    return session ? <Component {...props} /> : null;
+    return <Component {...props} />;
   };
 }

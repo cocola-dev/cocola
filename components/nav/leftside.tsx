@@ -49,11 +49,11 @@ const Leftside = () => {
                   path: "/messages",
                 },
                 {
-                  title: "Forums",
+                  title: "Chat",
                   label: "4",
                   icon: MessagesSquare,
                   variant: "ghost",
-                  path: "/messages",
+                  path: "/chat",
                 },
                 {
                   title: "Analytics",
