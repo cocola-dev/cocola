@@ -58,7 +58,13 @@ const Upload = () => {
   return (
     <div>
       <div className="my-2 text-xl">
-        <Link className=" hover:text-blue-700 hover:underline" href={`/${params.username}/${params.repository}`}>{params.repository} {" "}</Link>  / 
+        <Link
+          className=" hover:text-blue-700 hover:underline"
+          href={`/${params.username}/${params.repository}`}
+        >
+          {params.repository}{" "}
+        </Link>{" "}
+        /
       </div>
       <div className="items-center justify-center w-full p-5 border rounded-md">
         <Dropzone onDrop={(acceptedFiles) => handlechange(acceptedFiles)}>

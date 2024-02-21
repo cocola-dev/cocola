@@ -293,8 +293,10 @@ export function Code({ repodata }: { repodata: Repository }) {
               </Button>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Link href={`${repodata.name}/upload/${repodata.DefualtBranch}`}>
-                    <Button  variant="outline" className="ml-auto ">
+                  <Link
+                    href={`${repodata.name}/upload/${repodata.DefualtBranch}`}
+                  >
+                    <Button variant="outline" className="ml-auto ">
                       Add File
                     </Button>
                   </Link>
