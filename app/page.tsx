@@ -13,19 +13,12 @@ import {
 } from "@/components/ui/select";
 import { useAuth } from "@/context/userContext";
 import { cn } from "@/lib/utils";
+import { withAuth } from "@/protectedRouter";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-interface AccountSwitcherProps {
-  isCollapsed: boolean;
-  accounts: {
-    label: string;
-    // label: string;
-    icon: React.ReactNode;
-  }[];
-}
 
-export default function Page() {
+const Page = () => {
   const { user } = useAuth();
 
   const accounts = [
@@ -174,4 +167,6 @@ export default function Page() {
       <ScrollArea className="w-[550px] border-r p-4 h-[93vh]"></ScrollArea>
     </main>
   );
-}
+};
+
+export default withAuth(Page);
