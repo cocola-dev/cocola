@@ -8,7 +8,7 @@ import { User } from "@prisma/client";
 
 export const create = async (
   values: z.infer<typeof RepoSchema>,
-  user: User
+  user: User,
 ) => {
   const validatedFields = RepoSchema.safeParse(values);
 
@@ -28,7 +28,7 @@ export const create = async (
     },
   });
 
-  console.log(existingRepo);
+  // console.log(existingRepo);
 
   if (existingRepo) {
     return { error: "Repository already exist with this name!" };

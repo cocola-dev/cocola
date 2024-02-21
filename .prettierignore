@@ -1,0 +1,5 @@
+# Ignore artifacts:
+
+.next
+.vercel
+node_modules

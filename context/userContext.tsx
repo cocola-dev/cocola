@@ -5,8 +5,7 @@ import Loader from "@/components/Loader";
 import { User } from "@prisma/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { whoami } from "@/actions/whoami";
-import { debounce, set } from "lodash";
-import { notFound } from "next/navigation";
+import { debounce } from "lodash";
 
 const AuthContext = createContext<{
   user: User | null;

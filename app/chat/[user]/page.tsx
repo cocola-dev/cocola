@@ -18,7 +18,7 @@ const Page = () => {
     e.preventDefault();
     setIstypeing(true);
     setPromt("");
-    
+
     const newMsg = {
       role: "user",
       parts: [{ text: promt }],

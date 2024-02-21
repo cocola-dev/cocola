@@ -9,7 +9,7 @@ const Heder = () => {
         A repository contains all project files, including the revision history.
         Already have a project repository elsewhere?
       </p>
-      <Separator className="mt-5" /> 
+      <Separator className="mt-5" />
     </div>
   );
 };

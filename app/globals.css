@@ -5,6 +5,8 @@
 html,
 body,
 :root {
+  padding: 0;
+  margin: 0;
   height: 100%;
 }
 
@@ -64,8 +66,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ################################################################################################################################# */
-
-
 
 /* ################################################################################################################################# */
 /* loader */
@@ -180,4 +180,58 @@ body::-webkit-scrollbar-thumb {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* .comment-box {
+  position: relative;
+ }
+ 
+ .comment-box:before, .comment-box:after {
+  content: '';
+  height: 0;
+  width: 0;
+  position: absolute;
+  display: block;
+  border-width: 10px 12px 10px 0;
+  border-style: solid;
+  border-color: transparent #0a0a0a;
+  top: 8px;
+  left: -11px;
+ }
+ 
+ .comment-box:before {
+  border-width: 11px 13px 11px 0;
+  border-color: transparent #262626;
+  left: -12px;
+ }
+ 
+ .reply-list .comment-box {
+  width: 610px;
+ } */
+.comment-box {
+  position: relative;
+}
+
+.comment-box:before,
+.comment-box:after {
+  position: absolute;
+  top: 11px;
+  right: 100%;
+  left: -8px;
+  display: block;
+  width: 8px;
+  height: 16px;
+  pointer-events: none;
+  content: " ";
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+
+.comment-box::before {
+  background-color: #262626;
+}
+
+.comment-box::after {
+  display: table;
+  clear: both;
+  content: "";
 }

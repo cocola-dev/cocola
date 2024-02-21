@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
-    AlignLeft,
+  AlignLeft,
   Archive,
   Book,
   Cog,
@@ -15,7 +15,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Side } from "./Side";
 import { cn } from "@/lib/utils";
 import { Separator } from "../ui/separator";
-
 
 const Leftside = () => {
   const isCollapsed = true;
@@ -50,11 +49,11 @@ const Leftside = () => {
                   path: "/messages",
                 },
                 {
-                  title: "Forums",
+                  title: "Chat",
                   label: "4",
                   icon: MessagesSquare,
                   variant: "ghost",
-                  path: "/messages",
+                  path: "/chat",
                 },
                 {
                   title: "Analytics",

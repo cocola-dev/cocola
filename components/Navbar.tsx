@@ -24,7 +24,8 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
           <div className="flex items-center ml-4">
             {isAuthenticated ? <Leftside /> : <div className="-mb-10" />}
             <Logo />
-            {params ? (
+
+            {params && isAuthenticated ? (
               <div>
                 <Link
                   href={`/${params.username}`}
@@ -54,7 +55,7 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
         ) : (
           <div className="flex items-center justify-center h-auto gap-3 mr-4">
             {pathname === "/login" || pathname === "/register" ? (
-              <Link href={'/login'}>
+              <Link href={"/login"}>
                 <Button variant={"ghost"}>Sign in</Button>
               </Link>
             ) : (

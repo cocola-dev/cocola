@@ -29,4 +29,4 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
   );
 
   return { success: "Reset email sent!" };
-}
+};
