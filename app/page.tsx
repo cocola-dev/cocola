@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { withAuth } from "@/protectedRouter";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = () => {
@@ -114,7 +115,9 @@ const Page = () => {
         <div className="w-full ">
           <div className="flex items-center my-3 justify-between">
             <h1 className="w-full text-lg">Top Repositories</h1>
-            <Button size={"sm"}> New </Button>
+            <Link href={"/new"}>
+              <Button size={"sm"}>New</Button>
+            </Link>
           </div>
           <div>
             <Input placeholder="Find a repository" />
