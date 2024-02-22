@@ -1,10 +1,12 @@
-# 🌟 Welcome to Cocola 🌟
-
-<p align="center">
-    <img src="https://github.com/cocola-dev/cocola/blob/main/public/logo.png?raw=true" alt="Sublime's custom image" width="150"/>
+<p style="font-size:30px" align="center">
+🌟 Welcome to Cocola 🌟
 </p>
 
-Cocola isn't just another tech platform; it's a dynamic community hub where developers converge, code collaboratively, and breathe life into their projects with unparalleled ease. 🚀
+<p align="center">
+    <img src="https://github.com/cocola-dev/cocola/blob/main/public/logo.png?raw=true" alt="Sublime's custom image" width="100"/>
+</p>
+
+Cocola isn't just another tech platform, it's a dynamic community hub where developers converge, code collaboratively, and breathe life into their projects with unparalleled ease. 🚀
 
 ## What is Cocola?
 
