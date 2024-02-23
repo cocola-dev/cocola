@@ -19,35 +19,38 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
 
   return (
     <>
-      <div className="sticky z-50 inline-flex items-center justify-between w-full text-sm font-medium top-0 bg-card h-14">
+      <div className="sticky z-50 flex items-center justify-between w- text-sm font-medium top-0 bg-card h-14">
         <div>
           <div className="flex items-center ml-4">
             {isAuthenticated ? <Leftside /> : <div className="-mb-10" />}
             <Logo />
 
-            {params && isAuthenticated ? (
-              <div>
-                <Link
-                  href={`/${params.username}`}
-                  className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
-                >
-                  {params.username}
-                </Link>
-                {params.repository ? <span className="mx-2">/</span> : null}
-                {params.repository ? (
-                  <>
-                    <Link
-                      href={`/${params.username}/${params.repository}`}
-                      className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
-                    >
-                      {params.repository}
-                    </Link>
-                  </>
-                ) : null}
-              </div>
-            ) : null}
-
-            {isAuthenticated ? null : <NavItems />}
+            <div className="hidden md:block">
+              {params && isAuthenticated ? (
+                <div>
+                  <Link
+                    href={`/${params.username}`}
+                    className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
+                  >
+                    {params.username}
+                  </Link>
+                  {params.repository ? <span className="mx-2">/</span> : null}
+                  {params.repository ? (
+                    <>
+                      <Link
+                        href={`/${params.username}/${params.repository}`}
+                        className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
+                      >
+                        {params.repository}
+                      </Link>
+                    </>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+            <div className="hidden md:block">
+              {isAuthenticated ? null : <NavItems />}
+            </div>
           </div>
         </div>
         {isAuthenticated ? (

@@ -6,12 +6,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const param = useParams();
+
   const chatlistUsers = [
     {
       id: 1,
@@ -19,6 +22,15 @@ export default function DashboardLayout({
       lastMessage: "Hey there! 👋 ",
       avatar: "/copilot.png",
       time: "12:00",
+      online: true,
+      unread: 1,
+    },
+    {
+      id: 3,
+      name: "akshat",
+      lastMessage: "bay bay!",
+      time: "12:00",
+      avatar: "https://asset-cocola.vercel.app/Akshat.png",
       online: true,
       unread: 1,
     },
@@ -34,17 +46,19 @@ export default function DashboardLayout({
   ];
 
   return (
-    <div className=" h-[90vh] flex mx-5 my-2">
-      <div className=" h-full w-96">
+    <div className=" h-[90vh] flex mx-auto mr-3 my-2">
+      <div
+        className={`${param.user ? "hidden md:block" : " block "}  h-full w-full md:w-96`}
+      >
         <div className="h-full">
-          <Card className="h-full">
+          <Card className="h-full ml-4 rounded-md">
             <div className="h-full">
               <div className="flex justify-between items-center">
                 <div className="text-lg ml-3 hover:underline">@Ruru.07</div>
                 <div>
                   <Button
                     onClick={(e) => console.log(e)}
-                    variant="ghost"
+                    variant="outline"
                     className="my-2 px-3 mr-2"
                   >
                     <Plus />
@@ -96,7 +110,9 @@ export default function DashboardLayout({
           </Card>
         </div>
       </div>
-      {children}
+      {/* <div className={`${param.user ? "" : "hidden md:hidden"}`}> */}
+        {children}
+      {/* </div> */}
     </div>
   );
 }
