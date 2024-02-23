@@ -33,7 +33,7 @@ import { LogoutButton } from "../auth/logout-button";
 const Rightside = ({ user }: { user: User | null }) => {
   return (
     <div className="flex items-center justify-center h-auto">
-      <div className="flex items-center justify-center p-2 ml-2 border rounded-lg hover:bg-accent hover:text-accent-foreground">
+      <div className="hidden md:flex  md:mr-0 mr-3 items-center justify-center p-2 ml-2 border rounded-lg hover:bg-accent hover:text-accent-foreground">
         <div className="mr-2 text-muted-foreground">
           <Search size={16} />
         </div>
@@ -46,7 +46,7 @@ const Rightside = ({ user }: { user: User | null }) => {
           </kbd>
         </label>
       </div>
-      <div>
+      <div className="hidden md:block">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

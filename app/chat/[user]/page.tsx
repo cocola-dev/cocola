@@ -1,52 +1,68 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import React, { useEffect, useState } from "react";
+import { bot } from "@/axios";
+import { useParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { MoreVertical, Phone, Plus, Video } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import Chats from "../components/Chats";
-import { bot } from "@/axios";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { toast } from "sonner";
 
 const Page = () => {
   const [promt, setPromt] = useState("");
   const [msg, setMsg] = useState<any[]>([]);
   const [istypeing, setIstypeing] = useState(false);
 
+  const param = useParams();
+
   const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIstypeing(true);
-    setPromt("");
+    try {
+      e.preventDefault();
+      setIstypeing(true);
+      setPromt("");
 
-    const newMsg = {
-      role: "user",
-      parts: [{ text: promt }],
-    };
+      const newMsg = {
+        role: "user",
+        parts: [{ text: promt }],
+      };
 
-    setMsg((prevMsg) => [...prevMsg, newMsg]);
+      setMsg((prevMsg) => [...prevMsg, newMsg]);
 
-    const response = await bot({ prompt: promt, history: msg });
+      const response = await bot({ prompt: promt, history: msg });
 
-    console.log(response.data);
+      console.log(response.data);
 
-    const updatedMsg = {
-      role: "model",
-      parts: [{ text: response.data.text }],
-    };
+      const updatedMsg = {
+        role: "model",
+        parts: [{ text: response.data.text }],
+      };
 
-    setIstypeing(false);
+      setIstypeing(false);
 
-    setMsg((prevMsg) => [...prevMsg, updatedMsg]);
+      setMsg((prevMsg) => [...prevMsg, updatedMsg]);
+    } catch (error) {
+      toast.error("request has been failed!");
+    }
   };
 
-  useEffect(() => {
-    console.log(msg);
-  }, [msg]);
-
   return (
-    <div className="ml-4 h-full w-full border-slate-100">
-      <Card className="h-full">
+    <div
+      className={`${param.user ? "" : "hidden md:hidden"} ml-2 h-full w-full border-slate-100`}
+    >
+      <Card className="h-full rounded-md w-full">
         <div className="px-2 h-full flex flex-col">
           <div className="self-center w-full">
             <div className="flex justify-between items-center">
@@ -64,7 +80,7 @@ const Page = () => {
                 <div className="text-xl ml-3 hover:underline">@copilot</div>
               </div>
               <div className=" flex">
-                <Card className=" h-auto my-2 flex justify-center items-center">
+                <Card className=" h-auto hidden md:flex my-2 justify-center items-center">
                   <Button
                     variant="ghost"
                     className="flex rounded-bl-xl border-r rounded-tl-xl rounded-br-none rounded-tr-none"
@@ -78,12 +94,40 @@ const Page = () => {
                     <Video />
                   </Button>
                 </Card>
-                <Button variant="ghost" className="my-2 ml-3 px-1">
-                  <MoreVertical />
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="my-2 ml-3 px-1">
+                      <MoreVertical />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Chat setting</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <Button
+                      variant={"ghost"}
+                      className="mx-0 w-full"
+                      onClick={() => setMsg([])}
+                    >
+                      <DropdownMenuItem className="w-full">
+                        Clean chat
+                        <DropdownMenuShortcut>⌘⇧C</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </Button>
+                    <Link href="/chat">
+                      <Button
+                        variant={"ghost"}
+                        className="mx-0 w-full"
+                        onClick={() => setMsg([])}
+                      >
+                        <DropdownMenuItem className="w-full">
+                          Close
+                        </DropdownMenuItem>
+                      </Button>
+                    </Link>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
-            {/* <hr className="border-r border-input mb-1" /> */}
           </div>
           <div className=" overflow-y-auto flex-1">
             <Chats istypeing={istypeing} messages={msg} />
@@ -102,6 +146,7 @@ const Page = () => {
                   onChange={(e) => setPromt(e.target.value)}
                   value={promt}
                   autoFocus
+                  required
                 />
                 <Button type="submit">Send</Button>
               </form>
