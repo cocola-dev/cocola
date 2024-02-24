@@ -13,7 +13,6 @@ import { LoginButton } from "./auth/login-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
-
   const user = useCurrentUser();
   const params = useParams();
   const pathname = usePathname();

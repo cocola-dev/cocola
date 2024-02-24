@@ -21,7 +21,6 @@ import React from "react";
 const Page = () => {
   const user = useCurrentUser();
 
-
   const accounts = [
     {
       label: user?.username || "",
