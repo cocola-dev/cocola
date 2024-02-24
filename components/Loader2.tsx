@@ -1,6 +1,6 @@
 const Loader2 = ({ size }: { size?: number }) => {
   return (
-    <div className="flex space-x-2 w-full fixed bg-card  justify-center items-center">
+    <div className="flex space-x-2 w-full fixed bg-transparent justify-center items-center">
       <div className=" flex justify-center items-center">
         {size ? (
           <svg
