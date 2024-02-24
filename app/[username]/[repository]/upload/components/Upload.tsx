@@ -10,17 +10,16 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/context/userContext";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const Upload = () => {
-  const { user } = useAuth();
+  const user = useCurrentUser();
   const params = useParams<{
     username: string;
     repository: string;
