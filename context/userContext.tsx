@@ -1,12 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import Loader from "@/components/Loader";
 import { User } from "@prisma/client";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { whoami } from "@/actions/whoami";
-import { debounce } from "lodash";
-import { getUserByEmail } from "@/data/user";
 
 const AuthContext = createContext<{
   user: User | null;
@@ -21,32 +16,6 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-
-  const currentUser = useCurrentUser();
-
-  const test = async () => {
-    if (!currentUser) {
-      return;
-    }
-    const data = await getUserByEmail(currentUser?.email || "");
-    console.log("data from context", data);
-  };
-
-  const fetchUserData = debounce(async () => {
-    const { userdata } = await whoami(currentUser);
-    setUser({ ...userdata, password: null });
-    setIsLoading(false);
-  }, 1000);
-
-  useEffect(() => {
-    if (currentUser) {
-      setIsLoading(true);
-      fetchUserData();
-    }
-
-    test();
-    return () => fetchUserData.cancel();
-  }, [currentUser]);
 
   return (
     <AuthContext.Provider
