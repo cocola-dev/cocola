@@ -6,6 +6,7 @@ import { User } from "@prisma/client";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { whoami } from "@/actions/whoami";
 import { debounce } from "lodash";
+import { getUserByEmail } from "@/data/user";
 
 const AuthContext = createContext<{
   user: User | null;
@@ -13,10 +14,8 @@ const AuthContext = createContext<{
   user: null,
 });
 
-// Create a hook to access the AuthContext
 const useAuth = () => useContext(AuthContext);
 
-// Create a component that provides authentication-related data and functions
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -24,6 +23,14 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
 
   const currentUser = useCurrentUser();
+
+  const test = async () => {
+    if (!currentUser) {
+      return;
+    }
+    const data = await getUserByEmail(currentUser?.email || "");
+    console.log("data from context", data);
+  };
 
   const fetchUserData = debounce(async () => {
     const { userdata } = await whoami(currentUser);
@@ -37,21 +44,18 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       fetchUserData();
     }
 
-    // Cleanup the debounce function on component unmount
+    test();
     return () => fetchUserData.cancel();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-  // return notFound();
-  // Provide authentication-related data and functions through the context
   return (
     <AuthContext.Provider
       value={{
         user,
       }}
     >
-      {isLoading ? <Loader /> : children}
-      {/* {children} */}
+      {/* {isLoading ? <Loader /> : children} */}
+      {children}
     </AuthContext.Provider>
   );
 };

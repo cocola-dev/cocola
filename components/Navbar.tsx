@@ -2,7 +2,6 @@
 
 import React from "react";
 import Logo from "./nav/Logo";
-import { useAuth } from "@/context/userContext";
 import Rightside from "./nav/rightside";
 import { User } from "@prisma/client";
 import Leftside from "./nav/leftside";
@@ -11,9 +10,10 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { useParams, usePathname } from "next/navigation";
 import { LoginButton } from "./auth/login-button";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
-  const { user } = useAuth();
+  const user = useCurrentUser();
   const params = useParams();
   const pathname = usePathname();
 

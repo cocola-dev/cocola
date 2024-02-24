@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
-import { UserRole } from "@prisma/client";
+import { User, UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "@/lib/db";
 import authConfig from "@/auth.config";
-import { getUserById } from "@/data/user";
+import { getUserByEmail, getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "./data/account";
 
@@ -16,8 +16,8 @@ export const {
   update,
 } = NextAuth({
   pages: {
-    signIn: "/auth/login",
-    error: "/auth/error",
+    signIn: "/login",
+    error: "/error",
   },
   events: {
     async linkAccount({ user }) {
@@ -53,26 +53,29 @@ export const {
       return true;
     },
     async session({ token, session }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub;
+      if (!session.user || !session.user.email) {
+        return session;
       }
 
-      if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
+      const { email } = session.user;
+      const user = await getUserByEmail(email);
+
+      if (!user) {
+        return session;
       }
 
       if (session.user) {
-        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
-      }
-
-      if (session.user) {
-        session.user.name = token.name;
-        session.user.email = token.email;
         session.user.isOAuth = token.isOAuth as boolean;
       }
 
+      session.user = {
+        ...user,
+        isOAuth: token.isOAuth as boolean,
+      };
+
       return session;
     },
+
     async jwt({ token }) {
       if (!token.sub) return token;
 

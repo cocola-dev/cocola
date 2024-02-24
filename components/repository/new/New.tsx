@@ -42,6 +42,7 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import Heder from "./Heder";
 import Alert from "@/components/alert/Alert";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const New = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ const New = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, setIsPending] = useState(false);
-  const { user } = useAuth();
+  const user = useCurrentUser();
 
   const form = useForm<z.infer<typeof RepoSchema>>({
     resolver: zodResolver(RepoSchema),

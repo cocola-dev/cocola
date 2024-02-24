@@ -11,8 +11,8 @@ const Loader2 = ({ size }: { size?: number }) => {
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-loader-2 animate-spin"
           >
             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
@@ -26,8 +26,8 @@ const Loader2 = ({ size }: { size?: number }) => {
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-loader-2 animate-spin"
           >
             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
