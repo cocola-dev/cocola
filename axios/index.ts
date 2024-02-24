@@ -25,3 +25,7 @@ export const gemini = (data: { prompt: string }) => {
 export const bot = (data: { prompt: string; history: any[] }) => {
   return apiClient.post("/api/bot", data);
 };
+
+export const bot2 = (data: { prompt: string; image: string }) => {
+  return apiClient.post("/api/bot2", data);
+};

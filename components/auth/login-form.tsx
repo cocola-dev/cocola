@@ -74,8 +74,8 @@ export const LoginForm = () => {
     <CardWrapper
       headerLabel="Welcome back"
       backButtonLabel="Don't have an account?"
-      backButtonHref="/auth/register"
-      showSocial
+      backButtonHref="/register"
+      // showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -189,11 +189,11 @@ export const LoginForm = () => {
           <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
-          <div className="flex items-center mt-4 mb-4">
+          {/* <div className="flex items-center mt-4 mb-4">
             <div className="border-t border flex-grow"></div>
             <div className="mx-4 text-muted-foreground">OR</div>
             <div className="border-t border flex-grow"></div>
-          </div>
+          </div> */}
         </form>
       </Form>
     </CardWrapper>

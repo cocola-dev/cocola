@@ -1,17 +1,36 @@
-# 🌟 Welcome to Cocola 🌟
+<p style="font-size:30px" align="center">
+🌟 Welcome to Cocola 🌟
+</p>
 
-Cocola isn't just another tech platform; it's a dynamic community hub where developers converge, code collaboratively, and breathe life into their projects with unparalleled ease. 🚀
+<p align="center">
+    <img src="https://github.com/cocola-dev/cocola/blob/main/public/logo.png?raw=true" alt="Sublime's custom image" width="100"/>
+</p>
+
+Cocola isn't just another tech platform, it's a dynamic community hub where developers converge, code collaboratively, and breathe life into their projects with unparalleled ease. 🚀
 
 ## What is Cocola?
 
 Cocola stands at the forefront of next-generation tech platforms, revolutionizing your development workflow. Much like GitHub, it provides an array of tools for code management, PR creation, and issue tracking. But hold onto your hats because there's more excitement ahead! 🎉
 
-## Key Features:
+## Key Features
 
 ### 🛠️ Code Management
 
 - Effortlessly manage your code with our user-friendly version control tools.
 - Seamlessly create and review Pull Requests, facilitating smooth integration of changes.
+
+![tree files](/assets/images/code_page.png)
+
+![Code Management](/assets/images/code_tree.png)
+
+![code review](/assets/images/code_review.png)
+
+### 💬 AI Friend
+
+- Say hello to your newest companion in the chat section – your very own AI buddy! 🤖
+- Gain valuable insights, receive helpful suggestions, and perhaps even share a laugh or two.
+
+![code review](/assets/images/AI_chat_bot.png)
 
 ### 🚧 CI/CD Integration
 
@@ -22,11 +41,6 @@ Cocola stands at the forefront of next-generation tech platforms, revolutionizin
 
 - Engage in real-time collaboration with your team through one-on-one chats and team meetings.
 - Contribute to repositories and cultivate an environment of mutual learning and growth.
-
-### 💬 AI Friend
-
-- Say hello to your newest companion in the chat section – your very own AI buddy! 🤖
-- Gain valuable insights, receive helpful suggestions, and perhaps even share a laugh or two.
 
 ### 💰 Sponsorship
 

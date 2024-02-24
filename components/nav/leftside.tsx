@@ -26,7 +26,7 @@ const Leftside = () => {
       </SheetTrigger>
       <SheetContent
         forceMount={undefined}
-        className="w-[400px] sm:w-[70px]"
+        className="w-[60px] sm:w-[70px]"
         side={"left"}
       >
         <TooltipProvider delayDuration={0}>
