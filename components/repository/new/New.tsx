@@ -25,7 +25,6 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from "@/context/userContext";
 import { RepoSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";

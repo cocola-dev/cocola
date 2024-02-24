@@ -1,12 +1,24 @@
 "use client";
-
-import * as z from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useForm } from "react-hook-form";
 
-import { Switch } from "@/components/ui/switch";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { withAuth } from "@/protectedRouter";
+import { Separator } from "@/components/ui/separator";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import Link from "next/link";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -14,72 +26,62 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SettingsSchema } from "@/schemas";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { settings } from "@/actions/settings";
-import {
-  Form,
-  FormField,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormDescription,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
-import { UserRole } from "@prisma/client";
-import { withAuth } from "@/protectedRouter";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Pencil } from "lucide-react";
+import Uploadimage from "./components/Image";
+import { useEffect, useState } from "react";
+
+const formSchema = z.object({
+  name: z.string().min(2).max(50).optional(),
+  PublicEmail: z.string().email().optional(),
+  Bio: z.string().max(160).optional(),
+  Pronouns: z.string().optional(),
+  URL: z.string().optional(),
+  Company: z.string().optional(),
+  Location: z.string().optional(),
+  image: z.string().optional(),
+});
 
 const Page = () => {
   const user = useCurrentUser();
 
-  const [error, setError] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
-  const { update } = useSession();
-  const [isPending, startTransition] = useTransition();
+  const [preview, setPreview] = useState<string>(user?.image as string);
 
-  const form = useForm<z.infer<typeof SettingsSchema>>({
-    resolver: zodResolver(SettingsSchema),
+  useEffect(() => {
+    form.setValue("image", preview);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preview]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      password: undefined,
-      newPassword: undefined,
-      name: user?.name || undefined,
-      email: user?.email || undefined,
-      role: user?.role || undefined,
-      isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
+      name: user?.name || "",
+      PublicEmail: user?.email || "",
+      Bio: user?.bio || "",
+      Pronouns: user?.Pronouns || "",
+      URL: user?.URL || "",
+      Company: user?.Company || "",
+      Location: user?.country || "",
+      image: preview || "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
     console.log(values);
-    startTransition(() => {
-      settings(values)
-        .then((data) => {
-          if (data.error) {
-            setError(data.error);
-          }
+  }
 
-          if (data.success) {
-            update();
-            setSuccess(data.success);
-          }
-        })
-        .catch(() => setError("Something went wrong!"));
-    });
-  };
   return (
-    <Card className="w-[600px]">
-      <CardHeader>
-        <p className="text-2xl font-semibold text-center">⚙️ Settings</p>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-4">
+    <div className="ml-8 text-2xl w-full">
+      Public profile
+      <Separator className="my-4" />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <section className="flex">
+            <div className="mr-4">
               <FormField
                 control={form.control}
                 name="name"
@@ -87,132 +89,173 @@ const Page = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="John Doe"
-                        disabled={isPending}
-                      />
+                      <Input placeholder="" {...field} />
                     </FormControl>
+                    <FormDescription>
+                      Your name may appear around GitHub where you contribute or
+                      are mentioned. You can remove it at any time.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {user?.isOAuth === false && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="john.doe@example.com"
-                            type="email"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="******"
-                            type="password"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="newPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>New Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="******"
-                            type="password"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </>
-              )}
               <FormField
                 control={form.control}
-                name="role"
+                name="PublicEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel>Public email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      You can manage verified email addresses in your{" "}
+                      <Link
+                        className="text-blue-700 underline"
+                        href={"/settings/email"}
+                      >
+                        email settings
+                      </Link>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="Bio"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bio</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us a little bit about yourself"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      You can @mention other users and organizations to link to
+                      them.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="Pronouns"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Pronouns</FormLabel>
                     <Select
-                      disabled={isPending}
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
+                          <SelectValue placeholder="Select a verified email to display" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
-                        <SelectItem value={UserRole.USER}>User</SelectItem>
+                        <SelectItem value="Don't specify">
+                          Don&apos;t specify
+                        </SelectItem>
+                        <SelectItem value="they/them">they/them</SelectItem>
+                        <SelectItem value="she/her">she/her</SelectItem>
+                        <SelectItem value="he/him">he/him</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {user?.isOAuth === false && (
-                <FormField
-                  control={form.control}
-                  name="isTwoFactorEnabled"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                      <div className="space-y-0.5">
-                        <FormLabel>Two Factor Authentication</FormLabel>
-                        <FormDescription>
-                          Enable two factor authentication for your account
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          disabled={isPending}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              )}
+              <FormField
+                control={form.control}
+                name="URL"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>URL</FormLabel>
+                    <FormControl>
+                      <Input placeholder="example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="Company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company</FormLabel>
+                    <FormControl>
+                      <Input placeholder="" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      You can @mention your company’s Cocola organization to
+                      link it.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="Location"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Location</FormLabel>
+                    <FormControl>
+                      <Input placeholder="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="text-xs text-muted-foreground">
+                All of the fields on this page are optional and can be deleted
+                at any time, and by filling them out, you&apos;re giving us
+                consent to share this data wherever your user profile appears.
+                Please see our privacy statement to learn more about how we use
+                this information.
+              </div>
             </div>
-            <FormError message={error} />
-            <FormSuccess message={success} />
-            <Button disabled={isPending} type="submit">
-              Save
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+
+            <div>
+              <FormLabel className="w-full mb-4">Profile picture</FormLabel>
+
+              <Avatar className="w-40 overflow-visible h-40 mt-3">
+                <AvatarImage
+                  className="rounded-full"
+                  src={user?.image}
+                  alt="Profile picture"
+                />
+                <span className="absolute flex items-center justify-center  rounded-full bottom-5 -right-3">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        className="mt-2 w-full text-sm"
+                        size={"sm"}
+                        variant="outline"
+                      >
+                        {" "}
+                        <Pencil size={12} className="mr-1" /> Edit
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[500px]">
+                      <Uploadimage preview={preview} setPreview={setPreview} />
+                    </DialogContent>
+                  </Dialog>
+                </span>
+                <AvatarFallback></AvatarFallback>
+              </Avatar>
+            </div>
+          </section>
+
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    </div>
   );
 };
 
