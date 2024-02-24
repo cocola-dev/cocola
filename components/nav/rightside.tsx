@@ -4,8 +4,10 @@ import {
   CircleDot,
   GitPullRequestArrow,
   Inbox,
+  LogOut,
   Plus,
   Search,
+  Settings,
   UserIcon,
   UserPlus,
 } from "lucide-react";
@@ -149,7 +151,21 @@ const Rightside = ({ user }: { user: User | null }) => {
                         <BookMarked size={16} />
                         <p className="ml-2">Add repositories</p>
                       </Link>
-                      <LogoutButton>logout</LogoutButton>
+                      <Separator className="w-full my-2" />
+                      <Link
+                        className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
+                        href={`/settings`}
+                      >
+                        <Settings size={16} />
+                        <p className="ml-2">Settings</p>
+                      </Link>
+                      <Separator className="w-full my-2" />
+                      <LogoutButton>
+                        <div className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary">
+                          <LogOut className="mr-2" size={16} />
+                          <LogoutButton>logout</LogoutButton>
+                        </div>
+                      </LogoutButton>
                     </div>
                   </div>
                 </div>

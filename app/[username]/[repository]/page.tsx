@@ -7,6 +7,7 @@ import { Repository } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import NotFound from "./components/notFound";
 import { Code } from "./components/Code";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const Page = ({
   params,
@@ -16,7 +17,7 @@ const Page = ({
   const [repodata, setRepodata] = useState<Repository | null>();
   const [repoNotFound, setRepoNotFound] = useState(false);
   const [isloading, setIsloading] = useState(false);
-  const { user } = useAuth();
+  const user = useCurrentUser();
 
   const fetching = async () => {
     setIsloading(true);

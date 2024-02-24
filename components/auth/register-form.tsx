@@ -56,7 +56,7 @@ export const RegisterForm = () => {
       headerLabel="Create an account"
       backButtonLabel="Already have an account?"
       backButtonHref="/login"
-      showSocial
+      // showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -120,11 +120,11 @@ export const RegisterForm = () => {
           <Button disabled={isPending} type="submit" className="w-full">
             Create an account
           </Button>
-          <div className="flex items-center mt-4 mb-4">
+          {/* <div className="flex items-center mt-4 mb-4">
             <div className="border-t border flex-grow"></div>
             <div className="mx-4 text-muted-foreground">OR</div>
             <div className="border-t border flex-grow"></div>
-          </div>
+          </div> */}
         </form>
       </Form>
     </CardWrapper>

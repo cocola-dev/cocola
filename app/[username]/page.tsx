@@ -18,6 +18,7 @@ import {
   Package,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const Repositories = dynamic(() => import("./components/Repositories"), {
   loading: () => <CompoLoader />,
@@ -37,7 +38,7 @@ export default function Page({ params }: { params: { username: string } }) {
 
   const userrepo = require("./data/data.repositories.json");
 
-  const { user } = useAuth();
+  const user = useCurrentUser();
 
   let renderedComponent;
   let renderedComponentName;

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useAuth } from "@/context/userContext";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TypingAnimation from "./TypingAnimation";
@@ -13,7 +12,7 @@ const Chats = ({
   istypeing: boolean;
 }) => {
   // console.log(chats);
-  const { user } = useAuth();
+
   const [initialRender, setInitialRender] = useState(true);
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);

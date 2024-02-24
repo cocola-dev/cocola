@@ -32,8 +32,9 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { UserRole } from "@prisma/client";
+import { withAuth } from "@/protectedRouter";
 
-const SettingsPage = () => {
+const Page = () => {
   const user = useCurrentUser();
 
   const [error, setError] = useState<string | undefined>();
@@ -54,6 +55,7 @@ const SettingsPage = () => {
   });
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+    console.log(values);
     startTransition(() => {
       settings(values)
         .then((data) => {
@@ -69,7 +71,6 @@ const SettingsPage = () => {
         .catch(() => setError("Something went wrong!"));
     });
   };
-
   return (
     <Card className="w-[600px]">
       <CardHeader>
@@ -215,4 +216,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default withAuth(Page);
