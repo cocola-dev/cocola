@@ -8,29 +8,26 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  
   // Access your API key as an environment variable (see "Set up your API key" above)
-  
+
   // Converts local file information to a GoogleGenerativeAI.Part object.
   function fileToGenerativePart(path: string, mimeType: string) {
     return {
       inlineData: {
         data: Buffer.from(fs.readFileSync(path)).toString("base64"),
-        mimeType
+        mimeType,
       },
     };
   }
-  
+
   async function run() {
     // For text-and-image input (multimodal), use the gemini-pro-vision model
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-  
+
     const prompt = "hello";
-  
-    const imageParts = [
-      fileToGenerativePart("./image1.png", "image/png"),
-    ];
-  
+
+    const imageParts = [fileToGenerativePart("./image1.png", "image/png")];
+
     console.log(imageParts);
 
     const result = await model.generateContent([prompt, ...imageParts]);
@@ -40,6 +37,6 @@ export async function POST(req: Request) {
 
     return Response.json({ text });
   }
-  
+
   run();
 }
