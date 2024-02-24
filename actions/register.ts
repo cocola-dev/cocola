@@ -30,6 +30,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       username: username,
       email: email,
       password: hashedPassword,
+      image: "https://static.productionready.io/images/smiley-cyrus.jpg",
     },
   });
 
