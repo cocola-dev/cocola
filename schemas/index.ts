@@ -87,3 +87,7 @@ export const RegisterSchema = z.object({
     message: "Name is required",
   }),
 });
+
+export const UpdateProfilePic = z.object({
+  image: z.string(),
+});

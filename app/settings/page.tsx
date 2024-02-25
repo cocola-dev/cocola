@@ -31,6 +31,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Pencil } from "lucide-react";
 import Uploadimage from "./components/Image";
 import { useEffect, useState } from "react";
+import ImageUpload from "@/components/UploadImages";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50).optional(),
@@ -242,8 +243,11 @@ const Page = () => {
                         <Pencil size={12} className="mr-1" /> Edit
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px]">
+                    {/* <DialogContent className="sm:max-w-[500px]">
                       <Uploadimage preview={preview} setPreview={setPreview} />
+                    </DialogContent> */}
+                    <DialogContent className="sm:max-w-[500px]">
+                      <ImageUpload preview={preview} setPreview={setPreview} />
                     </DialogContent>
                   </Dialog>
                 </span>

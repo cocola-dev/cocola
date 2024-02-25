@@ -105,7 +105,7 @@ const Rightside = ({ user }: { user: User | null }) => {
             <SheetTrigger>
               <Avatar className="w-8 h-8 mr-5">
                 <AvatarImage
-                  src={`${ASSET_BASE_URL}${user?.username}.png`}
+                  src={user?.image}
                   alt={`"@${user?.username}"`}
                 />
                 <AvatarFallback></AvatarFallback>
