@@ -29,7 +29,6 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
   Pronouns              String?
   URL                   String?
-  displayName           String?
   bio                   String?
   dateOfBirth           String? // ISO 8601 date as a string
   gender                String?

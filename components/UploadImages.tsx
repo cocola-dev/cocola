@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
+  Form,
   FormControl,
   FormDescription,
   FormItem,
@@ -10,6 +13,13 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { MoveRight } from "lucide-react";
 import { UpdateProfilePicAction } from "@/actions/profilePic";
+import { ASSETS } from "@/data/variables";
+import { useRouter } from "next/navigation";
+import Loader2 from "./Loader2";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { update } from "@/auth";
+import { toast } from "sonner";
+import { Label } from "./ui/label";
 
 interface UploadImageProps {
   preview: string;
@@ -18,9 +28,15 @@ interface UploadImageProps {
 
 const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+
+  const user = useCurrentUser();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] as File | null;
+    console.log(file);
     setSelectedFile(file);
   };
 
@@ -35,50 +51,71 @@ const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview }) => {
 
     const formData = new FormData();
     formData.append("profileImage", selectedFile);
+    console.log("formdata", formData);
 
     try {
-      const response = await fetch("https://asset-cocola.vercel.app/upload", {
+      setIsLoading(true);
+
+      await fetch(`${ASSETS}/upload`, {
         method: "POST",
         body: formData,
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           console.log(data);
-          setPreview(data.imageUrl);
-          UpdateProfilePicAction({ image: data.imageUrl } as any).then((res) => {
-            window.location.reload();
-          });
+          await setPreview(data.imageUrl);
+          await UpdateProfilePicAction({ image: data.imageUrl } as any)
+            .then((data) => {
+              if (data?.error) {
+                toast.error(data.error);
+              }
+
+              if (data?.success) {
+                toast.success(data.success);
+              }
+            })
+            .catch(() => toast.error("Something went wrong"));
         });
+
+      toast.success("Profile picture hase been updated...");
+      console.log("reloading for better performense...");
+      window.location.reload();
     } catch (error) {
+      setIsLoading(false);
       console.error("Error uploading image:", error);
-      alert("An error occurred while uploading the image.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="w-full flex items-center justify-between">
-          <Avatar className="w-24 h-24">
-            <AvatarImage src={preview} />
-            <AvatarFallback></AvatarFallback>
-          </Avatar>
-          {selectedFile ? (
-            <MoveRight
-              strokeWidth={0.75}
-              className="text-muted-foreground w-20 h-auto"
-            />
-          ) : null}
-          {selectedFile ? (
-            <Avatar className="w-24 h-24">
-              <AvatarImage src={URL.createObjectURL(selectedFile)} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-          ) : null}
+      {isLoading ? (
+        <div className="w-full h-96 flex justify-center items-center">
+          <Loader2 />
         </div>
-        <FormItem>
-          <FormLabel>Profile Image</FormLabel>
-          <FormControl>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit}>
+            <div className="w-full mb-3 flex items-center justify-between">
+              <Avatar className="w-24 h-24">
+                <AvatarImage src={preview} />
+                <AvatarFallback></AvatarFallback>
+              </Avatar>
+              {selectedFile ? (
+                <MoveRight
+                  strokeWidth={0.75}
+                  className="text-muted-foreground w-20 h-auto"
+                />
+              ) : null}
+              {selectedFile ? (
+                <Avatar className="w-24 h-24">
+                  <AvatarImage src={URL.createObjectURL(selectedFile)} />
+                  <AvatarFallback></AvatarFallback>
+                </Avatar>
+              ) : null}
+            </div>
+            <div className="mb-2">Profile Image</div>
             <Input
               type="file"
               name="profileImage"
@@ -86,15 +123,15 @@ const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview }) => {
               onChange={handleFileChange}
               required
             />
-          </FormControl>
-          <FormDescription>
-            Choose best image that bring spirits to your circle.
-          </FormDescription>
-        </FormItem>
-        <Button className="mt-3" type="submit">
-          Upload
-        </Button>
-      </form>
+            <div className="text-xs mt-2 text-muted-foreground">
+              Choose best image that bring spirits to your circle.
+            </div>
+            <Button className="mt-3" type="submit">
+              Upload
+            </Button>
+          </form>
+        </>
+      )}
     </>
   );
 };

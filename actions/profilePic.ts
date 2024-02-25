@@ -6,7 +6,6 @@ import { db } from "@/lib/db";
 import { UpdateProfilePic } from "@/schemas";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
-import { useSession } from "next-auth/react";
 
 export const UpdateProfilePicAction = async (
   values: z.infer<typeof UpdateProfilePic>,
@@ -18,7 +17,6 @@ export const UpdateProfilePicAction = async (
   }
 
   const dbUser = await getUserById(user.id);
-
 
   if (!dbUser) {
     return { error: "Unauthorized" };
@@ -32,10 +30,10 @@ export const UpdateProfilePicAction = async (
   });
 
   update({
-    user: updatedUser,
+    user: {
+      image: updatedUser.image,
+    },
   });
-
-  //   update the user session.
 
   return { success: "Settings Updated!" };
 };

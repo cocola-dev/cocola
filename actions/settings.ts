@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 import { update } from "@/auth";
 import { db } from "@/lib/db";
-import { SettingsSchema } from "@/schemas";
+import { SettingsSchema, settings_Public_Profile_schema } from "@/schemas";
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { generateVerificationToken } from "@/lib/tokens";
@@ -79,4 +79,42 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   });
 
   return { success: "Settings Updated!" };
+};
+
+export const settings_Public_Profile = async (
+  values: z.infer<typeof settings_Public_Profile_schema>,
+) => {
+
+  const user = await currentUser();
+
+  if (!user || !user.id) {
+    return { error: "Unauthorized" };
+  }
+
+  const dbUser = await getUserById(user.id);
+
+  if (!dbUser) {
+    return { error: "Unauthorized" };
+  }
+
+  const updatedUser = await db.user.update({
+    where: { id: dbUser.id },
+    data: {
+      ...values,
+    },
+  });
+
+  update({
+    user: {
+      id: updatedUser.id,
+      name: updatedUser.name,
+      lname: updatedUser.lname,
+      image: updatedUser.image,
+      Pronouns: updatedUser.Pronouns,
+      URL: updatedUser.URL,
+      bio: updatedUser.bio,
+      country: updatedUser.country,
+      Company: updatedUser.Company,
+    },
+  });
 };
