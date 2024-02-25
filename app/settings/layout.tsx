@@ -143,7 +143,7 @@ const Layout = ({
       text: "Pages",
     },
     {
-      path: "/settings/Pages",
+      path: "/settings/replies",
       icon: <CornerUpLeft size={18} />,
       text: "Saved replies",
     },

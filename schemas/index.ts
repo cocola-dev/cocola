@@ -87,3 +87,17 @@ export const RegisterSchema = z.object({
     message: "Name is required",
   }),
 });
+
+export const UpdateProfilePic = z.object({
+  image: z.string(),
+});
+
+export const settings_Public_Profile_schema = z.object({
+  name: z.string().min(2).max(50).optional(),
+  email: z.string().email().optional(),
+  Bio: z.string().max(160).optional(),
+  Pronouns: z.string().optional(),
+  URL: z.string().url(),
+  Company: z.string().optional(),
+  country: z.string().optional(),
+});
