@@ -1,1 +1,1 @@
-export const ASSETS = 'https://asset-cocola.vercel.app'
+export const ASSETS = "https://asset-cocola.vercel.app";

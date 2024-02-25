@@ -255,24 +255,23 @@ const Page = () => {
             alt="Profile picture"
           />
           <div className="absolute flex items-center justify-center  rounded-full bottom-5 -right-3">
-              <Dialog>
-                <DialogTrigger>
-                    {/* <Button
+            <Dialog>
+              <DialogTrigger>
+                {/* <Button
                       className="mt-2 w-full text-sm"
                       size={"sm"}
                       variant="outline"
                     >
                       <Pencil size={12} className="mr-1" /> Edit
                     </Button> */}
-                    <div className="w-auto flex bg-card text-xs border p-2 rounded-md items-center justify-center">
-
-                    <Pencil size={12} className="mr-1" /> Edit
-                    </div>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px]">
-                  <ImageUpload preview={preview} setPreview={setPreview} />
-                </DialogContent>
-              </Dialog>
+                <div className="w-auto flex bg-card text-xs border p-2 rounded-md items-center justify-center">
+                  <Pencil size={12} className="mr-1" /> Edit
+                </div>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[500px]">
+                <ImageUpload preview={preview} setPreview={setPreview} />
+              </DialogContent>
+            </Dialog>
           </div>
           <AvatarFallback></AvatarFallback>
         </Avatar>

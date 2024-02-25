@@ -84,7 +84,6 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 export const settings_Public_Profile = async (
   values: z.infer<typeof settings_Public_Profile_schema>,
 ) => {
-
   const user = await currentUser();
 
   if (!user || !user.id) {
