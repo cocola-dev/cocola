@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TypingAnimation from "./TypingAnimation";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 
 const Chats = ({
   messages,
@@ -66,7 +67,8 @@ const Chats = ({
                       </div>
                     ) : null}
                     <div className="mx-1 max-w-[600px]">
-                      {items?.parts[0].text}
+                      {/* {items?.parts[0].text} */}
+                      <MarkdownPreview source={items?.parts[0].text} />
                     </div>
                   </Card>
                 ) : (
