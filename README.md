@@ -32,7 +32,6 @@ Cocola stands at the forefront of next-generation tech platforms, revolutionizin
 
 ![Screenshot 2024-02-26 192649](https://github.com/cocola-dev/cocola/assets/142723369/e76b1f7d-2ec3-4780-bac9-2432e4bcd29d)
 
-
 ### 🚧 CI/CD Integration
 
 - Say goodbye to manual processes with our robust CI/CD pipelines.
