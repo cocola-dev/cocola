@@ -3,13 +3,14 @@
 import { LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
+import { SheetClose } from "../ui/sheet";
 
 interface NavProps {
   isCollapsed: boolean;
@@ -42,8 +43,12 @@ export function Side({ links, isCollapsed }: NavProps) {
                       "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white",
                   )}
                 >
-                  <link.icon className="w-4 h-4" />
-                  <span className="sr-only">{link.title}</span>
+                  <SheetClose asChild>
+                    <div>
+                      <link.icon className="w-4 h-4" />
+                      <span className="sr-only">{link.title}</span>
+                    </div>
+                  </SheetClose>
                 </Link>
               </TooltipTrigger>
               <TooltipContent
