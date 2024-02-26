@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
+import { PasswordInput } from "../ui/PasswordInput ";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -35,6 +36,8 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const [showPassword, setShowPassword] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("adqwqeqwe");
   const [otp, setOtp] = useState("");
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -162,12 +165,7 @@ export const LoginForm = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          disabled={isPending}
-                          placeholder="******"
-                          type="password"
-                        />
+                        <PasswordInput {...field} placeholder="••••••••" disabled={isPending} />
                       </FormControl>
                       <Button
                         size="sm"
