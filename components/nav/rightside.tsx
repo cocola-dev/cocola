@@ -24,7 +24,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TooltipProvider } from "../ui/tooltip";
 import { Separator } from "../ui/separator";
@@ -114,7 +114,7 @@ const Rightside = ({ user }: { user: User | null }) => {
                   <div className="flex items-center">
                     <Avatar className="w-8 h-8 mr-5">
                       <AvatarImage
-                        src={`${ASSET_BASE_URL}${user?.username}.png`}
+                        src={user?.image}
                         alt={`"@${user?.username}"`}
                       />
                       <AvatarFallback></AvatarFallback>
@@ -126,37 +126,52 @@ const Rightside = ({ user }: { user: User | null }) => {
                   <div className="flex justify-center w-full my-3">
                     <div className="w-full">
                       <Separator className="w-full my-2" />
-                      <Link
-                        className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
-                        href={`/${user?.username}`}
-                      >
-                        <UserIcon size={16} />
-                        <p className="ml-2">Your profile</p>
-                      </Link>
-                      <Link
-                        className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
-                        href={`/${user?.username}`}
-                      >
-                        <UserPlus size={16} />
-                        <p className="ml-2">Add account</p>
-                      </Link>
+
+                      <SheetClose asChild>
+                        <Link
+                          className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
+                          href={`/${user?.username}`}
+                        >
+                          <UserIcon size={16} />
+                          <p className="ml-2">Your profile</p>
+                        </Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link
+                          className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
+                          href={`/${user?.username}`}
+                        >
+                          <UserPlus size={16} />
+                          <p className="ml-2">Add account</p>
+                        </Link>
+                      </SheetClose>
+
                       <Separator className="w-full my-2" />
-                      <Link
-                        className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
-                        href={`/repositories`}
-                      >
-                        <BookMarked size={16} />
-                        <p className="ml-2">Add repositories</p>
-                      </Link>
+
+                      <SheetClose asChild>
+                        <Link
+                          className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
+                          href={`/repositories`}
+                        >
+                          <BookMarked size={16} />
+                          <p className="ml-2">Add repositories</p>
+                        </Link>
+                      </SheetClose>
+
                       <Separator className="w-full my-2" />
-                      <Link
-                        className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
-                        href={`/settings`}
-                      >
-                        <Settings size={16} />
-                        <p className="ml-2">Settings</p>
-                      </Link>
+
+                      <SheetClose asChild>
+                        <Link
+                          className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary"
+                          href={`/settings`}
+                        >
+                          <Settings size={16} />
+                          <p className="ml-2">Settings</p>
+                        </Link>
+                      </SheetClose>
+
                       <Separator className="w-full my-2" />
+
                       <LogoutButton>
                         <div className="flex w-full p-2 my-1 text-xs rounded-md hover:bg-secondary">
                           <LogOut className="mr-2" size={16} />
