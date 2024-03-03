@@ -29,5 +29,3 @@ jobs:
 
       - name: Production build ✨
         run: npm run build
-        env:
-          GENERATIVE_API_KEY: ${{ secrets.GENERATIVE_API_KEY }}
