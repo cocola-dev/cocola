@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/cocola-dev/cocola/blob/main/public/logo.png?raw=true" alt="Sublime's custom image" width="100"/>
+   <img src="https://github.com/cocola-dev/cocola/blob/main/assets/images/logo.png?raw=true" alt="Sublime's custom image" width="100"/>
 </p>
 
 Cocola isn't just another tech platform, it's a dynamic community hub where developers converge, code collaboratively, and breathe life into their projects with unparalleled ease. 🚀
@@ -19,11 +19,11 @@ Cocola stands at the forefront of next-generation tech platforms, revolutionizin
 - Effortlessly manage your code with our user-friendly version control tools.
 - Seamlessly create and review Pull Requests, facilitating smooth integration of changes.
 
-![tree files](/assets/images/code_page.png)
+![image](https://github.com/cocola-dev/cocola/assets/142723369/35a9508e-8564-4816-8420-b248d972b89c)
 
-![Code Management](/assets/images/code_tree.png)
+![image](https://github.com/cocola-dev/cocola/assets/142723369/f2bae9b3-a0fd-4412-b198-b56c1a2de1d5)
 
-![code review](/assets/images/code_review.png)
+![image](https://github.com/cocola-dev/cocola/assets/142723369/dd95f88c-d746-4aac-8288-ca22431ded22)
 
 ### 💬 AI Friend
 

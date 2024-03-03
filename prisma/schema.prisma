@@ -106,6 +106,9 @@ model Repository {
   name          String
   description   String?
   link          String?
+  lastCommit    String?
+  issuercount   Int        @default(0)
+  PRcouunt      Int        @default(0)
   Visibility    Visibility @default(public)
   isFork        Boolean    @default(false)
   isArchived    Boolean    @default(false)
@@ -130,10 +133,12 @@ enum Visibility {
 model Commit {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
   commitId     String
+  author       String
   title        String
   description  String?
   branch       String
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  repository   Repository @relation(fields: [repositoryId], references: [id])
+  files        Json[]
   repositoryId String     @db.ObjectId
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt

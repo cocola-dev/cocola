@@ -25,11 +25,23 @@ import {
   EyeIcon,
   Heart,
   Tag,
+  File,
+  CalendarIcon,
+  History,
+  Loader2,
+  Menu,
+  Pencil,
 } from "lucide-react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-// import MarkdownPreview from "@uiw/react-markdown-preview";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 import { Card } from "@/components/ui/card";
-
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Separator } from "@/components/ui/separator";
@@ -52,6 +64,32 @@ import { IoIosGitBranch } from "react-icons/io";
 import Link from "next/link";
 import { Repository } from "@prisma/client";
 import { findImageUrlByUserName } from "@/actions/findImageUrlByUserName";
+import { TableTree } from "@/actions/repo/TableTree";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { FaFolder } from "react-icons/fa";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { useParams } from "next/navigation";
+import * as timeago from "timeago.js";
+import { FileMetadata } from "@/types/TreeInterface";
+import { findBlobByName } from "@/hooks/Find-README-file";
+import { FetchBlob } from "@/actions/repo/fetchBlob";
+import { debounce } from "lodash";
 
 export type FileItem = {
   id: string;
@@ -72,16 +110,59 @@ export type FolderItem = {
   fullpath: string;
 };
 
-type folder = {
-  name: string;
-  isFolder: boolean;
-  metadata: any;
-};
-
 export type Payment = FileItem | FolderItem;
 export function Code({ repodata }: { repodata: Repository }) {
+  // ! React states
   const [imageUrl, setImageUrl] = React.useState<string | null>(null);
+  const [folderStructureData, setFolderStructureData] = React.useState<
+    FileMetadata[] | []
+  >([]);
+  const [md, setMd] = React.useState<string>("");
+  const [mdload, setMdload] = React.useState<boolean>(false);
+  const [fetchingdataloadfortree, setFetchingdataloadfortree] =
+    React.useState<boolean>(false);
 
+  // ! hooks
+  const user = useCurrentUser();
+  const params = useParams();
+
+  // ! fetch data for table
+
+  const fetchTree = debounce(async () => {
+    setFetchingdataloadfortree(true);
+
+    TableTree({
+      user: user?.username,
+      repository: repodata.name,
+    })
+      .then(async (data: any) => {
+        setFolderStructureData(data.data);
+        console.log(data.data);
+        if (data.data) {
+          const readme = findBlobByName("README.md", data.data);
+          console.log(readme);
+          const READMEdata: any = await FetchBlob(
+            readme?.metadata.name,
+            readme?.metadata.generation,
+          );
+          console.log(READMEdata);
+          setMd(READMEdata.data);
+        }
+      })
+      .finally(() => {
+        setFetchingdataloadfortree(false);
+      });
+  }, 100);
+
+  React.useEffect(() => {
+    fetchTree(); // Trigger the debounced function
+
+    // Cleanup the debounce function on component unmount
+    return () => fetchTree.cancel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.username]);
+
+  // ! get user image
   React.useEffect(() => {
     const fetchImageUrl = async () => {
       const url = await findImageUrlByUserName(repodata.author);
@@ -91,8 +172,168 @@ export function Code({ repodata }: { repodata: Repository }) {
     fetchImageUrl();
   }, [repodata.author]);
 
+  //  #####################################################################
+  //  ################ handel table data ##################################
+  //  #####################################################################
+
+  const columns: ColumnDef<FileMetadata>[] = [
+    {
+      accessorKey: "isFolder",
+      cell: () => <div className="w-0 "></div>,
+    },
+    {
+      accessorKey: "name",
+      header: "Name",
+      cell: ({ row }) => (
+        <div className="flex items-center">
+          <div className="mr-0 -ml-0 lg:-ml-4 text-muted-foreground">
+            {row.original.type === "tree" ? <FaFolder /> : <File size={16} />}
+          </div>
+          <div className="ml-2 cursor-pointer text-muted-foreground hover:underline hover:text-blue-500">
+            {row.getValue("isFolder") ? (
+              <Link
+                href={`http://localhost:3000/${params.username}/${params.repository}/tree/${row.getValue(
+                  "name",
+                )}`}
+              >
+                original
+              </Link>
+            ) : (
+              <Link
+                href={`http://localhost:3000/${params.username}/${params.repository}/blob/${row.getValue(
+                  "name",
+                )}`}
+              >
+                {row.original.name}
+              </Link>
+              // <Button
+              //   variant={"link"}
+              //   className="p-0 m-0 lowercase text-muted-foreground hover:underline hover:text-blue-500"
+              //   onClick={() => handledata(row.original)}
+              // >
+              //   {row.getValue("name")}
+              // </Button>
+            )}
+          </div>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "title",
+      header: () => {
+        return <h1 className="w-auto h-4 ml-2">Last commit message</h1>;
+      },
+      cell: ({ row }) => (
+        <div className="text-muted-foreground hover:underline hover:text-blue-500">
+          {row.original.type === "tree" ? (
+            <div> - </div>
+          ) : (
+            <>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <div className="cursor-pointer">
+                    {row.original.metadata?.metadata?.commitTitle}
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent side={"top"} className="w-80">
+                  <div className="flex justify-between space-x-4">
+                    <Avatar>
+                      <AvatarImage src={user?.image} />
+                      <AvatarFallback>{user?.image}</AvatarFallback>
+                    </Avatar>
+                    <div className="w-full space-y-1">
+                      <h4 className="text-sm font-semibold">
+                        @{user?.username}
+                      </h4>
+                      <p className="text-sm">
+                        {row.original.type === "blob"
+                          ? row.original.metadata.metadata.commitDescription
+                          : null}
+                      </p>
+                      {/* <p className="text-sm">The React Framework – created and maintained by @vercel.</p> */}
+                      <div className="flex items-center pt-2">
+                        <CalendarIcon className="w-4 h-4 mr-2 opacity-70" />{" "}
+                        <span className="text-xs text-muted-foreground">
+                          {row.original.metadata?.timeCreated
+                            ? new Date(
+                                row.original.metadata.timeCreated,
+                              ).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })
+                            : ""}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "timeCreated",
+      header: () => <div className="text-right">Last commit date</div>,
+      cell: ({ row }) => {
+        return (
+          <div className="font-medium text-right text-muted-foreground">
+            {row.original.type === "tree" ? (
+              <div> - </div>
+            ) : (
+              <>
+                {timeago.format(row?.original?.metadata?.timeCreated, "en_US")}
+              </>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const payment = row.original;
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="w-8 h-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    payment.metadata?.metadata?.commitId,
+                  )
+                }
+              >
+                Copy Commite ID
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>View customer</DropdownMenuItem>
+              <DropdownMenuItem>View payment details</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+  const table = useReactTable({
+    data: folderStructureData,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+  });
+
   return (
-    <div className="h-screen mt-4">
+    <div className="h-full mb-4 mt-4">
       <div className="w-[90%] m-auto flex justify-between mt-6">
         <div className="flex items-center">
           <Avatar className="w-7 h-7">
@@ -241,7 +482,9 @@ export function Code({ repodata }: { repodata: Repository }) {
           </div>
         </div>
       </div>
+
       <div className="w-[90%] m-auto flex mt-2">
+        {/*  // todo: table section */}
         <div className="w-full">
           <div className="flex items-center py-4">
             <div className="flex max-w-sm">
@@ -304,8 +547,10 @@ export function Code({ repodata }: { repodata: Repository }) {
               </Dialog>
             </div>
           </div>
+
+          {/*  // ! table */}
           <div className="border rounded-md">
-            {/* <Table key={JSON.stringify(folderStructureData)}>
+            <Table key={JSON.stringify(folderStructureData)}>
               <TableHeader>
                 <TableRow>
                   <TableCell colSpan={columns.length}>
@@ -316,44 +561,34 @@ export function Code({ repodata }: { repodata: Repository }) {
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         <Link
-                          to={`/${username}`}
+                          href={`/${params.username}`}
                           className="mx-2 hover:underline"
                         >
-                          {commits && commits.length > 0
-                            ? commits[0].username || user?.username
-                            : user?.username}
+                          {user?.username}
                         </Link>
-                        {commits && commits.length > 0 ? (
-                          <p className="mr-1 text-muted-foreground">•</p>
-                        ) : null}
+                        <p className="mr-1 text-muted-foreground">•</p>
                         <Link
-                          to={`/${username}/${repo_name}/commits/changes/C5YOy941GxPREo5JD6BySnN6AgDaZtiO`}
+                          href={`/${params.username}/${params.repo_name}/commits/changes/C5YOy941GxPREo5JD6BySnN6AgDaZtiO`}
                           className="text-muted-foreground hover:text-blue-500 hover:underline"
                         >
-                          {commits?.slice(-1)[0]?.title}
+                          my first commit
                         </Link>
                       </div>
                       <div className="flex items-center text-xs text-muted-foreground">
                         <div className="flex items-center">
                           <p className="hover:text-blue-500 hover:underline">
-                            {commits && commits.length > 0
-                              ? commits[0].commiteId.substring(0, 7)
-                              : null}
+                            ivis21
                           </p>
-                          {commits && commits.length > 0 ? (
-                            <p className="mx-2">•</p>
-                          ) : null}
-                          {commits && commits.length > 0
-                            ? timeago.format(commits[0].time, "en_US")
-                            : null}
+                          <p className="mx-2">•</p>
+                          1m ago
                         </div>
                         <Button className="p-2 py-0 ml-3 h-7" variant={"ghost"}>
                           <Link
                             className="flex items-center hover:underline text-muted-foreground"
-                            to={"commits"}
+                            href={"commits"}
                           >
                             <History size={16} />
-                            <p className="ml-2"> {commits?.length} Commits</p>
+                            <p className="ml-2"> 5 Commits</p>
                           </Link>
                         </Button>
                       </div>
@@ -373,7 +608,7 @@ export function Code({ repodata }: { repodata: Repository }) {
                           <TableCell key={cell.id}>
                             {flexRender(
                               cell.column.columnDef.cell,
-                              cell.getContext()
+                              cell.getContext(),
                             )}
                           </TableCell>
                         ))}
@@ -400,9 +635,9 @@ export function Code({ repodata }: { repodata: Repository }) {
                   </TableCell>
                 </TableRow>
               )}
-            </Table> */}
+            </Table>
           </div>
-          {/* <div className="mt-5 ">
+          <div className="mt-5 ">
             {mdload ? (
               <Loader2 className="w-full mt-20 animate-spin" />
             ) : md ? (
@@ -420,7 +655,7 @@ export function Code({ repodata }: { repodata: Repository }) {
                     </Button>
                   </div>
                 </Card>
-                <Card className="p-0 m-0 rounded-tl-none rounded-tr-none rounded-br-md rounded-bl-md">
+                <Card className="p-4 px-6 m-0 rounded-tl-none rounded-tr-none rounded-br-md rounded-bl-md">
                   <MarkdownPreview
                     className="border-none editor-preview bg-card"
                     source={md}
@@ -428,8 +663,10 @@ export function Code({ repodata }: { repodata: Repository }) {
                 </Card>
               </div>
             ) : null}
-          </div> */}
+          </div>
         </div>
+
+        {/* // todo: right side sectiom */}
         <div>
           <Card className="p-4 px-6 border-none w-96 h-96">
             <div className="flex items-center justify-between">
