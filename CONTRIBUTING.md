@@ -33,4 +33,3 @@ We respect your privacy and are committed to protecting it. Any personal informa
 By contributing to this project, you agree to license your contributions under the [project's license](https://github.com/cocola-dev/cocola/blob/main/LICENSE).
 
 Thank you for your contribution!
-

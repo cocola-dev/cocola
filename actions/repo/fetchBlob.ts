@@ -16,7 +16,6 @@ export const FetchBlob = async (
   }
 
   return new Promise(async (resolve, reject) => {
-    
     const storage = new Storage({
       credentials: {
         client_email: gcsKey.client_email,
