@@ -568,7 +568,7 @@ export function Code({ repodata }: { repodata: Repository }) {
                         </Link>
                         <p className="mr-1 text-muted-foreground">•</p>
                         <Link
-                          href={`/${params.username}/${params.repo_name}/commits/changes/C5YOy941GxPREo5JD6BySnN6AgDaZtiO`}
+                          href={`/${params.username}/${params.repository}/`}
                           className="text-muted-foreground hover:text-blue-500 hover:underline"
                         >
                           my first commit
