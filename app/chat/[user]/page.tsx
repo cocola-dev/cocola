@@ -25,11 +25,13 @@ const Page = () => {
   const [promt, setPromt] = useState("");
   const [msg, setMsg] = useState<any[]>([]);
   const [istypeing, setIstypeing] = useState(false);
+  const [inputDisable, setInputDisable] = useState(false);
 
   const param = useParams();
 
   const onSubmit = async (e: React.FormEvent) => {
     try {
+      setInputDisable(true);
       e.preventDefault();
       setIstypeing(true);
       setPromt("");
@@ -55,6 +57,8 @@ const Page = () => {
       setMsg((prevMsg) => [...prevMsg, updatedMsg]);
     } catch (error) {
       toast.error("request has been failed!");
+    } finally {
+      setInputDisable(false);
     }
   };
 
@@ -80,7 +84,7 @@ const Page = () => {
                 <div className="text-xl ml-3 hover:underline">@copilot</div>
               </div>
               <div className=" flex">
-                <Card className=" h-auto hidden md:flex my-2 justify-center items-center">
+                <Card className=" h-auto text-muted-foreground hidden md:flex my-2 justify-center items-center">
                   <Button
                     variant="ghost"
                     className="flex rounded-bl-xl border-r rounded-tl-xl rounded-br-none rounded-tr-none"
@@ -135,7 +139,11 @@ const Page = () => {
           <div className=" w-full self-end py-2">
             <div className="flex w-full">
               <form onSubmit={onSubmit} className="flex w-full">
-                <Button variant="outline" className="mr-2">
+                <Button
+                  disabled={inputDisable}
+                  variant="outline"
+                  className="mr-2"
+                >
                   <Plus />
                 </Button>
                 <Input
@@ -145,10 +153,13 @@ const Page = () => {
                   autoComplete="off"
                   onChange={(e) => setPromt(e.target.value)}
                   value={promt}
+                  disabled={inputDisable}
                   autoFocus
                   required
                 />
-                <Button type="submit">Send</Button>
+                <Button disabled={inputDisable} type="submit">
+                  Send
+                </Button>
               </form>
             </div>
           </div>

@@ -22,7 +22,7 @@ const Layout = ({
   };
 }) => {
   return (
-    <>
+    <div className="mb-44">
       <div className="text-sm font-medium text-center text-muted-foreground border-b dark:text-gray-400">
         <ul className="flex flex-wrap text-muted-foreground -mb-px ">
           <li className="me-2">
@@ -117,8 +117,8 @@ const Layout = ({
         </ul>
       </div>
       <div>{children}</div>
-      <Footer />
-    </>
+      {/* <Footer /> */}
+    </div>
   );
 };
 

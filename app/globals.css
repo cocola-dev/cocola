@@ -235,3 +235,12 @@ body::-webkit-scrollbar-thumb {
   clear: both;
   content: "";
 }
+
+.wmde-markdown {
+  background: transparent !important;
+}
+
+.wmde-markdown pre {
+  background-color: transparent !important;
+  border: solid 1px #262626 !important;
+}
