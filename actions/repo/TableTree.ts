@@ -17,7 +17,7 @@ export const TableTree = async ({
     const data = {};
 
     const storage = new Storage({
-      keyFilename: "cocola-412510-1d0b8901f5ca.json",
+      keyFilename: "./cocola-412510-1d0b8901f5ca.json",
     });
 
     async function listFilesByPrefix() {
