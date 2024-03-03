@@ -10,15 +10,25 @@ export const TableTree = async ({
   user: string | null | undefined;
   repository: string | null;
 }) => {
-  const bucketName = "cocola-412510.appspot.com";
+  const bucketName = process.env.BUCKET_NAME || "cocola-412510.appspot.com";
   const prefix = `files/${user}/${repository}/`;
   const delimiter = "/";
+
+  if (process.env.GCP_CRED_FILE) {
+    var gcsKey = JSON.parse(
+      Buffer.from(process.env.GCP_CRED_FILE, "base64").toString(),
+    );
+  }
 
   return new Promise(async (resolve, reject) => {
     const data = {};
 
     const storage = new Storage({
-      keyFilename: path.join(process.cwd(), 'cocola-412510-1d0b8901f5ca.json'),
+      credentials: {
+        client_email: gcsKey.client_email,
+        private_key: gcsKey.private_key,
+      },
+      projectId: gcsKey.project_id,
     });
 
     async function listFilesByPrefix() {
