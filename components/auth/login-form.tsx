@@ -165,7 +165,11 @@ export const LoginForm = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <PasswordInput {...field} placeholder="••••••••" disabled={isPending} />
+                        <PasswordInput
+                          {...field}
+                          placeholder="••••••••"
+                          disabled={isPending}
+                        />
                       </FormControl>
                       <Button
                         size="sm"

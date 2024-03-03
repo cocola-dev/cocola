@@ -139,7 +139,11 @@ const Page = () => {
           <div className=" w-full self-end py-2">
             <div className="flex w-full">
               <form onSubmit={onSubmit} className="flex w-full">
-                <Button disabled={inputDisable} variant="outline" className="mr-2">
+                <Button
+                  disabled={inputDisable}
+                  variant="outline"
+                  className="mr-2"
+                >
                   <Plus />
                 </Button>
                 <Input
