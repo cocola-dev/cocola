@@ -1,6 +1,7 @@
 "use server";
 
 import { Storage } from "@google-cloud/storage";
+import path from "path";
 
 export const TableTree = async ({
   user = null,
@@ -17,7 +18,7 @@ export const TableTree = async ({
     const data = {};
 
     const storage = new Storage({
-      keyFilename: "./cocola-412510-1d0b8901f5ca.json",
+      keyFilename: path.join(process.cwd(), 'cocola-412510-1d0b8901f5ca.json'),
     });
 
     async function listFilesByPrefix() {

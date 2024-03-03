@@ -1,6 +1,7 @@
 "use server";
 
 import { Storage } from "@google-cloud/storage";
+import path from "path";
 
 export const FetchBlob = async (
   filename: string | undefined,
@@ -10,7 +11,8 @@ export const FetchBlob = async (
 
   return new Promise(async (resolve, reject) => {
     const storage = new Storage({
-      keyFilename: "./cocola-412510-1d0b8901f5ca.json",
+      // keyFilename: "./cocola-412510-1d0b8901f5ca.json",
+      keyFilename: path.join(process.cwd(), 'cocola-412510-1d0b8901f5ca.json'),
     });
 
     // const fileRef = `${filename}#${generation}`;
