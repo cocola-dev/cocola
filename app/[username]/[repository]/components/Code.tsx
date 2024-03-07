@@ -684,13 +684,12 @@ export function Code({ repodata }: { repodata: Repository }) {
                 {repodata.link ? (
                   <li className="flex items-center mt-1">
                     <Linkicon className="mr-4" size={16} />
-                    <a
+                    <Link
                       href={repodata.link}
-                      target="_blank"
                       className="text-blue-500 cursor-pointer hover:underline"
                     >
                       {repodata.link}
-                    </a>
+                    </Link>
                   </li>
                 ) : null}
                 <li className="flex items-center mt-1">
