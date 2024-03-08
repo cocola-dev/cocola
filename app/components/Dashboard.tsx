@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { cn } from "@/lib/utils";
-import { withAuth } from "@/protectedRouter";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

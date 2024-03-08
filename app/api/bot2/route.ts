@@ -1,5 +1,4 @@
 import { genAI } from "@/lib/genAI";
-import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 const fs = require("fs");
 
@@ -26,7 +25,9 @@ export async function POST(req: Request) {
 
     const prompt = "hello";
 
-    const imageParts = [fileToGenerativePart("./image1.png", "image/png")];
+    const imageParts = [
+      fileToGenerativePart("./assets/images/AI_chat_bot.png", "image/png"),
+    ];
 
     console.log(imageParts);
 

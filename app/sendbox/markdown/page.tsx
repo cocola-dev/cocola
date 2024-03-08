@@ -1,21 +1,14 @@
 "use client";
 
 import MarkdownReader from "@/components/mdx-components";
-import { Textarea } from "@/components/ui/textarea";
+import { Write } from "@/components/ui/fancy-area/write";
 import React, { useState } from "react";
 
-const markdownContent = `
-
-# Heading 1
-
+const markdownContent = `# Heading 1
 ## Heading 2
-
 ### Heading 3
-
 #### Heading 4
-
 ##### Heading 5
-
 ###### Heading 6
 
 **Bold text**
@@ -51,16 +44,12 @@ const markdownContent = `
 `;
 
 const Page = () => {
-  const [mdcontent, setMdcontent] = useState(markdownContent);
+  const [textValue, setTextValue] = useState(markdownContent);
   return (
     <div className="m-5">
-      <Textarea
-        value={mdcontent}
-        onChange={(e) => setMdcontent(e.target.value)}
-        rows={10}
-      />
+      <Write {...{ textValue, setTextValue }} />
       <div className="mt-4">
-        <MarkdownReader markdown={mdcontent} />
+        <MarkdownReader markdown={textValue} />
       </div>
     </div>
   );

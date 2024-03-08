@@ -2,7 +2,6 @@
 
 import { fetchRepo } from "@/actions/repo/fetch";
 import Loader2 from "@/components/Loader2";
-import { useAuth } from "@/context/userContext";
 import { Repository } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import NotFound from "./components/notFound";

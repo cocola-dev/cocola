@@ -29,7 +29,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TooltipProvider } from "../ui/tooltip";
 import { Separator } from "../ui/separator";
 import { User } from "@prisma/client";
-import { ASSET_BASE_URL } from "@/resources";
 import { LogoutButton } from "../auth/logout-button";
 
 const Rightside = ({ user }: { user: User | null }) => {

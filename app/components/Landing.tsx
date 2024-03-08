@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "./Navbar";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const Landing = () => {

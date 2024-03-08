@@ -1,6 +1,5 @@
 "use client";
 
-import { findImageUrlByUserName } from "@/actions/findImageUrlByUserName";
 import React from "react";
 
 const issuespage = () => {
