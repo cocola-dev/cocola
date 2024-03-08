@@ -19,7 +19,10 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
 
   return (
     <>
-      <div className="sticky z-50 flex items-center justify-between w- text-sm font-medium top-0 bg-card h-14">
+      <div
+        className={`${pathname === "/" && !user ? "hidden" : "flex"}  sticky z-50  items-center justify-between w- text-sm font-medium top-0 bg-card h-14`}
+        id="navbar"
+      >
         <div>
           <div className="flex items-center ml-4">
             {isAuthenticated ? <Leftside /> : <div className="-mb-10" />}
