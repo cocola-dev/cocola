@@ -129,12 +129,9 @@ const Navbar = () => {
                         getting started your coding journey with cocola.
                       </ListItem>
                       <ListItem href="/docs" title="learn more">
-                      read document to learn more about cocola.
+                        read document to learn more about cocola.
                       </ListItem>
-                      <ListItem
-                        href="/"
-                        title="Dashboard"
-                      >
+                      <ListItem href="/" title="Dashboard">
                         Access your dashboard to manage your projects.
                       </ListItem>
                     </ul>
