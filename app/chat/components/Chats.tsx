@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TypingAnimation from "./TypingAnimation";
 import MarkdownPreview from "@uiw/react-markdown-preview";
+import MarkdownReader from "@/components/mdx-components";
 
 const Chats = ({
   messages,
@@ -68,7 +69,8 @@ const Chats = ({
                     ) : null}
                     <div className="mx-1 max-w-[600px]">
                       {/* {items?.parts[0].text} */}
-                      <MarkdownPreview source={items?.parts[0].text} />
+                      {/* <MarkdownPreview source={items?.parts[0].text} /> */}
+                      <MarkdownReader markdown={items?.parts[0].text} />
                     </div>
                   </Card>
                 ) : (
