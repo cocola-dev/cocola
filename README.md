@@ -57,13 +57,13 @@ Are you ready to take your tech journey to new heights? Dive headfirst into Coco
 
 ## Step 1: Clone the Repository
 
-```sh
+```bash
 git clone https://github.com/cocola-dev/cocola.git
 ```
 
 ## Step 2: Install Dependencies
 
-```sh
+```bash
 npm install
 ```
 
@@ -73,13 +73,13 @@ npm install
 
 📝 Duplicate `.env.example` and rename the copy to `.env`.
 
-```sh
+```bash
 cp .env.example .env
 ```
 
 🔑 Fill in the following information in the `.env` file:
 
-```env
+```bash
 # MONGODB URL
 MONGODB_URL=your_mongodb_url_here
 
