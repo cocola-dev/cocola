@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TypingAnimation from "./TypingAnimation";
-import MarkdownPreview from "@uiw/react-markdown-preview";
 import MarkdownReader from "@/components/mdx-components";
 
 const Chats = ({

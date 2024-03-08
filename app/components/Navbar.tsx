@@ -1,5 +1,4 @@
 import Logo from "@/components/nav/Logo";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
@@ -52,30 +51,6 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-const nav_sortcut_list = [
-  {
-    name: "Product",
-    href: "/product",
-  },
-  {
-    name: "solutions",
-    href: "/solutions",
-  },
-
-  {
-    name: "Resources",
-    href: "/resources",
-  },
-  {
-    name: "Docs",
-    href: "/docs",
-  },
-  {
-    name: "Pricing",
-    href: "/pricing",
-  },
-];
-
 const Navbar = () => {
   return (
     <header className="h-16 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -88,18 +63,6 @@ const Navbar = () => {
                 Cocola
               </h3>
             </Link>
-            {/* <div className="flex ml-4">
-              {nav_sortcut_list.map((item, index) => (
-                <Link
-                  className={`mx-3 text-muted-foreground hover:text-[#cacaca]`}
-                  href={item.href}
-                  key={index}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div> */}
-
             <NavigationMenu className="ml-5">
               <NavigationMenuList>
                 <NavigationMenuItem>

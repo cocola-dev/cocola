@@ -1,13 +1,11 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { getAccountByUserId } from "@/data/getAccountByUsername";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import CompoLoader from "@/components/ComponentLoader";
 import Loader from "@/components/Loader";
-import { useAuth } from "@/context/userContext";
 import { User } from "@prisma/client";
 import Link from "next/link";
 import {
@@ -19,6 +17,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { getUserByUsername } from "@/actions/user/getUserByUsername";
 
 const Repositories = dynamic(() => import("./components/Repositories"), {
   loading: () => <CompoLoader />,
@@ -36,9 +35,21 @@ export default function Page({ params }: { params: { username: string } }) {
   const searchParams = useSearchParams();
   const tab = searchParams?.get("tab");
 
+  async function fetchUser(name: string) {
+    const res = await getUserByUsername(name);
+    if (!res) return null;
+    return res;
+  }
   const userrepo = require("./data/data.repositories.json");
 
   const user = useCurrentUser();
+
+  useEffect(() => {
+    fetchUser(params.username).then((res) => {
+      console.log(res);
+      setUserdata(res);
+    });
+  }, [params.username]);
 
   let renderedComponent;
   let renderedComponentName;
@@ -52,26 +63,6 @@ export default function Page({ params }: { params: { username: string } }) {
       renderedComponent = <Overview userrepo={userrepo} />;
       renderedComponentName = null;
   }
-
-  const data = async () => {
-    setLoading(true);
-    return await getAccountByUserId(params.username);
-  };
-
-  useEffect(() => {
-    data()
-      .then((res) => {
-        if (res) {
-          setUserdata(res);
-        } else {
-          setUserdata(null);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className=" h-full ">

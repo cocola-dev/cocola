@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import {
   Accordion,
@@ -25,8 +25,12 @@ import { ComponentSource } from "@/components/component-source";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { StyleWrapper } from "./style-wrapper";
 import remarkGfm from "remark-gfm";
+import remarkGemoji from "remark-gemoji";
+import remarkGithub, { defaultBuildUrl } from "remark-github";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { remark } from "remark";
+import { Mention } from "./ui/fancy-area/mention";
 
 const customStyle = {
   backgroundColor: "#18181b",
@@ -216,15 +220,6 @@ const components = {
       </StyleWrapper>
     );
   },
-  // code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-  //   <code
-  //     className={cn(
-  //       "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm",
-  //       className,
-  //     )}
-  //     {...props}
-  //   />
-  // ),
   code(props: any) {
     const { children, className, node, ...rest } = props;
     const match = /language-(\w+)/.exec(className || "");
@@ -327,12 +322,6 @@ const components = {
       {...props}
     />
   ),
-  //   FrameworkDocs: ({
-  //     className,
-  //     ...props
-  //   }: React.ComponentProps<typeof FrameworkDocs>) => (
-  //     <FrameworkDocs className={cn(className)} {...props} />
-  //   ),
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn("font-medium underline underline-offset-4", className)}
@@ -348,18 +337,48 @@ const components = {
       {...props}
     />
   ),
+  mention: Mention,
 };
 
 const MarkdownReader = ({ markdown }: { markdown: any }) => {
+  const [mdSourse, setMdSourse] = useState("");
+
+  const mentionRegex = /@(\w+)/g;
+  const text = markdown.replace(mentionRegex, "@$1");
+
+  const Mdgenerating = async () => {
+    const file = await remark()
+      .use(remarkGfm)
+      .use(remarkGemoji)
+      .use(remarkGithub, {
+        buildUrl(values) {
+          return values.type === "mention"
+            ? `${process.env.NEXT_PUBLIC_APP_URL}/${values.user}/`
+            : defaultBuildUrl(values);
+        },
+        repository: "cocola-dev/cocola",
+      })
+      .process(text);
+
+    return file.toString();
+  };
+
+  useEffect(() => {
+    Mdgenerating().then((res) => {
+      setMdSourse(res);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [markdown]);
+
   return (
     <div className="markdown-container">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
         components={{
           ...components,
         }}
+        remarkPlugins={[remarkGfm, remarkGemoji]}
       >
-        {markdown}
+        {mdSourse}
       </ReactMarkdown>
     </div>
   );

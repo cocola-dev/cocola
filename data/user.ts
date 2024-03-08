@@ -12,14 +12,13 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
-export const getUserByUsername = async (email: string) => {
-  try {
-    const user = await db.user.findUnique({ where: { email } });
+export const getUserByUsername = async (username: string) => {
+  const user = await db.user.findUnique({ where: { username } });
 
-    return user;
-  } catch {
+  if (!user) {
     return null;
   }
+  return user;
 };
 
 export const getUserById = async (id: string) => {
