@@ -8,6 +8,7 @@ import {
   //   HoverPortal,
 } from "@/components/ui/hover-card";
 import { people } from "./data";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
@@ -36,9 +37,9 @@ export function Mention({ children, handle }: Props) {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <a href={twitterUrl} target="_blank">
+        <Link href={twitterUrl} target="_blank">
           {children}
-        </a>
+        </Link>
       </HoverCardTrigger>
       <HoverCardContent className="max-w-xs w-auto">
         <div className="flex justify-between space-x-4">
