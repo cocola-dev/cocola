@@ -62,9 +62,12 @@ export const LoginSchema = z.object({
 });
 
 export const RepoSchema = z.object({
-  name: z.string().refine((value) => /^[a-zA-Z0-9-]+$/.test(value), {
-    message:
-      "Invalid characters in the name. Only letters, numbers, and hyphens are allowed.",
+  // name: z.string().refine((value) => /^[a-zA-Z0-9-]+$/.test(value), {
+  //   message:
+  //     "Invalid characters in the name. Only letters, numbers, and hyphens are allowed.",
+  // }),
+  name: z.string().min(1, {
+    message: "Name is required",
   }),
   description: z.string(),
   visibility: VisibilityEnum.default("public"),

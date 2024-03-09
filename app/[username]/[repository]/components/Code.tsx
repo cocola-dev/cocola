@@ -90,6 +90,7 @@ import { FileMetadata } from "@/types/TreeInterface";
 import { findBlobByName } from "@/hooks/Find-README-file";
 import { FetchBlob } from "@/actions/repo/fetchBlob";
 import { debounce } from "lodash";
+import MarkdownReader from "@/components/mdx-components";
 
 export type FileItem = {
   id: string;
@@ -637,7 +638,7 @@ export function Code({ repodata }: { repodata: Repository }) {
               )}
             </Table>
           </div>
-          <div className="mt-5 ">
+          <div className="mt-5 w-full">
             {mdload ? (
               <Loader2 className="w-full mt-20 animate-spin" />
             ) : md ? (
@@ -656,10 +657,13 @@ export function Code({ repodata }: { repodata: Repository }) {
                   </div>
                 </Card>
                 <Card className="p-4 px-6 m-0 rounded-tl-none rounded-tr-none rounded-br-md rounded-bl-md">
-                  <MarkdownPreview
+                  {/* <MarkdownPreview
                     className="border-none editor-preview bg-card"
                     source={md}
-                  />
+                  /> */}
+                  <div className="max-w-4xl ">
+                    <MarkdownReader markdown={md} />
+                  </div>
                 </Card>
               </div>
             ) : null}
@@ -667,7 +671,7 @@ export function Code({ repodata }: { repodata: Repository }) {
         </div>
 
         {/* // todo: right side sectiom */}
-        <div>
+        <div className="w-96">
           <Card className="p-4 px-6 border-none w-96 h-96">
             <div className="flex items-center justify-between">
               <h1 className="text-xl">about</h1>
