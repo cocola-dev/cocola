@@ -1,55 +1,122 @@
 import HeatMap from "@uiw/react-heat-map";
 import value from "../data/heatdata.json";
 import { Card } from "@/components/ui/card";
-import { GitFork, Star } from "lucide-react";
+import { GitFork, Pencil, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { RepoInterface } from "@/types/RepoInterface";
 import Link from "next/link";
+import { Repository, User } from "@prisma/client";
+import MarkdownReader from "@/components/mdx-components";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
-const Overview = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
+const Overview = ({
+  userrepo,
+  userdata,
+  userMd,
+}: {
+  userrepo: Repository[] | null;
+  userdata: User;
+  userMd: string | null;
+}) => {
+  const user = useCurrentUser();
+
   return (
     <div>
+      {userMd ? (
+        <Card className="mb-4 p-4">
+          <div className="flex w-full justify-between items-center">
+            <p className="text-sm text-muted-foreground">
+              {userdata?.username} / README.md
+            </p>
+            <Link
+              href={`${userdata?.username}/${userdata?.username}`}
+              className="text-xs text-muted-foreground hover:text-secondary-foreground"
+            >
+              <Pencil size={16} />
+            </Link>
+          </div>
+          <div>
+            <MarkdownReader markdown={userMd} />
+          </div>
+        </Card>
+      ) : null}
       <div className="flex items-end justify-between mb-3">
         <div>Popular repositories</div>
         <div className="text-xs text-blue-500 hover:underline">
           Customize your pins
         </div>
       </div>
-      <Card className="grid grid-cols-2 gap-4 border-none shadow-none">
-        {userrepo?.map((item, index) => (
-          <Card key={index} className="p-4 h hover:bg-muted">
-            <div className="flex justify-between">
-              <Link
-                href={`${item.name}`}
-                className="hover:text-blue-500 hover:underline"
+
+      {userrepo && userrepo?.length > 0 ? (
+        <Card className="grid grid-cols-2 gap-4 border-none shadow-none">
+          {userrepo?.map((item, index) => (
+            <Link
+              key={index}
+              className=""
+              href={`/${item.author}/${item.name}`}
+            >
+              <Card className="p-4 h-36 bg-primary-foreground hover:border-secondary-foreground">
+                <div className="flex justify-between">
+                  <p className="hover:text-blue-500 hover:underline">
+                    {item.name}
+                  </p>
+                  <Badge className="text-muted-foreground" variant="outline">
+                    {item.Visibility}
+                  </Badge>
+                </div>
+                <div className="mt-4 text-xs text-muted-foreground">
+                  {item.description}
+                </div>
+                <div className="mt-4">
+                  <div className="flex items-center text-muted-foreground">
+                    <div className="w-3 h-3 mr-1 rounded-full bg-[#3178c6]"></div>
+                    <p className="text-sm">typescript</p>
+                    <div className="flex items-center ml-3">
+                      <Star size={16} />
+                      <p className="ml-1 text-sm text-muted-foreground">
+                        {" "}
+                        {item.stars}
+                      </p>
+                    </div>
+                    <div className="flex items-center ml-3">
+                      <GitFork size={16} />
+                      <p className="ml-1 text-sm text-muted-foreground">
+                        {" "}
+                        {item.forksCount}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </Card>
+      ) : (
+        <Card className="rounded-md  p-4 flex justify-center items-center w-full">
+          {userdata?.username === user?.username ? (
+            <div className="grid place-items-center">
+              <p className="leading-7 [&:not(:first-child)]:mt-6">
+                You don&apos;t have any Repository
+              </p>
+              <Button
+                variant={"outline"}
+                className="w-fit mt-4"
+                size={"sm"}
+                asChild
               >
-                {item.name}
-              </Link>
-              <Badge className="text-muted-foreground" variant="outline">
-                Public
-              </Badge>
+                <Link href="/new">Create</Link>
+              </Button>
             </div>
-            <div className="mt-4 text-xs text-muted-foreground">
-              {item.description}
+          ) : (
+            <div className="grid place-items-center">
+              <p className="leading-7 [&:not(:first-child)]:mt-6">
+                user don&apos;t have any Repository
+              </p>
             </div>
-            <div className="mt-4">
-              <div className="flex items-center text-muted-foreground">
-                <div className="w-3 h-3 mr-1 rounded-full bg-[#3178c6]"></div>
-                <p className="text-sm">typescript</p>
-                <div className="flex items-center ml-3">
-                  <Star size={16} />
-                  <p className="ml-1 text-sm text-muted-foreground"> 42.2K</p>
-                </div>
-                <div className="flex items-center ml-3">
-                  <GitFork size={16} />
-                  <p className="ml-1 text-sm text-muted-foreground"> 3.1K</p>
-                </div>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </Card>
+          )}
+        </Card>
+      )}
+
       <div className="mt-4">9,487 contributions in the last year</div>
       <div className="flex justify-between mt-4">
         <Card className="h-40">

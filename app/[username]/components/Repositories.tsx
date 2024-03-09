@@ -29,10 +29,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import * as timeago from "timeago.js";
-import { RepoInterface } from "@/types/RepoInterface";
 import Link from "next/link";
+import { Repository } from "@prisma/client";
 
-const Repositories = ({ userrepo }: { userrepo: RepoInterface[] | null }) => {
+const Repositories = ({ userrepo }: { userrepo: Repository[] | null }) => {
   return (
     <div>
       <div className="flex justify-between">
