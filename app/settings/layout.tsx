@@ -7,7 +7,6 @@ import {
   BookMarked,
   Bot,
   Brush,
-  Building,
   Building2,
   Clock4,
   Code,
@@ -30,7 +29,6 @@ import {
   User,
 } from "lucide-react";
 import { redirect, usePathname } from "next/navigation";
-import Link from "next/link";
 import SidebarMaper from "./components/SidebarMaper";
 import { Separator } from "@/components/ui/separator";
 

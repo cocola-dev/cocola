@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository 🔍
+      - name: 🔍 Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js 🫡
+      - name: 🫡 Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: "20.9.0" # Use a specific Node.js version, adjust as needed
 
-      - name: Install Dependencies ☘️
+      - name: ☘️ Install Dependencies
         run: npm i # Use npm i for faster and more consistent installs
 
-      - name: Tests and Linting ✅
+      - name: ✅ Tests and Linting
         run: |
           npm run format  # Run Prettier to format code
           npm run lint    # Run linting checks
         # If any of the above steps fail, the workflow will stop
 
-      - name: Production build ✨
+      - name: ✨ Production build
         run: npm run build

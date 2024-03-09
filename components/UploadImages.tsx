@@ -1,25 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
+
+import { ASSETS } from "@/data/variables";
+
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { MoveRight } from "lucide-react";
-import { UpdateProfilePicAction } from "@/actions/profilePic";
-import { ASSETS } from "@/data/variables";
-import { useRouter } from "next/navigation";
-import Loader2 from "./Loader2";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { update } from "@/auth";
 import { toast } from "sonner";
-import { Label } from "./ui/label";
+
+import { MoveRight } from "lucide-react";
+import Loader2 from "./Loader2";
+
+import { UpdateProfilePicAction } from "@/actions/profilePic";
 
 interface UploadImageProps {
   preview: string;
@@ -29,10 +22,6 @@ interface UploadImageProps {
 const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  const router = useRouter();
-
-  const user = useCurrentUser();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] as File | null;
