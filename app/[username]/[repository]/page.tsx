@@ -22,7 +22,7 @@ const Page = ({
     setIsloading(true);
     await fetchRepo(params.username, params.repository, user)
       .then((data) => {
-        if (data.statuscode === 404) {
+        if (!data.error) {
           setRepoNotFound(true);
         }
         const { repo } = data;

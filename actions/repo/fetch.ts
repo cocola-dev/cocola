@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { User } from "@prisma/client";
+import { Repository, User } from "@prisma/client";
 
 export const fetchRepo = async (
   username: string,
@@ -12,7 +12,7 @@ export const fetchRepo = async (
     return { error: "Invalid user or repository!" };
   }
 
-  let repo;
+  let repo: Repository | null = null;
 
   if (user?.username === username) {
     repo = await db.repository.findFirst({
@@ -35,11 +35,5 @@ export const fetchRepo = async (
     return { error: "Repository not found!", statuscode: 404 };
   }
 
-  const branches = await db.branch.findMany({
-    where: {
-      repositoryId: repo.id,
-    },
-  });
-
-  return { repo, branchCount: branches.length };
+  return { repo: repo };
 };

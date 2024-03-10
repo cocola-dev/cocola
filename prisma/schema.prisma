@@ -100,29 +100,30 @@ model TwoFactorConfirmation {
 // repositors
 
 model Repository {
-  id            String     @id @default(auto()) @map("_id") @db.ObjectId
-  author        String
-  authorId      String
-  name          String
-  description   String?
-  link          String?
-  lastCommit    String?
-  issuercount   Int        @default(0)
-  PRcouunt      Int        @default(0)
-  Visibility    Visibility @default(public)
-  isFork        Boolean    @default(false)
-  isArchived    Boolean    @default(false)
-  isTemplate    Boolean    @default(false)
-  stars         Int        @default(0)
-  watchers      Int        @default(0)
-  forksCount    Int        @default(0)
-  branches      Branch[]
-  DefualtBranch String     @default("main")
-  commits       Commit[]
-  forks         Forks[]
-  tags          String[]
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  author           String
+  authorId         String
+  name             String
+  description      String?
+  link             String?
+  lastCommit       String?
+  issuercount      Int                @default(0)
+  PRcouunt         Int                @default(0)
+  Visibility       Visibility         @default(public)
+  isFork           Boolean            @default(false)
+  isArchived       Boolean            @default(false)
+  isTemplate       Boolean            @default(false)
+  stars            Int                @default(0)
+  watchers         Int                @default(0)
+  forksCount       Int                @default(0)
+  branches         Branch[]
+  DefualtBranch    String             @default("main")
+  commits          Commit[]
+  forks            Forks[]
+  tags             String[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  IssuePullRequest IssuePullRequest[]
 }
 
 enum Visibility {
@@ -160,4 +161,32 @@ model Branch {
   name         String
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
+}
+
+model IssuePullRequest {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  isOpen       Boolean    @default(true)
+  isIssue      Boolean    @default(false)
+  isPr         Boolean    @default(false)
+  author       String
+  archived     Boolean    @default(false)
+  number       Int
+  title        String
+  body         String?
+  comment      Comment[]
+  repository   Repository @relation(fields: [repositoryId], references: [id])
+  repositoryId String     @db.ObjectId
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Comment {
+  id                           String           @id @default(auto()) @map("_id") @db.ObjectId
+  body                         String
+  author                       String
+  number                       Int              @unique @default(0)
+  IssuePullRequest             IssuePullRequest @relation(fields: [issuePullRequestDiscussionId], references: [id])
+  issuePullRequestDiscussionId String           @db.ObjectId
+  createdAt                    DateTime         @default(now())
+  updatedAt                    DateTime         @updatedAt
 }
