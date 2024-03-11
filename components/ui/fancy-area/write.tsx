@@ -139,10 +139,7 @@ export function Write({ textValue, setTextValue, isLoading = false }: Props) {
     <div className="w-full relative">
       <Textarea
         ref={textareaRef}
-        autoComplete="off"
-        autoCorrect="off"
         className=" h-auto"
-        autoFocus
         value={textValue}
         onChange={onTextValueChange}
         rows={10}

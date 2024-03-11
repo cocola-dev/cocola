@@ -164,20 +164,25 @@ model Branch {
 }
 
 model IssuePullRequest {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  isOpen       Boolean    @default(true)
-  isIssue      Boolean    @default(false)
-  isPr         Boolean    @default(false)
-  author       String
-  archived     Boolean    @default(false)
-  number       Int
-  title        String
-  body         String?
-  comment      Comment[]
-  repository   Repository @relation(fields: [repositoryId], references: [id])
-  repositoryId String     @db.ObjectId
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  isOpen         Boolean    @default(true)
+  isIssue        Boolean    @default(false)
+  isPr           Boolean    @default(false)
+  author         String
+  archived       Boolean    @default(false)
+  commentscount  Int        @default(0)
+  number         Int
+  title          String
+  body           String?
+  comment        Comment[]
+  repositoryPath String
+  repository     Repository @relation(fields: [repositoryId], references: [id])
+  repositoryId   String     @db.ObjectId
+  assignees      String[]
+  labels         String[]
+  participants   String[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 }
 
 model Comment {

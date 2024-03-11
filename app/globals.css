@@ -24,6 +24,19 @@ body::-webkit-scrollbar-thumb {
   padding: 1px;
 }
 
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #262626;
+}
+
 *::selection {
   background: #cccccc;
   /* color: #202020; */
@@ -66,8 +79,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ################################################################################################################################# */
-
-/* ################################################################################################################################# */
 /* loader */
 
 .loader {
@@ -104,6 +115,7 @@ body::-webkit-scrollbar-thumb {
     left: unset;
   }
 }
+/* ################################################################################################################################# */
 
 .otpinput {
   width: 45px !important;
@@ -182,32 +194,6 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* .comment-box {
-  position: relative;
- }
- 
- .comment-box:before, .comment-box:after {
-  content: '';
-  height: 0;
-  width: 0;
-  position: absolute;
-  display: block;
-  border-width: 10px 12px 10px 0;
-  border-style: solid;
-  border-color: transparent #0a0a0a;
-  top: 8px;
-  left: -11px;
- }
- 
- .comment-box:before {
-  border-width: 11px 13px 11px 0;
-  border-color: transparent #262626;
-  left: -12px;
- }
- 
- .reply-list .comment-box {
-  width: 610px;
- } */
 .comment-box {
   position: relative;
 }
@@ -235,12 +221,35 @@ body::-webkit-scrollbar-thumb {
   clear: both;
   content: "";
 }
-
-.wmde-markdown {
-  background: transparent !important;
+.comment-triangle {
+  position: relative;
 }
 
-.wmde-markdown pre {
-  background-color: transparent !important;
-  border: solid 1px #262626 !important;
+.comment-triangle::after,
+.comment-triangle::before {
+  position: absolute;
+  top: 15px;
+  right: 100%;
+  left: -6px;
+  transform: rotate(45deg);
+  border-bottom: #262626 solid 1px;
+  border-left: #262626 solid 1px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  content: " ";
+  background: #171717;
+}
+
+.comment-triangle-author::after,
+.comment-triangle-author::before {
+  border-bottom: #404040 solid 1px;
+  border-left: #404040 solid 1px;
+}
+
+.comment-triangle-action::after,
+.comment-triangle-action::before {
+  border-bottom: #fff solid 1px;
+  border-left: #fff solid 1px;
 }
