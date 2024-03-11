@@ -17,9 +17,10 @@ import { UpdateProfilePicAction } from "@/actions/profilePic";
 interface UploadImageProps {
   preview: string;
   setPreview: React.Dispatch<React.SetStateAction<string>>;
+  user: string | undefined;
 }
 
-const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview }) => {
+const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview, user }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,7 +46,7 @@ const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview }) => {
     try {
       setIsLoading(true);
 
-      await fetch(`${ASSETS}/upload`, {
+      await fetch(`${ASSETS}/upload/${user}`, {
         method: "POST",
         body: formData,
       })

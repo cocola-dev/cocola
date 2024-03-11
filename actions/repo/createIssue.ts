@@ -5,16 +5,18 @@ import { IssuePullRequest } from "@prisma/client";
 
 export const createIssue = async ({
   repositoryId,
+  repositoryPath,
   user,
   title,
   body,
 }: {
   repositoryId: string | null;
+  repositoryPath: string | null;
   user: string | null;
   title: string | null;
   body?: string | null;
 }) => {
-  if (!repositoryId || !user) {
+  if (!repositoryId || !user || !repositoryPath) {
     return { data: null, success: false };
   }
 
@@ -38,6 +40,7 @@ export const createIssue = async ({
       isIssue: true,
       author: user,
       repositoryId: repositoryId as string, // Fix: Ensure repositoryId is of type string
+      repositoryPath: repositoryPath,
       number: nextIssueNumber,
       title: title,
       body: body,

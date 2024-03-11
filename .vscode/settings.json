@@ -1,7 +1,8 @@
 {
     "workbench.colorTheme": "Tokyo Night",
     "workbench.startupEditor": "none",
-    "files.autoSave": "afterDelay",
+    // "files.autoSave": "onWindowChange",
+    "files.autoSave": "off",
     "glassit.alpha": 245,
     "glassit.force_sway": true,
     "workbench.iconTheme": "material-icon-theme",

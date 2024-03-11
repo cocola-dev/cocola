@@ -184,7 +184,7 @@ const Page = ({
       {!isFetchingIssues ? (
         issueData?.length ? (
           <div className="w-[80%] mt-4 m-auto justify-center items-center">
-            <Card className="w-full items-center flex h-10  rounded-sm rounded-b-none p-3">
+            <Card className="w-full border-b-0 bg-primary-foreground items-center flex h-10  rounded-sm rounded-b-none p-3">
               <div className="flex items-center">
                 <CircleDot size={18} />
                 <p className="ml-3"> {openIssues} Open</p>
@@ -194,20 +194,19 @@ const Page = ({
                 </div>
               </div>
             </Card>
-            {issueData?.reverse().map((item, index) => (
-              <>
+
+            <Card className="rounded-none border-t-0 rounded-b-md overflow-hidden">
+              {issueData?.reverse().map((item, index) => (
                 <Card
+                  className="w-full items-center rounded-none border-r-0 border-l-0 border-b-0  p-3 justify-between hover:bg-primary-foreground flex h-16"
                   key={index}
-                  className={`${
-                    item.isOpen ? "" : "hidden"
-                  } w-full items-center flex h-16 border-t-0 rounded-none p-3 justify-between`}
                 >
                   <div className="flex items-center ">
                     <div className="flex items-center">
                       <CircleDot color="#3fb950" size={18} />
                     </div>
                     <div className="ml-3">
-                      <Link href={`${item.number}`} className="mb-2">
+                      <Link href={`/${params.username}/${params.repository}/issues/${item.number}`} className="mb-2">
                         {item.title}
                       </Link>
                       <div className="text-xs text-muted-foreground">
@@ -231,8 +230,8 @@ const Page = ({
                     ) : null} */}
                   </div>
                 </Card>
-              </>
-            ))}
+              ))}
+            </Card>
           </div>
         ) : (
           <div className="w-[80%] mt-4 m-auto flex justify-center items-center px-1 ">
@@ -245,8 +244,8 @@ const Page = ({
         </div>
       )}
 
-      {issueData && issueData?.length > 10 ? (
-        <div className="mt-3">
+      {issueData && issueData?.length >= 25 ? (
+        <div className="mt-5">
           <Pagination>
             <PaginationContent>
               <PaginationItem>

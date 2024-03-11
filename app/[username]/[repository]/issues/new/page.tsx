@@ -64,6 +64,7 @@ const Page = ({
       user: user?.username,
       title: issueTitle,
       body: textValue,
+      repositoryPath: `${params.username}/${params.repository}`,
     })
       .then((res) => {
         if (!res.success && res.Message) {
