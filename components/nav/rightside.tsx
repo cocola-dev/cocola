@@ -71,38 +71,41 @@ const Rightside = ({ user }: { user: User | null }) => {
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Link href={"/issues"}>
-          <Button
-            className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
-            variant="link"
-          >
+        <Button
+          className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
+          variant="link"
+          asChild
+        >
+          <Link href={"/issues"}>
             <CircleDot size={20} />
-          </Button>
-        </Link>
-        <Link href={"/pulls"}>
-          <Button
-            className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
-            variant="link"
-          >
+          </Link>
+        </Button>
+        <Button
+          className="px-2 ml-2 border text-muted-foreground hover:bg-secondary"
+          variant="link"
+          asChild
+        >
+          <Link href={"/pulls"}>
             <GitPullRequestArrow size={20} />
-          </Button>
-        </Link>
-        <Link href={"/notifications"}>
-          <Button
-            className="px-2 mx-2 border text-muted-foreground hover:bg-secondary relative"
-            variant="link"
-          >
+          </Link>
+        </Button>
+        <Button
+          className="px-2 mx-2 border text-muted-foreground hover:bg-secondary relative"
+          variant="link"
+          asChild
+        >
+          <Link href={"/notifications"}>
             <Inbox size={20} />
             <div className="w-2 h-2 bg-[#0070f3] rounded-full absolute bottom-1 right-1"></div>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
       {/* <div className="mr-4 text-muted-foreground"> | </div> */}
       <div className="flex items-center justify-center h-auto">
         <div className="flex items-center">
           <Sheet>
-            <SheetTrigger>
-              <Avatar className="w-8 h-8 mr-5">
+            <SheetTrigger className="mr-5 rounded-full">
+              <Avatar className="w-8 h-8 ">
                 <AvatarImage src={user?.image} alt={`"@${user?.username}"`} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
