@@ -11,8 +11,8 @@ import Link from "next/link";
 const Footer = () => {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="flex justify-center w-screen border-t rounded-none">
-      <div className="w-full mx-60">
+    <div className="flex justify-center bg-primary-foreground/35 w-screen border-t rounded-none">
+      <div className="w-full mx-60 mt-4">
         <div className="flex justify-between">
           <div className="flex items-center">
             <Logo />

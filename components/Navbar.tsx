@@ -17,10 +17,28 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
   const params = useParams();
   const pathname = usePathname();
 
+  const itemByPath = [
+    {
+      pathname: "/",
+      displyName: "Dashboard",
+      href: "/",
+    },
+    {
+      pathname: "/setting/*",
+      displyName: "Setting",
+      href: "/setting",
+    },
+    {
+      pathname: "/pulls",
+      displyName: "Pulls",
+      href: "/pulls",
+    },
+  ];
+
   return (
     <>
       <div
-        className={`${pathname === "/" && !user ? "hidden" : "flex"}  sticky z-50  items-center justify-between w- text-sm font-medium top-0 bg-card h-14`}
+        className={`${pathname === "/" && !user ? "hidden" : "flex"}  sticky z-50 ${pathname === "/" ? "bg-primary-foreground/35 backdrop-blur-3xl" : "bg-card"} items-center justify-between w- text-sm font-medium top-0 h-14 border-b`}
         id="navbar"
       >
         <div>
@@ -50,6 +68,19 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
                   ) : null}
                 </div>
               ) : null}
+              {itemByPath.map((items, index) =>
+                pathname === items.pathname ? (
+                  <Button
+                    key={index}
+                    variant={"ghost"}
+                    size={"sm"}
+                    className="text-center text-base mx-0 font-semibold"
+                    asChild
+                  >
+                    <Link href={items.href}>{items.displyName}</Link>
+                  </Button>
+                ) : null,
+              )}
             </div>
             <div className="hidden md:block">
               {isAuthenticated ? null : <NavItems />}

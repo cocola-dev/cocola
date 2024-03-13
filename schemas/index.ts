@@ -86,8 +86,9 @@ export const RegisterSchema = z.object({
   password: z.string().min(6, {
     message: "Minimum 6 characters required",
   }),
-  username: z.string().min(1, {
-    message: "Name is required",
+  username: z.string().refine((value) => /^[a-zA-Z0-9-]+$/.test(value), {
+    message:
+      "Invalid characters in the name. Only letters, numbers, and hyphens are allowed.",
   }),
 });
 
