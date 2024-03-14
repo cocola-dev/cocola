@@ -6,7 +6,7 @@ export const ReandomRepos = async (
   limit: number,
 ) => {
   const ReandomRepo = await db.repository.findMany({
-    take: 4,
+    take: limit,
     where: {
       Visibility: "public",
     },
