@@ -47,6 +47,14 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
 } from "@/components/ui/breadcrumb";
+import {
+  ArrowRightIcon,
+  BellIcon,
+  CheckIcon,
+  CodeIcon,
+  SlashIcon,
+  StarIcon,
+} from "@radix-ui/react-icons";
 import { ReandomRepos } from "@/actions/repo/rendomRepo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -58,14 +66,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-import {
-  ArrowRightIcon,
-  BellIcon,
-  CheckIcon,
-  CodeIcon,
-  SlashIcon,
-  StarIcon,
-} from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
 import Footer from "@/components/footer";
 import { Switch } from "@/components/ui/switch";
@@ -189,7 +189,7 @@ const Dashboard = () => {
             >
               <SelectTrigger
                 className={cn(
-                  "flex items-center gap-2 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0",
+                  "flex items-center gap-2 m-px [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0",
                   isCollapsed &&
                     "flex h-9 w-9 shrink-0 items-center justify-center p-0 [&>span]:w-auto [&>svg]:hidden",
                 )}
@@ -235,7 +235,7 @@ const Dashboard = () => {
           <div className="w-full ">
             <div className="flex items-center my-3 justify-between">
               <h1 className="w-full text-lg">Top Repositories</h1>
-              <Link href={"/new"}>
+              <Link href={"/new"} className="m-px">
                 <Button size={"sm"}>New</Button>
               </Link>
             </div>
@@ -274,10 +274,10 @@ const Dashboard = () => {
           {/* Recent activity */}
 
           <div className="w-full ">
-            <div className="flex items-center my-3 justify-between">
+            <div className="flex items-center justify-between">
               <h1 className="w-full text-lg">Recent activity</h1>
             </div>
-            <div className="my-3 mt-5">
+            <div className="mt-2 text-sm">
               <h1 className="text-muted-foreground">
                 don&apos;t have any recent activity
               </h1>
@@ -449,7 +449,7 @@ const Dashboard = () => {
                           Send notifications to device.
                         </p>
                       </div>
-                      <Switch checked />
+                      <Switch />
                     </div>
                     <div>
                       {notifications.map((notification, index) => (

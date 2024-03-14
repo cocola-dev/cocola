@@ -49,12 +49,14 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
             <div className="hidden md:block">
               {params && isAuthenticated ? (
                 <div>
-                  <Link
-                    href={`/${params.username}`}
-                    className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
-                  >
-                    {params.username}
-                  </Link>
+                  {params.username ? (
+                    <Link
+                      href={`/${params.username}`}
+                      className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
+                    >
+                      {params.username}
+                    </Link>
+                  ) : null}
                   {params.repository ? <span className="mx-2">/</span> : null}
                   {params.repository ? (
                     <>
@@ -68,6 +70,7 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
                   ) : null}
                 </div>
               ) : null}
+
               {itemByPath.map((items, index) =>
                 pathname === items.pathname ? (
                   <Button

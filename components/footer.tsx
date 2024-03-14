@@ -13,6 +13,7 @@ const Footer = () => {
   return (
     <div className="flex justify-center bg-primary-foreground/35 w-screen border-t rounded-none">
       <div className="w-full mx-60 mt-4">
+        {/* // ! headre side */}
         <div className="flex justify-between">
           <div className="flex items-center">
             <Logo />
@@ -66,64 +67,76 @@ const Footer = () => {
             </Button>
           </div>
         </div>
+
+        {/* // ! botton side */}
         <div className="flex items-center justify-between mb-7">
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Home</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Documentation</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Guides</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Help</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Contact Sales</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Blog</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Changelog</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Pricing</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Enterprise</Link>
           </Button>
           <Button
             className="text-muted-foreground dark:hover:text-white"
             variant={"link"}
+            asChild
           >
             <Link href={"/"}>Legal</Link>
           </Button>
