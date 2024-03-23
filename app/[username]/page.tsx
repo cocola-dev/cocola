@@ -20,15 +20,24 @@ import {
   Star,
   Package,
 } from "lucide-react";
+import ContentLoader from "@/components/ContentLoader";
 
 const UserSide = dynamic(() => import("./components/UserSide"), {
   loading: () => <Loader />,
 });
 const Overview = dynamic(() => import("./components/Overview"), {
-  loading: () => <CompoLoader />,
+  loading: () => (
+    <div className="w-full h-full flex justify-center items-center">
+      <ContentLoader />
+    </div>
+  ),
 });
 const Repositories = dynamic(() => import("./components/Repositories"), {
-  loading: () => <CompoLoader />,
+  loading: () => (
+    <div className="w-full h-full flex justify-center items-center">
+      <ContentLoader />
+    </div>
+  ),
 });
 
 export default function Page({ params }: { params: { username: string } }) {

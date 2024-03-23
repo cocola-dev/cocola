@@ -73,8 +73,8 @@ const Layout = ({
 
   return (
     <div className="mb-44">
-      <div className="text-sm font-medium text-center text-muted-foreground border-b dark:text-gray-400">
-        <div className="text-sm font-medium text-center border-b text-muted-foreground dark:text-gray-400">
+      <div className="text-sm font-medium text-center text-muted-foreground border-b bg-primary-foreground/35 dark:text-gray-400">
+        <div className="text-sm font-medium text-center text-muted-foreground dark:text-gray-400">
           <div className="flex ml-4 flex-wrap -mb-px text-muted-foreground">
             {Items.map((item, index) => (
               <div className="" key={index}>

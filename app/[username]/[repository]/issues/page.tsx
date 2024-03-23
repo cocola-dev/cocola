@@ -80,7 +80,7 @@ const Page = ({
 
   return (
     <div className="">
-      <Card className="w-[80%] m-auto grid placeholder: h-32 mt-6">
+      <Card className="w-[80%] m-auto grid bg-primary-foreground/35 placeholder: h-32 mt-6">
         <div className="flex justify-between items-center mt-2 text-xl">
           <div></div>
           <div>
@@ -107,7 +107,7 @@ const Page = ({
         </div>
       </Card>
       <div className="w-[80%] m-auto grid grid-cols-3 gap-3">
-        <Card className="w-full hover:bg-secondary place-items grid m-auto h-24 mt-3 p-4">
+        <Card className="w-full bg-primary-foreground/35 place-items grid m-auto h-24 mt-3 p-4">
           <div className="text-base hover:text-[#2f81f7] cursor-pointer">
             Lucide 1.0 - Defining Scope
           </div>
@@ -128,7 +128,7 @@ const Page = ({
             </div>
           </div>
         </Card>
-        <Card className="w-full hover:bg-secondary place-items grid m-auto h-24 mt-3 p-4">
+        <Card className="w-full bg-primary-foreground/35 place-items grid m-auto h-24 mt-3 p-4">
           <div className="text-base hover:text-[#2f81f7] cursor-pointer">
             We&apos;re not accepting new.
           </div>
@@ -149,7 +149,7 @@ const Page = ({
             </div>
           </div>
         </Card>
-        <Card className="w-full hover:bg-secondary place-items grid m-auto h-24 mt-3 p-4">
+        <Card className="w-full bg-primary-foreground/35 place-items grid m-auto h-24 mt-3 p-4">
           <div className="text-base hover:text-[#2f81f7] cursor-pointer">
             Icon Requests from Feather
           </div>

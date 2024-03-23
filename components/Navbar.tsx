@@ -38,7 +38,7 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
   return (
     <>
       <div
-        className={`${pathname === "/" && !user ? "hidden" : "flex"}  sticky z-50 ${pathname === "/" ? "bg-primary-foreground/35 backdrop-blur-3xl" : "bg-card"} items-center justify-between w- text-sm font-medium top-0 h-14 border-b`}
+        className={`${pathname === "/" && !user ? "hidden" : "flex"} z-50 ${pathname === "/" ? " sticky top-0 backdrop-blur-3xl border-b" : "bg-card"} items-center justify-between text-sm font-medium  h-14 bg-primary-foreground/35`}
         id="navbar"
       >
         <div>
