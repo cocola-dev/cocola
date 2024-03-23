@@ -42,12 +42,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb";
-import {
   ArrowRightIcon,
   BellIcon,
   CheckIcon,
@@ -361,10 +355,10 @@ const Dashboard = () => {
                                 control={form.control}
                                 name="name"
                                 render={({ field }) => (
-                                  <FormItem className="w-full bg-card">
+                                  <FormItem className="w-full ">
                                     <FormControl>
                                       <Input
-                                        className="w-full mt-2"
+                                        className="w-full bg-card"
                                         placeholder="Name of your project *"
                                         autoComplete="off"
                                         {...field}
@@ -585,25 +579,25 @@ const Dashboard = () => {
                               />
                               <AvatarFallback></AvatarFallback>
                             </Avatar>
-                            <Breadcrumb>
-                              <BreadcrumbList>
-                                <BreadcrumbItem>
-                                  <BreadcrumbLink href={`/${items.author}`}>
+                            <div>
+                              <div className="flex text-secondary-foreground justify-center items-center gap-3">
+                                <div>
+                                  <Link href={`/${items.author}`}>
                                     {items.author}
-                                  </BreadcrumbLink>
-                                </BreadcrumbItem>
+                                  </Link>
+                                </div>
                                 <div className="-mx-2">
                                   <SlashIcon />
                                 </div>
-                                <BreadcrumbItem>
-                                  <BreadcrumbLink
+                                <div>
+                                  <Link
                                     href={`/${items.author}/${items.name}`}
                                   >
                                     {items.name}
-                                  </BreadcrumbLink>
-                                </BreadcrumbItem>
-                              </BreadcrumbList>
-                            </Breadcrumb>
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
                           </section>
                           <div className="ml-auto">
                             <Button
@@ -616,7 +610,7 @@ const Dashboard = () => {
                           </div>
                         </header>
                         <div className="my-2">
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {items.description}
                           </p>
                         </div>
