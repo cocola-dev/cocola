@@ -23,6 +23,7 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
 import { PasswordInput } from "../ui/PasswordInput ";
+import ContentLoader from "../ContentLoader";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -171,24 +172,25 @@ export const LoginForm = () => {
                           disabled={isPending}
                         />
                       </FormControl>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        asChild
-                        className="px-0 font-normal"
-                      >
-                        <Link href="/reset">Forgot password?</Link>
-                      </Button>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                <Button
+                  size="sm"
+                  variant="link"
+                  asChild
+                  className="px-0 font-normal"
+                >
+                  <Link href="/reset">Forgot password?</Link>
+                </Button>
               </>
             )}
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
-          <Button disabled={isPending} type="submit" className="w-full">
+          <Button disabled={isPending} type="submit" className="w-full gap-2">
+            {isPending && <ContentLoader size={4} dark />}
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
           {/* <div className="flex items-center mt-4 mb-4">

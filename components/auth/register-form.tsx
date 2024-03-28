@@ -21,6 +21,8 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { register } from "@/actions/register";
 import { redirect } from "next/navigation";
+import ContentLoader from "../ContentLoader";
+import { PasswordInput } from "../ui/PasswordInput ";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -103,11 +105,10 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
+                    <PasswordInput
                       {...field}
-                      disabled={isPending}
                       placeholder="******"
-                      type="password"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -117,7 +118,8 @@ export const RegisterForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button disabled={isPending} type="submit" className="w-full">
+          <Button disabled={isPending} type="submit" className="w-full gap-2">
+            {isPending && <ContentLoader size={4} dark />}
             Create an account
           </Button>
           {/* <div className="flex items-center mt-4 mb-4">
