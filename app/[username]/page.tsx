@@ -7,6 +7,12 @@ import dynamic from "next/dynamic";
 import CompoLoader from "@/components/ComponentLoader";
 import Loader from "@/components/Loader";
 import { Repository, User } from "@prisma/client";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { getUserByUsername } from "@/actions/user/getUserByUsername";
+import Mininavigationbar from "@/components/Mini-navigationbar";
+import { fetchRepoList } from "@/actions/user/fetchRepoList";
+import Loader2 from "@/components/Loader2";
+import { fetchUserMD } from "@/actions/user/fetchUserMD";
 import {
   BookMarked,
   BookOpen,
@@ -14,35 +20,40 @@ import {
   Star,
   Package,
 } from "lucide-react";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { getUserByUsername } from "@/actions/user/getUserByUsername";
-import Mininavigationbar from "@/components/Mini-navigationbar";
-import { fetchRepoList } from "@/actions/user/fetchRepoList";
-import Loader2 from "@/components/Loader2";
-import { fetchUserMD } from "@/actions/user/fetchUserMD";
+import ContentLoader from "@/components/ContentLoader";
 
-const Overview = dynamic(() => import("./components/Overview"), {
-  loading: () => <CompoLoader />,
-});
-const Repositories = dynamic(() => import("./components/Repositories"), {
-  loading: () => <CompoLoader />,
-});
 const UserSide = dynamic(() => import("./components/UserSide"), {
   loading: () => <Loader />,
 });
+const Overview = dynamic(() => import("./components/Overview"), {
+  loading: () => (
+    <div className="w-full h-full flex justify-center items-center">
+      <ContentLoader />
+    </div>
+  ),
+});
+const Repositories = dynamic(() => import("./components/Repositories"), {
+  loading: () => (
+    <div className="w-full h-full flex justify-center items-center">
+      <ContentLoader />
+    </div>
+  ),
+});
 
 export default function Page({ params }: { params: { username: string } }) {
+  // * hooks
+  const searchParams = useSearchParams();
+  const user = useCurrentUser();
+  const tab = searchParams?.get("tab");
+
+  // * react states
   const [userdata, setUserdata] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [userrepo, setUserrepo] = useState<Repository[] | null>(null);
   const [userMd, setUserMd] = useState<string | null>(null);
 
-  const searchParams = useSearchParams();
-
-  const tab = searchParams?.get("tab");
-  const user = useCurrentUser();
-
-  const navigation_Items = [
+  // * objects
+  const Items = [
     {
       name: "Overview",
       href: `/${params.username}`,
@@ -80,12 +91,21 @@ export default function Page({ params }: { params: { username: string } }) {
     },
   ];
 
+  // * functions
   async function fetchUser(name: string) {
     const res = await getUserByUsername(name);
     if (!res) return null;
     return res;
   }
 
+  const fetchingMD = async () => {
+    setLoading(true);
+    if (!userdata?.username) return;
+    const data = fetchUserMD(userdata?.username);
+    return data;
+  };
+
+  // * effects
   useEffect(() => {
     fetchUser(params.username).then((res) => {
       setUserdata(res);
@@ -102,13 +122,6 @@ export default function Page({ params }: { params: { username: string } }) {
     });
   }, [params.username, user?.username]);
 
-  const fetchingMD = async () => {
-    setLoading(true);
-    if (!userdata?.username) return;
-    const data = fetchUserMD(userdata?.username);
-    return data;
-  };
-
   useEffect(() => {
     fetchingMD()
       .then((data: any) => setUserMd(data?.data))
@@ -116,6 +129,7 @@ export default function Page({ params }: { params: { username: string } }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userdata?.username]);
 
+  // * components states
   let renderedComponent;
   let renderedComponentName: any;
 
@@ -134,7 +148,7 @@ export default function Page({ params }: { params: { username: string } }) {
   return (
     <div className=" h-full ">
       <Mininavigationbar
-        items={navigation_Items}
+        items={Items}
         renderedComponentName={renderedComponentName}
       />
       <Card className="h-full m-auto border-none shadow-none mx-28">

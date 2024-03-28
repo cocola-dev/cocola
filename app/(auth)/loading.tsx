@@ -1,3 +1,4 @@
+import ContentLoader from "@/components/ContentLoader";
 import Loader2 from "@/components/Loader2";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 
@@ -10,7 +11,7 @@ export default function Loading() {
         backButtonHref="/register"
       >
         <div className="w-full h-auto my-10 flex justify-center items-center">
-          <Loader2 />
+          <ContentLoader />
         </div>
       </CardWrapper>
     </>

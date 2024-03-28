@@ -13,16 +13,21 @@ const Page = ({
 }: {
   params: { username: string; repository: string };
 }) => {
+
+  // * Hooks
+  const user = useCurrentUser();
+
+  // * React states
   const [repodata, setRepodata] = useState<Repository | null>();
   const [repoNotFound, setRepoNotFound] = useState(false);
   const [isloading, setIsloading] = useState(false);
-  const user = useCurrentUser();
 
+  // * Fetching data
   const fetching = async () => {
     setIsloading(true);
     await fetchRepo(params.username, params.repository, user)
       .then((data) => {
-        if (data.statuscode === 404) {
+        if (data.error && data.statuscode === 404) {
           setRepoNotFound(true);
         }
         const { repo } = data;

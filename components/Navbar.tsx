@@ -17,10 +17,28 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
   const params = useParams();
   const pathname = usePathname();
 
+  const itemByPath = [
+    {
+      pathname: "/",
+      displyName: "Dashboard",
+      href: "/",
+    },
+    {
+      pathname: "/setting/*",
+      displyName: "Setting",
+      href: "/setting",
+    },
+    {
+      pathname: "/pulls",
+      displyName: "Pulls",
+      href: "/pulls",
+    },
+  ];
+
   return (
     <>
       <div
-        className={`${pathname === "/" && !user ? "hidden" : "flex"}  sticky z-50  items-center justify-between w- text-sm font-medium top-0 bg-card h-14`}
+        className={`${pathname === "/" && !user ? "hidden" : "flex"} z-50 ${pathname === "/" ? " sticky top-0 backdrop-blur-3xl border-b" : "bg-card"} items-center justify-between text-sm font-medium  h-14 bg-primary-foreground/35`}
         id="navbar"
       >
         <div>
@@ -31,12 +49,14 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
             <div className="hidden md:block">
               {params && isAuthenticated ? (
                 <div>
-                  <Link
-                    href={`/${params.username}`}
-                    className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
-                  >
-                    {params.username}
-                  </Link>
+                  {params.username ? (
+                    <Link
+                      href={`/${params.username}`}
+                      className="text-base font-medium leading-none text-muted-foreground hover:underline hover:text-blue-500"
+                    >
+                      {params.username}
+                    </Link>
+                  ) : null}
                   {params.repository ? <span className="mx-2">/</span> : null}
                   {params.repository ? (
                     <>
@@ -50,6 +70,20 @@ const Navbar = ({ isAuthenticated }: { isAuthenticated: any }) => {
                   ) : null}
                 </div>
               ) : null}
+
+              {itemByPath.map((items, index) =>
+                pathname === items.pathname ? (
+                  <Button
+                    key={index}
+                    variant={"ghost"}
+                    size={"sm"}
+                    className="text-center text-base mx-0 font-semibold"
+                    asChild
+                  >
+                    <Link href={items.href}>{items.displyName}</Link>
+                  </Button>
+                ) : null,
+              )}
             </div>
             <div className="hidden md:block">
               {isAuthenticated ? null : <NavItems />}

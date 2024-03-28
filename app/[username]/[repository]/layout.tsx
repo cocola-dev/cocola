@@ -1,5 +1,7 @@
-import Footer from "@/components/footer";
+"use client";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   CircleDot,
   Code,
@@ -10,6 +12,7 @@ import {
   Workflow,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Layout = ({
   children,
@@ -21,100 +24,94 @@ const Layout = ({
     repository: string;
   };
 }) => {
+  const pathname = usePathname();
+
+  const Items = [
+    {
+      name: "Code",
+      href: `/${params.username}/${params.repository}`,
+      icon: Code,
+      count: 0,
+    },
+    {
+      name: "Issues",
+      href: `/${params.username}/${params.repository}/issues`,
+      icon: CircleDot,
+      count: 2,
+    },
+    {
+      name: "Pull requests",
+      href: `/pulls`,
+      icon: GitPullRequestArrow,
+      count: 6,
+    },
+    {
+      name: "Workflow",
+      href: `/workflow`,
+      icon: Workflow,
+      count: 0,
+    },
+    {
+      name: "Graph",
+      href: `/`,
+      icon: LineChart,
+      count: 0,
+    },
+    {
+      name: "Security",
+      href: `/`,
+      icon: ShieldAlert,
+      count: 2,
+    },
+    {
+      name: "Settings",
+      href: `/`,
+      icon: Settings,
+      count: 0,
+    },
+  ];
+
   return (
     <div className="mb-44">
-      <div className="text-sm font-medium text-center text-muted-foreground border-b dark:text-gray-400">
-        <ul className="flex flex-wrap text-muted-foreground -mb-px ">
-          <li className="me-2">
-            <Link
-              href={`/${params.username}/${params.repository}`}
-              className="flex items-center p-4 border-b-2 border-muted-foreground rounded-t-lg text-foreground active"
-              aria-current="page"
-            >
-              {/* <Link
-                href={""}
-                className=" flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-              > */}
-              <Code className="mr-2" size={16} />
-              Code
-            </Link>
-          </li>
-          <li className="me-2">
-            <Link
-              href={`${params.repository}/issues`}
-              className=" flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-            >
-              <CircleDot className="mr-2" size={16} /> Issues{" "}
-              {/* {currentallissues && currentallissues?.length > 0 ? (
-                <Badge
-                  className="ml-3 text-muted-foreground rounded-full"
-                  variant="secondary"
+      <div className="text-sm font-medium text-center text-muted-foreground border-b bg-primary-foreground/35 dark:text-gray-400">
+        <div className="text-sm font-medium text-center text-muted-foreground dark:text-gray-400">
+          <div className="flex ml-4 flex-wrap -mb-px text-muted-foreground">
+            {Items.map((item, index) => (
+              <div className="" key={index}>
+                <Link
+                  href={item.href}
+                  className={`${
+                    pathname === item.href
+                      ? "border-muted-foreground  text-foreground"
+                      : "border-transparent dark:hover:text-foreground"
+                  } flex items-center p-1 py-3 border-b-2 rounded-t-lg`}
                 >
-                  {currentallissues?.length}
-                </Badge>
-              ) : null} */}
-              <Badge
-                className="ml-3 text-muted-foreground rounded-full"
-                variant="secondary"
-              >
-                2
-              </Badge>
-            </Link>
-          </li>
-          <li className="me-2">
-            <Link
-              href={"/pulls"}
-              className="flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-            >
-              <GitPullRequestArrow className="mx-2" size={16} />
-              pull requests
-              <Badge
-                className="ml-3 text-muted-foreground rounded-full"
-                variant="secondary"
-              >
-                6
-              </Badge>
-            </Link>
-          </li>
-          <li className="me-2">
-            <Link
-              href={"/workflow"}
-              className="flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-            >
-              <Workflow className="mr-2" size={16} /> Workflow
-            </Link>
-          </li>
-          <li className="me-2">
-            <Link
-              href={"/"}
-              className="flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-            >
-              <LineChart className="mr-2" size={16} /> graph
-            </Link>
-          </li>
-          <li className="me-2">
-            <Link
-              href={"/"}
-              className="flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-            >
-              <ShieldAlert className="mr-2" size={16} /> security
-              <Badge
-                className="ml-3 text-muted-foreground rounded-full"
-                variant="secondary"
-              >
-                2
-              </Badge>
-            </Link>
-          </li>
-          <li className="me-2">
-            <Link
-              href={"/"}
-              className="flex items-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-foreground"
-            >
-              <Settings className="mr-2" size={16} /> Settings
-            </Link>
-          </li>
-        </ul>
+                  <Button
+                    className="hover:bg-primary-foreground"
+                    variant={"ghost"}
+                    size={"sm"}
+                    asChild
+                  >
+                    <div>
+                      <item.icon className="mr-2" size={16} />
+                      <small className="text-sm font-medium leading-none">
+                        {item.name}
+                      </small>
+                      {item.count > 0 ? (
+                        <Badge
+                          className="ml-3 rounded-full text-muted-foreground"
+                          variant="secondary"
+                        >
+                          {item.count}
+                        </Badge>
+                      ) : null}
+                    </div>
+                  </Button>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       <div>{children}</div>
       {/* <Footer /> */}

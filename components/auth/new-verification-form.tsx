@@ -1,17 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { newVerification } from "@/actions/new-verification";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
+import ContentLoader from "../ContentLoader";
 
 export const NewVerificationForm = () => {
+  const router = useRouter()
+
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
 
@@ -28,12 +32,12 @@ export const NewVerificationForm = () => {
     newVerification(token)
       .then((data) => {
         setSuccess(data.success);
-        setError(data.error);
+        router.push("/login");
       })
-      .catch(() => {
-        setError("Something went wrong!");
+      .finally(() => {
+        setIsLoading(false);
       });
-  }, [token, success, error]);
+  }, [token, success, error, router]);
 
   useEffect(() => {
     onSubmit();
@@ -46,7 +50,7 @@ export const NewVerificationForm = () => {
       backButtonHref="/login"
     >
       <div className="flex items-center w-full justify-center">
-        {!success && !error && <BeatLoader />}
+        {isLoading ? <ContentLoader /> : null}
         <FormSuccess message={success} />
         {!success && <FormError message={error} />}
       </div>

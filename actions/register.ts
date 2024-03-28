@@ -8,6 +8,7 @@ import { RegisterSchema } from "@/schemas";
 import { getUserByEmail } from "@/data/user";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
+import { ASSETS } from "@/data/variables";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -25,12 +26,20 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Email already in use!" };
   }
 
+  await fetch(`${ASSETS}/generateAvatar/${username}`, {
+    method: "POST",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+
   await db.user.create({
     data: {
       username: username,
       email: email,
       password: hashedPassword,
-      image: "https://static.productionready.io/images/smiley-cyrus.jpg",
+      image: `https://asset-cocola.vercel.app/${username}.png`,
     },
   });
 

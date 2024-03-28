@@ -15,9 +15,10 @@ import { getCaretCoordinates, getCurrentWord, replaceWord } from "./utils";
 interface Props {
   textValue: string;
   setTextValue: React.Dispatch<React.SetStateAction<string>>;
+  isLoading?: boolean;
 }
 
-export function Write({ textValue, setTextValue }: Props) {
+export function Write({ textValue, setTextValue, isLoading = false }: Props) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -71,7 +72,6 @@ export function Write({ textValue, setTextValue }: Props) {
         const caret = getCaretCoordinates(textarea, textarea.selectionEnd);
         const currentWord = getCurrentWord(textarea);
         setTextValue(text);
-        console.log({ currentWord });
         if (currentWord.startsWith("@")) {
           setCommandValue(currentWord);
           dropdown.style.left = caret.left + "px";
@@ -110,7 +110,7 @@ export function Write({ textValue, setTextValue }: Props) {
       const dropdown = dropdownRef.current;
       if (textarea && dropdown) {
         const currentWord = getCurrentWord(textarea);
-        console.log(currentWord);
+        // console.log(currentWord);
         if (!currentWord.startsWith("@") && commandValue !== "") {
           setCommandValue("");
           dropdown.classList.add("hidden");
@@ -139,12 +139,11 @@ export function Write({ textValue, setTextValue }: Props) {
     <div className="w-full relative">
       <Textarea
         ref={textareaRef}
-        autoComplete="off"
-        autoCorrect="off"
         className=" h-auto"
         value={textValue}
         onChange={onTextValueChange}
         rows={10}
+        disabled={isLoading}
       />
       <Command
         ref={dropdownRef}

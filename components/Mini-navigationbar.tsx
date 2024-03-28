@@ -13,7 +13,7 @@ const Mininavigationbar = ({
   renderedComponentName: any;
 }) => {
   return (
-    <div className="text-sm font-medium text-center border-b text-muted-foreground dark:text-gray-400">
+    <div className="text-sm font-medium text-center bg-primary-foreground/35 border-b text-muted-foreground dark:text-gray-400">
       <div className="flex flex-wrap -mb-px text-muted-foreground">
         {items.map((item, index) => (
           <div className="me-2" key={index}>
