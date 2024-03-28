@@ -1,6 +1,21 @@
 {
   "name": "cocola",
   "version": "1.0.0",
+  "description": "it's a dynamic community hub where developers converge, code collaboratively, and breathe life into their projects with unparalleled ease. 🚀",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/cocola-dev/cocola"
+  },
+  "homepage": "https://cocola.tech",
+  "keywords": [
+    "cocola",
+    "cocola.tech",
+    "ruru",
+    "ruru dev",
+    "Rutvik Movaliya"
+  ],
+  "author": "Rutvik Movaliya",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
