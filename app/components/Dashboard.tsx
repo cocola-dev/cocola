@@ -97,7 +97,7 @@ const Dashboard = () => {
       icon: (
         <>
           <Image
-            src={user?.image || "https://asset-cocola.vercel.app/ruru_m07.png"}
+            src={`${ASSETS}/${user?.username}.png`}
             className="rounded-full"
             alt="user"
             width={25}
@@ -209,7 +209,13 @@ const Dashboard = () => {
                   accounts.map((account) => (
                     <SelectItem key={account.label} value={account.label}>
                       <div className="flex items-center gap-3 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0 [&_svg]:text-foreground">
-                        {account.icon}
+                        <Image
+                          src={`${ASSETS}/${account?.label}.png`}
+                          className="rounded-full"
+                          alt="user"
+                          width={25}
+                          height={25}
+                        />
                         {account.label}
                       </div>
                     </SelectItem>
@@ -590,9 +596,7 @@ const Dashboard = () => {
                                   <SlashIcon />
                                 </div>
                                 <div>
-                                  <Link
-                                    href={`/${items.author}/${items.name}`}
-                                  >
+                                  <Link href={`/${items.author}/${items.name}`}>
                                     {items.name}
                                   </Link>
                                 </div>

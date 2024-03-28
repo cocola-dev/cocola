@@ -1,5 +1,11 @@
+import ComingSoon from "@/components/ComingSoon";
+
 const Page = () => {
-  return <div>hello pulls page</div>;
+  return (
+    <div>
+      <ComingSoon />
+    </div>
+  );
 };
 
 export default Page;

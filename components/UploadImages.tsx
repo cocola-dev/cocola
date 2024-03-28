@@ -10,9 +10,9 @@ import { Button } from "./ui/button";
 import { toast } from "sonner";
 
 import { MoveRight } from "lucide-react";
-import Loader2 from "./Loader2";
 
 import { UpdateProfilePicAction } from "@/actions/profilePic";
+import ContentLoader from "./ContentLoader";
 
 interface UploadImageProps {
   preview: string;
@@ -82,7 +82,7 @@ const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview, user }) 
     <>
       {isLoading ? (
         <div className="w-full h-96 flex justify-center items-center">
-          <Loader2 />
+          <ContentLoader />
         </div>
       ) : (
         <>

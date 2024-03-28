@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { newPassword } from "@/actions/new-password";
+import ContentLoader from "../ContentLoader";
+import { PasswordInput } from "../ui/PasswordInput ";
 
 export const NewPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -65,11 +67,10 @@ export const NewPasswordForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
+                    <PasswordInput
                       {...field}
-                      disabled={isPending}
                       placeholder="******"
-                      type="password"
+                      disabled={isPending}
                     />
                   </FormControl>
                   <FormMessage />
@@ -79,7 +80,8 @@ export const NewPasswordForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button disabled={isPending} type="submit" className="w-full">
+          <Button disabled={isPending} type="submit" className="w-full gap-2">
+            {isPending && <ContentLoader size={4} dark />}
             Reset password
           </Button>
         </form>

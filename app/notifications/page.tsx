@@ -1,7 +1,9 @@
+import ComingSoon from "@/components/ComingSoon";
+
 const Page = () => {
   return (
     <div>
-      <h1>hello notifications</h1>
+      <ComingSoon />
     </div>
   );
 };
