@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createIssue } from "@/actions/repo/createIssue";
+import { createIssue } from "@/actions/repo/issue/createIssue";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { fetchRepo } from "@/actions/repo/fetch";
 import { Repository } from "@prisma/client";

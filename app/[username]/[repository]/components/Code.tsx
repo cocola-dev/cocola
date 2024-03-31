@@ -91,6 +91,7 @@ import { findBlobByName } from "@/hooks/Find-README-file";
 import { FetchBlob } from "@/actions/repo/fetchBlob";
 import { debounce } from "lodash";
 import MarkdownReader from "@/components/mdx-components";
+import ContentLoader from "@/components/ContentLoader";
 
 export type FileItem = {
   id: string;
@@ -121,7 +122,7 @@ export function Code({ repodata }: { repodata: Repository }) {
   const [md, setMd] = React.useState<string>("");
   const [mdload, setMdload] = React.useState<boolean>(false);
   const [fetchingdataloadfortree, setFetchingdataloadfortree] =
-    React.useState<boolean>(false);
+    React.useState<boolean>(true);
 
   // ! hooks
   const user = useCurrentUser();
@@ -149,10 +150,12 @@ export function Code({ repodata }: { repodata: Repository }) {
           console.log(READMEdata);
           setMd(READMEdata.data);
         }
+        setFetchingdataloadfortree(false);
       })
       .finally(() => {
         setFetchingdataloadfortree(false);
       });
+    setFetchingdataloadfortree(false);
   }, 100);
 
   React.useEffect(() => {
@@ -630,9 +633,9 @@ export function Code({ repodata }: { repodata: Repository }) {
                 <TableRow>
                   <TableCell
                     colSpan={columns.length}
-                    className="h-24 overflow-hidden text-center"
+                    className="h-24 overflow-hidden flex justify-center mt-4 text-center"
                   >
-                    <Loader2 className="w-full animate-spin" />
+                    <ContentLoader />
                   </TableCell>
                 </TableRow>
               )}

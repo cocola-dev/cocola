@@ -20,10 +20,11 @@ import { IssuePullRequest, Repository } from "@prisma/client";
 import Link from "next/link";
 import { fetchRepo } from "@/actions/repo/fetch";
 import React from "react";
-import { fetchIssues } from "@/actions/repo/fetchIssues";
+import { fetchIssues } from "@/actions/repo/issue/fetchIssues";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import Loader2 from "@/components/Loader2";
 import { CheckIcon } from "@radix-ui/react-icons";
+import ContentLoader from "@/components/ContentLoader";
 
 const Page = ({
   params,
@@ -38,7 +39,7 @@ const Page = ({
   const [openIssues, setOpenIssues] = React.useState<number>(0);
   const [closedIssues, setClosedIssues] = React.useState<number>(0);
   const [isFetchingIssues, setIsFetchingIssues] =
-    React.useState<boolean>(false);
+    React.useState<boolean>(true);
 
   // ! hooks
   const user = useCurrentUser();
@@ -58,7 +59,6 @@ const Page = ({
   };
 
   const fetchingIssue = async () => {
-    setIsFetchingIssues(true);
     await fetchIssues(repo)
       .then((res) => {
         setIssueData(res.issues);
@@ -184,7 +184,7 @@ const Page = ({
       {!isFetchingIssues ? (
         issueData?.length ? (
           <div className="w-[80%] mt-4 m-auto justify-center items-center">
-            <Card className="w-full border-b-0 bg-primary-foreground items-center flex h-10  rounded-sm rounded-b-none p-3">
+            <Card className="w-full border-b-0 bg-primary-foreground/35 items-center flex h-10  rounded-sm rounded-b-none p-3">
               <div className="flex items-center">
                 <CircleDot size={18} />
                 <p className="ml-3"> {openIssues} Open</p>
@@ -198,7 +198,7 @@ const Page = ({
             <Card className="rounded-none border-t-0 rounded-b-md overflow-hidden">
               {issueData?.reverse().map((item, index) => (
                 <Card
-                  className="w-full items-center rounded-none border-r-0 border-l-0 border-b-0  p-3 justify-between hover:bg-primary-foreground flex h-16"
+                  className="w-full items-center rounded-none border-r-0 border-l-0 border-b-0  p-3 justify-between hover:bg-primary-foreground/35 flex h-16"
                   key={index}
                 >
                   <div className="flex items-center ">
@@ -234,13 +234,15 @@ const Page = ({
             </Card>
           </div>
         ) : (
-          <div className="w-[80%] mt-4 m-auto flex justify-center items-center px-1 ">
-            <h1>no any issue yet</h1>
+          <div className="w-[80%] mt-10 m-auto flex justify-center items-center px-1 ">
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+              This repository has no open issues.
+            </h4>
           </div>
         )
       ) : (
-        <div className=" mt-20 ">
-          <Loader2 />
+        <div className="mt-10 justify-center flex items-center">
+          <ContentLoader />
         </div>
       )}
 

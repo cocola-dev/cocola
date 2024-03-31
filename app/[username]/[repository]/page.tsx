@@ -1,12 +1,12 @@
 "use client";
 
 import { fetchRepo } from "@/actions/repo/fetch";
-import Loader2 from "@/components/Loader2";
 import { Repository } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import NotFound from "./components/notFound";
 import { Code } from "./components/Code";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import ContentLoader from "@/components/ContentLoader";
 
 const Page = ({
   params,
@@ -48,7 +48,7 @@ const Page = ({
     <main>
       {isloading ? (
         <div className="flex items-center justify-center h-screen">
-          <Loader2 />
+          <ContentLoader />
         </div>
       ) : repoNotFound ? (
         <NotFound />

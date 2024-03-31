@@ -101,7 +101,7 @@ const New = () => {
               <div className="mt-5">
                 <h1>owner *</h1>
                 <div className="flex items-center mt-2 space-x-1 border rounded-md bg-card text-secondary-foreground">
-                  <div className="px-3 shadow-none">@{user?.username}</div>
+                  <div className="px-3 w-36 shadow-none">@{user?.username}</div>
                   <Separator orientation="vertical" className="h-[20px]" />
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
