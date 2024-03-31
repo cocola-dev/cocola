@@ -360,7 +360,7 @@ const Page = ({
                             commit{" "}
                           </small>
                           <small className="text-sm text-muted-foreground">
-                            fix: prevent scrolling to hash {" "}
+                            fix: prevent scrolling to hash{" "}
                           </small>
                           <Link href={""}>
                             <small className="text-sm text-muted-foreground hover:underline hover:text-blue-500">

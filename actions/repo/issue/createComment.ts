@@ -60,10 +60,10 @@ export const createComment = async ({
     },
     data: {
       commentscount: {
-        increment: 1
-      }
-    }
-  })
+        increment: 1,
+      },
+    },
+  });
 
   return { data: comment, success: true };
 };

@@ -269,7 +269,11 @@ const Page = () => {
                 </div>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[500px]">
-                <ImageUpload preview={preview} setPreview={setPreview} user={user?.username} />
+                <ImageUpload
+                  preview={preview}
+                  setPreview={setPreview}
+                  user={user?.username}
+                />
               </DialogContent>
             </Dialog>
           </div>

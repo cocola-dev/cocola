@@ -10,7 +10,7 @@ import { FormSuccess } from "@/components/form-success";
 import ContentLoader from "../ContentLoader";
 
 export const NewVerificationForm = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();

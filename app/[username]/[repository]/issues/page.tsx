@@ -38,8 +38,7 @@ const Page = ({
   );
   const [openIssues, setOpenIssues] = React.useState<number>(0);
   const [closedIssues, setClosedIssues] = React.useState<number>(0);
-  const [isFetchingIssues, setIsFetchingIssues] =
-    React.useState<boolean>(true);
+  const [isFetchingIssues, setIsFetchingIssues] = React.useState<boolean>(true);
 
   // ! hooks
   const user = useCurrentUser();
@@ -206,7 +205,10 @@ const Page = ({
                       <CircleDot color="#3fb950" size={18} />
                     </div>
                     <div className="ml-3">
-                      <Link href={`/${params.username}/${params.repository}/issues/${item.number}`} className="mb-2">
+                      <Link
+                        href={`/${params.username}/${params.repository}/issues/${item.number}`}
+                        className="mb-2"
+                      >
                         {item.title}
                       </Link>
                       <div className="text-xs text-muted-foreground">

@@ -13,7 +13,6 @@ const Page = ({
 }: {
   params: { username: string; repository: string };
 }) => {
-
   // * Hooks
   const user = useCurrentUser();
 
