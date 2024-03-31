@@ -20,7 +20,11 @@ interface UploadImageProps {
   user: string | undefined;
 }
 
-const ImageUpload: React.FC<UploadImageProps> = ({ preview, setPreview, user }) => {
+const ImageUpload: React.FC<UploadImageProps> = ({
+  preview,
+  setPreview,
+  user,
+}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
