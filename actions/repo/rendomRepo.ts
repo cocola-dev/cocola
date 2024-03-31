@@ -2,9 +2,7 @@
 
 import { db } from "@/lib/db";
 
-export const ReandomRepos = async (
-  limit: number,
-) => {
+export const ReandomRepos = async (limit: number) => {
   const ReandomRepo = await db.repository.findMany({
     take: limit,
     where: {

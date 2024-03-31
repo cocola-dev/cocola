@@ -124,6 +124,7 @@ model Repository {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   IssuePullRequest IssuePullRequest[]
+  Comment          Comment[]
 }
 
 enum Visibility {
@@ -188,10 +189,48 @@ model IssuePullRequest {
 model Comment {
   id                           String           @id @default(auto()) @map("_id") @db.ObjectId
   body                         String
+  isEvent                      Boolean          @default(false)
+  action                       String?
   author                       String
-  number                       Int              @unique @default(0)
+  repositoryPath               String
+  number                       Int
+  isEdited                     Boolean          @default(false)
+  reactions                    Json[]
   IssuePullRequest             IssuePullRequest @relation(fields: [issuePullRequestDiscussionId], references: [id])
   issuePullRequestDiscussionId String           @db.ObjectId
   createdAt                    DateTime         @default(now())
   updatedAt                    DateTime         @updatedAt
+  Repository                   Repository?      @relation(fields: [repositoryId], references: [id])
+  repositoryId                 String?          @db.ObjectId
+}
+
+enum NotificationType {
+  pullRequest
+  issue
+  mention
+  action
+  assign
+}
+
+model Notifications {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  notificationType NotificationType
+  actionNumber     Int?
+  user             String
+  repository       String
+  status           String
+  title            String
+  body             String
+  read             Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model Subscriptions {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  repository       String
+  user             String
+  notificationType NotificationType
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 }
