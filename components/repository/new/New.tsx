@@ -97,11 +97,13 @@ const New = () => {
             <p className="mt-2 ml-2 text-sm italic font-bold leading-none tracking-tight text-muted-foreground">
               Required fields are marked with an asterisk (*).
             </p>
-            <div className="flex w-full -mt-2">
+            <div className="flex -mt-2">
               <div className="mt-5">
                 <h1>owner *</h1>
                 <div className="flex items-center mt-2 space-x-1 border rounded-md bg-card text-secondary-foreground">
-                  <div className="px-3 w-36 shadow-none">@{user?.username}</div>
+                  <div className="px-3 w-[150px] shadow-none">
+                    @{user?.username}
+                  </div>
                   <Separator orientation="vertical" className="h-[20px]" />
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

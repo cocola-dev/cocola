@@ -265,7 +265,7 @@ const Upload = () => {
                       Drag files here to add them to your repository
                     </p>
                     <p className="text-muted-foreground">
-                      or
+                      or {" "}
                       <span className="text-blue-600 cursor-pointer hover:underline">
                         choose your file
                       </span>
