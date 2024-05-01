@@ -24,7 +24,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { domain } from "@/resources";
+import { PUBLIC_URL } from "@/resources";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Write } from "./ui/fancy-area/write";
 import { Button } from "./ui/button";
@@ -116,7 +116,7 @@ const CommentBox = ({
                       onClick={() =>
                         !asHeader &&
                         navigator.clipboard.writeText(
-                          `${domain}/${params.username}/${params.repository}/issues/${params.issueNum}#comment-${comment?.number}`,
+                          `${PUBLIC_URL}/${params.username}/${params.repository}/issues/${params.issueNum}#comment-${comment?.number}`,
                         )
                       }
                     >
