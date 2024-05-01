@@ -31,6 +31,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { remark } from "remark";
 import { Mention } from "./ui/fancy-area/mention";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 
 const customStyle = {
   backgroundColor: "#18181b",
@@ -47,7 +49,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        "font-heading mt-2 scroll-m-20 text-4xl font-bold",
+        "group font-heading mt-2 scroll-m-20 text-4xl font-bold",
         className,
       )}
       {...props}
@@ -56,7 +58,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        "font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0",
+        "group font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0",
         className,
       )}
       {...props}
@@ -65,7 +67,7 @@ const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        "font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
+        "group font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
         className,
       )}
       {...props}
@@ -74,7 +76,7 @@ const components = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "font-heading mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
+        "group font-heading mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
         className,
       )}
       {...props}
@@ -83,7 +85,7 @@ const components = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
       className={cn(
-        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
+        "group mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
         className,
       )}
       {...props}
@@ -92,7 +94,7 @@ const components = {
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        "mt-8 scroll-m-20 text-base font-semibold tracking-tight",
+        "group mt-8 scroll-m-20 text-base font-semibold tracking-tight",
         className,
       )}
       {...props}
@@ -373,10 +375,11 @@ const MarkdownReader = ({ markdown }: { markdown: any }) => {
   return (
     <div className="markdown-container">
       <ReactMarkdown
+        remarkPlugins={[remarkGfm, remarkGemoji, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           ...components,
         }}
-        remarkPlugins={[remarkGfm, remarkGemoji]}
       >
         {mdSourse}
       </ReactMarkdown>
